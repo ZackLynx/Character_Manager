@@ -15,7 +15,10 @@ Who			When			What
 CBAC		2025-03-07		Original Version 
 -----------------------------------------------------------------------------------------------
 */
-
-echo "Hello, World!";
 ?>
 
+<main>
+    <p>
+        You are trying to delete record: <?php echo $id; ?>
+    </p>
+</main>

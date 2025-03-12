@@ -19,9 +19,6 @@ include './view/header.php';
 ?>
 
 <main>
-    <p>
-        Hello, World! from index
-    </p>
     <?php include './controller/controller.php'; ?>
 </main>
 

@@ -36,42 +36,41 @@ function get_val_from_postget($arr_val, $default_val)
     return $default_val;
 }
 
-$action = get_val_from_postget('action', 'view_characters');
+$action = get_val_from_postget('action', 'view-characters');
 
 // Read the characters table
-if ($action == 'view_characters') {
-    $records = view_characters();
+if ($action == 'view-characters') {
+    $records = get_characters();
     include './view/table_list.php';
 }
 
 // Add a character
-elseif ($action == 'add_character') {
+elseif ($action == 'add-character') {
     include './view/table_add.php';
 }
 
 // edit a characters
-elseif ($action == 'edit_character') {
+elseif ($action == 'edit-character') {
     $character_ID = intval(get_val_from_postget('Character_ID', NULL));
-    $record = view_characters(
-        '*',
-        'character',
-        'Character_ID = $character_ID'
-    );
+    $record = get_character_by_id(0);
     include './view/character_sheet.php';
 }
 
 // Delete a character
-elseif ($action == 'confirm_deletion') {
+elseif ($action == 'confirm-deletion') {
     /*
         To be Completed.
         First ask the user to confirm their choice to delete the character by entering the
         character name. If the character name matches, begin the process of deleting.
     */
+    $id = $_POST['character_id'];
     include './view/table_delete.php';
-} elseif ($action == 'delete_character') {
+} elseif ($action == 'delete-character') {
     /*
         The order of operations needs to be updated each time the database structure changes.
         Use recursive logic to remove records tied to the character record. Once there is no
         other data in the database that relies on the character to exist, Delete the character.
     */
 }
+?>
+
