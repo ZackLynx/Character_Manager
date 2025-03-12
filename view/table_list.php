@@ -15,18 +15,26 @@ Who			When			What
 CBAC		2025-03-07		Original Version 
 -----------------------------------------------------------------------------------------------
 */
-
-include 'header.php'; ?>
+?>
 
 <main>
     <table>
-        <tr>
-            <?php
-
-            ?>
+        <tr id="table-header">
+            <th>ID</th>
+            <th>
+                Character Name
+            </th>
         </tr>
+        <?php
+        foreach ($records as $record) { ?>
+            <tr>
+                <td>
+                    <?php echo $record['Character_ID']; ?>
+                </td>
+                <td>
+                    <?php echo $record['Character_Name']; ?>
+                </td>
+            </tr>
+        <?php } ?>
     </table>
 </main>
-
-<?php include 'footer.php'; ?>
-

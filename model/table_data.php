@@ -17,25 +17,15 @@ CBAC		2025-03-07		Original Version
 */
 
 /**
- * Generates a temporary table containing records based on values passed through the parameters.
- * @param string $selection The fields to pull.
- * @param string $table the tables to pull records from.
- * @param string $filters any filters desired for the query.
+ * Gets a full list of all player characters in 
+ * @param string $selection the columns in a string
  * @return array an array of records.
  */
-function view_list($selection, $tables, $filters = NULL)
+function view_characters($selection = '*')
 {
     global $db;
-    $query = 'SELECT :selection FROM :tables';
-    if (isset($filters)) {
-        $query .= ' WHERE :filters';
-    }
-    $query .= ';';
-
+    $query = 'SELECT Character_ID, Character_Name FROM characters;';
     $statement = $db->prepare($query);
-    $statement->bindValue(':selection', $selection);
-    $statement->bindValue(':tables', $tables);
-    $statement->bindValue(':filters', $filters);
     $statement->execute();
     $records = $statement->fetchAll();
     $statement->closeCursor();
@@ -66,12 +56,13 @@ function add_record($tables, $values)
  * @param string $filters the primary key of the record or filters for multiple records.
  * @return void
  */
-function update_record($table, $values, $filters)
+function update_character($table, $values, $filters)
 {
     global $db;
-    $query = 'UPDATE :table SET :values WHERE :filters;';
+    $query = 'UPDATE characters SET :values WHERE :filters;';
     $statement = $db->prepare($query);
-    $statement->bindValue(':table', $table);
+
+    // ex: 'column_name = value,'. each value change is comma separated.
     $statement->bindValue(':values', $values); // TODO: make values take an array.
     $statement->bindValue(':filters', $filters); // TODO: make filters take an array.
     $statement->execute();
@@ -84,13 +75,12 @@ function update_record($table, $values, $filters)
  * @param string $filters the record or records to be removed.
  * @return void
  */
-function delete_record($tables, $filters)
+function delete_character($character_ID)
 {
     global $db;
-    $query = 'DELETE FROM :tables WHERE :filters;';
+    $query = 'DELETE FROM characters WHERE Character_ID = :character_ID;';
     $statement = $db->prepare($query);
-    $statement->bindValue(':tables', $tables);
-    $statement->bindValue(':filters', $filters);
+    $statement->bindValue(':character_ID', $character_ID);
     $statement->execute();
     $statement->closeCursor();
 }

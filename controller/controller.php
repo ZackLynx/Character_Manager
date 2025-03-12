@@ -15,9 +15,9 @@ CBAC		2025-03-11		Original Version
 -----------------------------------------------------------------------------------------------
 */
 
-require '../model/connors_utilities.php';
-require '../model/dbconnect.php';
-require '../model/table_data.php';
+require './model/connors_utilities.php';
+require './model/dbconnect.php';
+require './model/table_data.php';
 
 /**
  * First searches $_POST then $_GET for a given array key and returns a value if that key
@@ -40,24 +40,24 @@ $action = get_val_from_postget('action', 'view_characters');
 
 // Read the characters table
 if ($action == 'view_characters') {
-    $records = view_list(`*`, `characters`);
-    include '../view/table_list.php';
+    $records = view_characters();
+    include './view/table_list.php';
 }
 
 // Add a character
 elseif ($action == 'add_character') {
-    include '../view/table_add.php';
+    include './view/table_add.php';
 }
 
 // edit a characters
 elseif ($action == 'edit_character') {
     $character_ID = intval(get_val_from_postget('Character_ID', NULL));
-    $record = view_list(
-        `*`,
-        `character`,
-        '`Character_ID` = $character_ID'
+    $record = view_characters(
+        '*',
+        'character',
+        'Character_ID = $character_ID'
     );
-    include '../view/character_sheet.php';
+    include './view/character_sheet.php';
 }
 
 // Delete a character
@@ -67,7 +67,7 @@ elseif ($action == 'confirm_deletion') {
         First ask the user to confirm their choice to delete the character by entering the
         character name. If the character name matches, begin the process of deleting.
     */
-    include '../view/table_delete.php';
+    include './view/table_delete.php';
 } elseif ($action == 'delete_character') {
     /*
         The order of operations needs to be updated each time the database structure changes.

@@ -14,8 +14,6 @@ Who			When			What
 CBAC		2025-03-08		Original Version 
 -----------------------------------------------------------------------------------------------
 */
-
-include '../view/header.php';
 ?>
 
 <main>
@@ -24,6 +22,3 @@ include '../view/header.php';
         Error message: <?php echo $error_message; ?>
     </p>
 </main>
-
-<?php include '../view/footer.php'; ?>
-
