@@ -1,0 +1,19 @@
+/*
+-----------------------------------------------------------------------------------------------
+Name:		    main.css
+Author:		  Connor Bryan Andrew Clawson
+Date:		    2025-03-07
+Language:	  CSS
+Purpose:	  The purpose of this file is to be the main stylesheet for the website...
+
+-----------------------------------------------------------------------------------------------
+ChangeLog:
+Who			    When			      What
+----------- --------------- -------------------------------------------------------------------
+CBAC        2025-03-07      Original Version 
+-----------------------------------------------------------------------------------------------
+*/
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}

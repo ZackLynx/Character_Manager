@@ -1,0 +1,29 @@
+<?php
+/*
+-----------------------------------------------------------------------------------------------
+Name:		error.php
+Author:		Connor Bryan Andrew Clawson
+Date:		2025-03-08
+Language:	PHP
+Purpose:	This file displays all other errors.
+
+-----------------------------------------------------------------------------------------------
+ChangeLog:
+Who			When			What
+----------- --------------- -------------------------------------------------------------------
+CBAC		2025-03-08		Original Version 
+-----------------------------------------------------------------------------------------------
+*/
+
+include '../view/header.php';
+?>
+
+<main>
+    <h1>Error</h1>
+    <p>
+        Error message: <?php echo $error_message; ?>
+    </p>
+</main>
+
+<?php include '../view/footer.php'; ?>
+
