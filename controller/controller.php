@@ -36,6 +36,23 @@ function get_val_from_postget($arr_val, $default_val)
     return $default_val;
 }
 
+
+$arr = [
+    'Character_Name' => 'Arnold',
+    'Class_ID' => 1,
+    'Race_ID' => 1,
+    'Str_Base' => 8,
+    'Dex_Base' => 8,
+    'Con_Base' => 8,
+    'Int_Base' => 8,
+    'Wis_Base' => 8,
+    'Cha_Base' => 8
+];
+//
+// update_character($arr, 1);
+// add_character($arr);
+
+
 $action = get_val_from_postget('action', 'view-characters');
 
 // Read the characters table
@@ -49,11 +66,33 @@ elseif ($action == 'add-character') {
     include './view/table_add.php';
 }
 
-// edit a characters
+// Submit the new character
+elseif ($action == 'submit-character') {
+
+}
+
+// Edit a character
 elseif ($action == 'edit-character') {
     $character_ID = intval(get_val_from_postget('Character_ID', NULL));
-    $record = get_character_by_id(0);
+    $record = get_character_by_id($character_ID);
     include './view/character_sheet.php';
+}
+
+// Save the changes made
+elseif ($action == 'save-changes') {
+    $changes = [
+        'Character_ID' => get_val_from_postget('Character_ID', NULL),
+        'Character_Name' => get_val_from_postget('Character_Name', 'NAME'),
+        'Class_ID' => get_val_from_postget('Class_ID', 5), // Human default
+        'Race_ID' => get_val_from_postget('Race_ID', 7), // Fighter default
+        'Str_Base' => get_val_from_postget('Str_Base', 0),
+        'Dex_Base' => get_val_from_postget('Dex_Base', 0),
+        'Con_Base' => get_val_from_postget('Con_Base', 0),
+        'Int_Base' => get_val_from_postget('Int_Base', 0),
+        'Wis_Base' => get_val_from_postget('Wis_Base', 0),
+        'Cha_Base' => get_val_from_postget('Cha_Base', 0),
+    ];
+
 }
 
 // Delete a character
@@ -63,7 +102,7 @@ elseif ($action == 'confirm-deletion') {
         First ask the user to confirm their choice to delete the character by entering the
         character name. If the character name matches, begin the process of deleting.
     */
-    $id = $_POST['character_id'];
+    $character_id = $_POST['character_id'];
     include './view/table_delete.php';
 } elseif ($action == 'delete-character') {
     /*
@@ -71,6 +110,7 @@ elseif ($action == 'confirm-deletion') {
         Use recursive logic to remove records tied to the character record. Once there is no
         other data in the database that relies on the character to exist, Delete the character.
     */
+    delete_character(intval(get_val_from_postget('character_id', NULL)));
 }
 ?>
 

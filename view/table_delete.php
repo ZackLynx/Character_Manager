@@ -19,6 +19,20 @@ CBAC		2025-03-07		Original Version
 
 <main>
     <p>
-        You are trying to delete record: <?php echo $id; ?>
+        You are trying to delete record: <?php echo $character_id; ?>
     </p>
+    <p>
+        Are you sure?
+    </p>
+    <span>
+        <form action="." method="post">
+            <input type="hidden" name="character_id" value= "<?php echo $character_id; ?>">
+            <input type="hidden" name="action" value="delete-character">
+            <input type="submit" value="Yes">
+        </form>
+        <form action="." method="post">
+            <input type="hidden" name="action" value="view-characters">
+            <input type="submit" value="No">
+        </form>
+    </span>
 </main>

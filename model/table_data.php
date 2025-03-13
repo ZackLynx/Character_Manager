@@ -60,52 +60,126 @@ function get_character_by_id($id)
 
 /**
  * Adds one or more records to a table.
- * @param string $table The table to add records to.
- * @param string $values The records to be added.
- * @return void
+ * @param array $values The records to be added.
+ * @return bool `true` if the insertion was successful, `false` otherwise.
  */
 function add_character($values)
 {
-    global $db;
-    $query = 'INSERT INTO characters VALUES :values;';
-    $statement = $db->prepare($query);
-    $statement->bindValue(':values', $values);
-    $statement->execute();
-    $statement->closeCursor();
+    try {
+        global $db;
+        $query = 'INSERT INTO characters (
+        Character_Name, 
+        Class_ID, 
+        Race_ID, 
+        Str_Base, 
+        Dex_Base, 
+        Con_Base, 
+        Int_Base, 
+        Wis_Base, 
+        Cha_Base) 
+        VALUES (';
+
+        end($values);
+        $lastKey = key($values);
+        reset($values);
+        foreach ($values as $key => &$value) {
+            if ($key === $lastKey) {
+                $query .= is_numeric($value) ? $value : '\'' . $value . '\'';
+            } else {
+                $query .= is_numeric($value) ? $value . ', ' : '\'' . $value . '\', ';
+            }
+        }
+
+        $query .= ');';
+
+        echo $query;
+        $statement = $db->prepare($query);
+        $statement->execute();
+        $statement->closeCursor();
+    } catch (PDOException $e) {
+        include './error.php';
+        return false;
+    }
+    return true;
 }
 
 /**
  * Updates an existing character record in a table.
- * @param string $values the values to be updated.
- * @param string $filters the primary key of the record or filters for multiple records.
+ * @param array $values the values to be updated.
+ * @param int $id the primary key of the record or filters for multiple records.
  * @return void
  */
-function update_character($values, $filters)
+function update_character($values, $id)
 {
-    global $db;
-    $query = 'UPDATE characters SET :values WHERE :filters;';
-    $statement = $db->prepare($query);
+    try {
+        global $db;
+        $query = 'UPDATE characters SET ';
+        end($values);
+        $lastKey = key($values);
+        reset($values);
+        foreach ($values as $key => &$value) {
+            if ($key === $lastKey) {
+                $query .= $key . ' = ';
+                $query .= is_numeric($value) ? $value : '\'' . $value . '\'';
+            } else {
+                $query .= $key . ' = ';
+                $query .= is_numeric($value) ? $value . ', ' : '\'' . $value . '\', ';
+            }
+        }
 
-    // ex: 'column_name = value,'. each value change is comma separated.
-    $statement->bindValue(':values', $values); // TODO: make values take an array.
-    $statement->bindValue(':filters', $filters); // TODO: make filters take an array.
-    $statement->execute();
-    $statement->closeCursor();
+        $query .= ' WHERE character_ID = :id;';
+
+        echo $query;
+
+        $statement = $db->prepare($query);
+
+        //$query .= ':Character_Name => ?,
+        //           :Class_ID => ?,
+        //           :Race_ID => ?,
+        //           :Str_Base => ?,
+        //           :Dex_Base => ?,
+        //           :Con_Base => ?,
+        //           :Int_Base => ?,
+        //           :Wis_Base => ?,
+        //           :Cha_Base => ?';
+        // $statement = $db->prepare($query);
+        // reset($values);
+        // $firstKey = key($values);
+        // foreach ($values as $key => $value) {
+        //     $statement->bindValue($key, $value);
+        //     if ($key === $firstKey) {
+        //         $statement->bindValue($key, $value, PDO::PARAM_STR);
+        //     } else {
+        //         $statement->bindValue($key, $value, PDO::PARAM_INT);
+        //     }
+        // }
+
+        $statement->bindValue(':id', intval($id), PDO::PARAM_INT);
+        $statement->execute();
+        $statement->closeCursor();
+    } catch (Exception $error_message) {
+        include './errors/error.php';
+        exit();
+    }
 }
 
 /**
  * Removes a character record from a table;
- * @param string $filters the record or records to be removed.
+ * @param int $filters the record to be removed.
  * @return void
  */
 function delete_character($character_ID)
 {
-    global $db;
-    $query = 'DELETE FROM characters WHERE Character_ID = :character_ID;';
-    $statement = $db->prepare($query);
-    $statement->bindValue(':character_ID', $character_ID);
-    $statement->execute();
-    $statement->closeCursor();
+    try {
+        global $db;
+        $query = 'DELETE FROM characters WHERE Character_ID = ' . $character_ID . ';';
+        $statement = $db->prepare($query);
+        $statement->execute();
+        $statement->closeCursor();
+    } catch (Exception $error_message) {
+        include './errors/error.php';
+        exit();
+    }
 }
 ?>
 

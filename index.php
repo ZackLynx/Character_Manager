@@ -16,6 +16,13 @@ CBAC		2025-03-07		Original Version
 */
 
 include './view/header.php';
+
+// echo "test loop<br>";
+// $arr = array("a" => "1", "b" => "2", "c" => "3", "d" => "4");
+// foreach ($arr as $key => $value) {
+//     echo '' . $key . ' = ' . $value . ', ';
+// }
+
 ?>
 
 <main>
