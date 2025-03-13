@@ -43,7 +43,7 @@ function get_characters($selection = '*')
 /**
  * Gets the full character data of a single character from the `characters` table.
  * @param int $id the `Character_ID` of the character.
- * @return array an array containing all fields from a single character
+ * @return array an array containing all fields from a single character.
  */
 function get_character_by_id($id)
 {
@@ -96,8 +96,8 @@ function add_character($values)
         $statement = $db->prepare($query);
         $statement->execute();
         $statement->closeCursor();
-    } catch (PDOException $e) {
-        include './error.php';
+    } catch (Exception $error_message) {
+        include './errors/error.php';
         return false;
     }
     return true;
@@ -107,7 +107,7 @@ function add_character($values)
  * Updates an existing character record in a table.
  * @param array $values the values to be updated.
  * @param int $id the primary key of the record or filters for multiple records.
- * @return void
+ * @return bool `true` if the update was successful, `false` otherwise.
  */
 function update_character($values, $id)
 {
@@ -159,14 +159,15 @@ function update_character($values, $id)
         $statement->closeCursor();
     } catch (Exception $error_message) {
         include './errors/error.php';
-        exit();
+        return false;
     }
+    return true;
 }
 
 /**
  * Removes a character record from a table;
  * @param int $filters the record to be removed.
- * @return void
+ * @return bool
  */
 function delete_character($character_ID)
 {
@@ -178,8 +179,9 @@ function delete_character($character_ID)
         $statement->closeCursor();
     } catch (Exception $error_message) {
         include './errors/error.php';
-        exit();
+        return false;
     }
+    return true;
 }
 ?>
 

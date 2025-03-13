@@ -15,8 +15,22 @@ Who			When			What
 CBAC		2025-03-07		Original Version 
 -----------------------------------------------------------------------------------------------
 */
+
+// Lets see if we can pass values to other PHP files without GET or POST...
+// If this ends up being more secure, explore this further. 
+if (isset($result)) {
+    if ($result == true) {
+        echo '<p>Operation successful!</p>';
+    } else {
+        echo '<p> Operation failed!</p>';
+    }
+}
 ?>
 
+<form action="." method="post">
+    <input type="hidden" name="action" value="add-character">
+    <input type="submit" id="add-button" value="Add a Character">
+</form>
 
 <table>
     <tr id="table-header">

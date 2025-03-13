@@ -69,13 +69,32 @@ elseif ($action == 'add-character') {
 // Submit the new character
 elseif ($action == 'submit-character') {
 
+    $values = [
+        'Character_Name' => get_val_from_postget('character-name', 'NAME'),
+        'Class_ID' => get_val_from_postget('character-class', 5), // Human default
+        'Race_ID' => get_val_from_postget('character-race', 7), // Fighter default
+        'Str_Base' => get_val_from_postget('str-stat', 0),
+        'Dex_Base' => get_val_from_postget('dex-stat', 0),
+        'Con_Base' => get_val_from_postget('con-stat', 0),
+        'Int_Base' => get_val_from_postget('int-stat', 0),
+        'Wis_Base' => get_val_from_postget('wis-stat', 0),
+        'Cha_Base' => get_val_from_postget('cha-stat', 0),
+    ];
+    $result = false;
+    if (add_character($values)) {
+        $result = true;
+    }
+    $records = get_characters();
+    include './view/table_list.php';
 }
 
 // Edit a character
 elseif ($action == 'edit-character') {
-    $character_ID = intval(get_val_from_postget('Character_ID', NULL));
+    $character_ID = get_val_from_postget('character_id', NULL);
     $record = get_character_by_id($character_ID);
-    include './view/character_sheet.php';
+    //echo count($record);
+    //echo $record['Class_ID'];
+    include './view/table_update.php';
 }
 
 // Save the changes made
@@ -92,7 +111,12 @@ elseif ($action == 'save-changes') {
         'Wis_Base' => get_val_from_postget('Wis_Base', 0),
         'Cha_Base' => get_val_from_postget('Cha_Base', 0),
     ];
-
+    $result = false;
+    if (update_character($changes, 1)) {
+        $result = true;
+    }
+    $records = get_characters();
+    include './view/table_list.php';
 }
 
 // Delete a character
@@ -110,7 +134,21 @@ elseif ($action == 'confirm-deletion') {
         Use recursive logic to remove records tied to the character record. Once there is no
         other data in the database that relies on the character to exist, Delete the character.
     */
-    delete_character(intval(get_val_from_postget('character_id', NULL)));
+    $result = false;
+    if (
+        delete_character(
+            intval(
+                get_val_from_postget(
+                    'character_id',
+                    NULL
+                )
+            )
+        )
+    ) {
+        $result = true;
+    }
+    $records = get_characters();
+    include './view/table_list.php';
 }
 ?>
 
