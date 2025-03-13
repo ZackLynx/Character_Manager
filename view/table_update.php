@@ -5,30 +5,16 @@ Name:		table_update.php
 Author:		Connor Bryan Andrew Clawson
 Date:		2025-03-07
 Language:	PHP
-Purpose:	This file is a form for updating the data of a record.
+Purpose:	This file is a form for updating the data of a character.
 
 -----------------------------------------------------------------------------------------------
 ChangeLog:
 Who			When			What
 ----------- --------------- -------------------------------------------------------------------
-CBAC		2025-03-07		Original Version 
+CBAC		2025-03-07		Original Version.
+CBAC        2025-03-13      Added value placeholders. Corrected improper use of <label>
+                            elements.
 -----------------------------------------------------------------------------------------------
-
-
-<?php echo ($record['Class_ID'] == 1) ? 'selected' : ''; 
-<?php echo ($record['Class_ID'] == 2) ? 'selected' : ''; 
-<?php echo ($record['Class_ID'] == 3) ? 'selected' : ''; 
-<?php echo ($record['Class_ID'] == 4) ? 'selected' : ''; 
-<?php echo ($record['Class_ID'] == 5) ? 'selected' : ''; 
-<?php echo ($record['Class_ID'] == 6) ? 'selected' : ''; 
-<?php echo ($record['Class_ID'] == 7) ? 'selected' : ''; 
-<?php echo ($record['Class_ID'] == 8) ? 'selected' : ''; 
-<?php echo ($record['Class_ID'] == 9) ? 'selected' : ''; 
-<?php echo ($record['Class_ID'] == 10) ? 'selected' : '';
-<?php echo ($record['Class_ID'] == 11) ? 'selected' : '';
-
-
-
 */
 
 
@@ -62,13 +48,13 @@ CBAC		2025-03-07		Original Version
 
     <label for="character-race">Race</label>
     <select name="character-race">
-        <option value="1">Dwarf</option>
-        <option value="2">Elf</option>
-        <option value="3">Gnome</option>
-        <option value="4">Half-Elf</option>
-        <option value="5">Halfling</option>
-        <option value="6">Half-orc</option>
-        <option value="7">Human</option>
+        <option value="1" <?php echo ($record['Race_ID'] == 1) ? 'selected' : ''; ?>>Dwarf</option>
+        <option value="2" <?php echo ($record['Race_ID'] == 2) ? 'selected' : ''; ?>>Elf</option>
+        <option value="3" <?php echo ($record['Race_ID'] == 3) ? 'selected' : ''; ?>>Gnome</option>
+        <option value="4" <?php echo ($record['Race_ID'] == 4) ? 'selected' : ''; ?>>Half-Elf</option>
+        <option value="5" <?php echo ($record['Race_ID'] == 5) ? 'selected' : ''; ?>>Halfling</option>
+        <option value="6" <?php echo ($record['Race_ID'] == 6) ? 'selected' : ''; ?>>Half-orc</option>
+        <option value="7" <?php echo ($record['Race_ID'] == 7) ? 'selected' : ''; ?>>Human</option>
     </select>
 
     <br>
