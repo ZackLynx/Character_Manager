@@ -36,22 +36,33 @@ function semicolon_check($val)
     }
 }
 
+
 /**
- * Prepares a string for use as a value to be used in a SQL query.
- * @param string $str the String to
- * @return string|null The value of `$str` if valid, `null` otherwise.
+ * Checks if the persons name contains a dash (-), apostrophe ('), or alphabetic character.
+ * Currently limited to characters from the standard ASCII table.
+ * @param string $name a persons name.
+ * @return bool {true} if all characters are valid, {false} otherwise.
  */
-function prepare_string($str)
+function validate_characters($name) // TODO: Expand list of valid characters.
 {
-    if (isset($str) && is_string($str)) {
-        $str = trim($str);  // First trim the ends
-        if (empty($str)) {
-            return NULL;
+    // convert the string into an array.
+    $name = trim($name);
+    foreach (str_split($name) as $char) {
+        // echo $char; // lets us check which characters it went through.
+        $ascii_val = ord($char);
+        // return false if the character is not within our valid ranges.
+        if (
+            ($ascii_val == 32) ||                       // space character
+            ($ascii_val == 39 || $ascii_val == 45) ||   // ' , -
+            ($ascii_val >= 65 && $ascii_val <= 90) ||   // A to Z
+            ($ascii_val >= 97 && $ascii_val <= 122)     // a to z
+        ) {
+            continue;
+        } else {
+            return false;
         }
-        // TODO: improve this function to handle special characters.
-        return $str;
-    }
-    return NULL; // If the value is bad, return null.
+    } // if all characters are valid, return true.
+    return true;
 }
 
 ?>

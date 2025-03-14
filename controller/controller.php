@@ -81,13 +81,22 @@ elseif ($action == 'submit-character') {
         'Cha_Base' => get_val_from_postget('cha-stat', -1)
     ];
 
-    if (add_character($values)) {
-        $records = get_characters();
-        include './view/table_list.php';
-    } else {
-        $user_message = '';
+    if (empty(trim($values['Character_Name']))) {
+        $user_message = 'Name cannot be empty';
+        include './view/table_add.php';
     }
 
+    //
+    elseif (add_character($values)) {
+        $records = get_characters();
+        include './view/table_list.php';
+    }
+
+    //
+    else {
+        $error_message = 'Something went wrong when trying to save your new character.';
+        include './errors/error.php';
+    }
 }
 
 // Edit a character
@@ -103,23 +112,47 @@ elseif ($action == 'edit-character') {
 elseif ($action == 'save-changes') {
     $changes = [
         'Character_ID' => get_val_from_postget('character-id', NULL),
-        'Character_Name' => get_val_from_postget('character-name', ''),
+        'Character_Name' => (get_val_from_postget('character-name', '')),
         'Class_ID' => get_val_from_postget('character-class', 0),
         'Race_ID' => get_val_from_postget('character-race', 0),
-        'Str_Base' => get_val_from_postget('str-stat', get_val_from_postget('old-str', -1)),
-        'Dex_Base' => get_val_from_postget('dex-stat', get_val_from_postget('old-dex', -1)),
-        'Con_Base' => get_val_from_postget('con-stat', get_val_from_postget('old-con', -1)),
-        'Int_Base' => get_val_from_postget('int-stat', get_val_from_postget('old-int', -1)),
-        'Wis_Base' => get_val_from_postget('wis-stat', get_val_from_postget('old-wis', -1)),
-        'Cha_Base' => get_val_from_postget('cha-stat', get_val_from_postget('old-cha', -1))
+        'Str_Base' => get_val_from_postget(
+            'str-stat',
+            get_val_from_postget('old-str', -1)
+        ),
+        'Dex_Base' => get_val_from_postget(
+            'dex-stat',
+            get_val_from_postget('old-dex', -1)
+        ),
+        'Con_Base' => get_val_from_postget(
+            'con-stat',
+            get_val_from_postget('old-con', -1)
+        ),
+        'Int_Base' => get_val_from_postget(
+            'int-stat',
+            get_val_from_postget('old-int', -1)
+        ),
+        'Wis_Base' => get_val_from_postget(
+            'wis-stat',
+            get_val_from_postget('old-wis', -1)
+        ),
+        'Cha_Base' => get_val_from_postget(
+            'cha-stat',
+            get_val_from_postget('old-cha', -1)
+        )
     ];
-
+    $changes['Character_Name'] = trim($changes['Character_Name']);
     $user_message = '';
     $has_error = false;
 
     // Check character name
-    if ($changes['Character_Name'] === '') {
+    if (empty(trim($changes['Character_Name']))) {
         $user_message .= '<p>Character name cannot be blank.</p>';
+        $has_error = true;
+    }
+
+    // check for illegal characters
+    if (!validate_characters($changes['Character_Name'])) {
+        $user_message .= '<p>Name may only contain letters, dashes, apostrophies, and spaces between names/words.</p>';
         $has_error = true;
     }
 
@@ -176,8 +209,13 @@ elseif ($action == 'save-changes') {
         include './view/table_list.php';
     }
 
+    // Report input errors
+    elseif ($has_error) {
+
+    }
+
     // CRIT FAIL!
-    elseif ($user_message === '') {
+    elseif (empty($user_message)) {
         $user_message .= '<p>Something went horribly wrong. Please contact the webmaster!</p>';
         include './view/table_update.php';
     }

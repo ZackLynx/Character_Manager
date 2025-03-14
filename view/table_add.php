@@ -30,8 +30,10 @@ $valMemory = [
     'Wis_Base' => get_val_from_postget('wis-stat', 10),
     'Cha_Base' => get_val_from_postget('cha-stat', 10)
 ];
+if (isset($user_message)) {
+    echo '<p>' . $user_message . '</p>';
+}
 ?>
-
 <form action="." method="post">
 
 

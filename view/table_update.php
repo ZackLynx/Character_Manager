@@ -49,7 +49,7 @@ if (isset($record) && is_array($record)) {
 }
 
 if (isset($user_message)) {
-    echo $user_message;
+    echo '<p>' . $user_message . '</p>';
 }
 ?>
 
