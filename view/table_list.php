@@ -13,23 +13,23 @@ ChangeLog:
 Who			When			What
 ----------- --------------- -------------------------------------------------------------------
 CBAC		2025-03-07		Original Version 
+CBAC        2025-03-14      Added a message space that shows up in response to a completed
+                            action.
 -----------------------------------------------------------------------------------------------
 */
 
-// if (isset($result)) {
-//     if ($result == true) {
-//         echo '<p>Operation successful!</p>';
-//     } else {
-//         echo '<p> Operation failed!</p>';
-//     }
-// }
+if (isset($user_message) && !empty($user_message)) {
+    echo $user_message;
+}
 
 ?>
 
-<form action="." method="post">
-    <input type="hidden" name="action" value="add-character">
-    <input type="submit" id="add-button" value="Add a Character">
-</form>
+<div id="add-button">
+    <form action="." method="post">
+        <input type="hidden" name="action" value="add-character">
+        <input type="submit" value="Add a Character">
+    </form>
+</div>
 
 <table>
     <tr id="table-header">
@@ -69,5 +69,4 @@ CBAC		2025-03-07		Original Version
         </tr>
         <?php
     endforeach; ?>
-
 </table>

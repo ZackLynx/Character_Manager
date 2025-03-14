@@ -21,7 +21,7 @@ CBAC        2025-03-13      Added value placeholders. Corrected improper use of 
 // entered data.
 $valMemory = [];
 if (isset($record) && is_array($record)) {
-    echo "Grabbing from Record variable";
+    //echo "Grabbing from Record variable";
     $valMemory = [
         'Character_Name' => $record['Character_Name'],
         'Class_ID' => $record['Class_ID'],
@@ -34,7 +34,7 @@ if (isset($record) && is_array($record)) {
         'Cha_Base' => $record['Cha_Base']
     ];
 } else {
-    echo "Grabbing from POST";
+    //echo "Grabbing from POST";
     $valMemory = [
         'Character_Name' => get_val_from_postget('character-name', get_val_from_postget('old-name', '')),
         'Class_ID' => get_val_from_postget('character-class', 0),

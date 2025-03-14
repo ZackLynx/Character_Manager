@@ -12,6 +12,8 @@ ChangeLog:
 Who			When			What
 ----------- --------------- -------------------------------------------------------------------
 CBAC		2025-03-11		Original Version 
+CBAC        2025-03-14      Completed version 1 of CRUD actions with system messages for 
+                            successful additions, edits, and deletions of characters.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -80,23 +82,91 @@ elseif ($action == 'submit-character') {
         'Wis_Base' => get_val_from_postget('wis-stat', -1),
         'Cha_Base' => get_val_from_postget('cha-stat', -1)
     ];
+    $values['Character_Name'] = trim($values['Character_Name']);
+    $user_message = '';
+    $has_error = false;
 
-    if (empty(trim($values['Character_Name']))) {
-        $user_message = 'Name cannot be empty';
-        include './view/table_add.php';
+    // Check character name
+    if (empty($values['Character_Name'])) {
+        $user_message .= '<p>Character name cannot be blank.</p>';
+        $has_error = true;
     }
 
-    //
-    elseif (add_character($values)) {
+    // Check for illegal characters
+    if (!validate_characters($values['Character_Name'])) {
+        $user_message .= '<p>Name may only contain letters, dashes, apostrophies, and spaces between names/words.</p>';
+        $has_error = true;
+    }
+
+    // TODO: Improve countermeasures to combat SQL injection via string input fields
+
+    // Check class
+    if ($values['Class_ID'] > 11 || $values['Class_ID'] < 1) {
+        $user_message .= '<p>An invalid Class value was detected. Please try again.</p>';
+        $has_error = true;
+    }
+
+    // Check race
+    if ($values['Race_ID'] > 7 || $values['Race_ID'] < 1) {
+        $user_message .= '<p>An invalid Race value was detected. Please try again.</p>';
+        $has_error = true;
+    }
+
+    // Check strength
+    if ($values['Str_Base'] < 0 || $values['Str_Base'] > 99) {
+        $user_message .= '<p>please enter a STRENGTH score between 0 and 99 (inclusive.)</p>';
+        $has_error = true;
+    }
+
+    // Check dexterity
+    if ($values['Dex_Base'] < 0 || $values['Dex_Base'] > 99) {
+        $user_message .= '<p>please enter a DEXTERITY score between 0 and 99 (inclusive.)</p>';
+        $has_error = true;
+    }
+
+    // Check constitution
+    if ($values['Con_Base'] < 0 || $values['Con_Base'] > 99) {
+        $user_message .= '<p>please enter a CONSTITUTION score between 0 and 99 (inclusive.)</p>';
+        $has_error = true;
+    }
+
+    // Check intelegence
+    if ($values['Int_Base'] < 0 || $values['Int_Base'] > 99) {
+        $user_message .= '<p>please enter a INTELLIGENCE score between 0 and 99 (inclusive.)</p>';
+        $has_error = true;
+    }
+
+    // Check wisdom
+    if ($values['Wis_Base'] < 0 || $values['Wis_Base'] > 99) {
+        $user_message .= '<p>please enter a WISDOM score between 0 and 99 (inclusive.)</p>';
+        $has_error = true;
+    }
+
+    // Check charisma
+    if ($values['Cha_Base'] < 0 || $values['Cha_Base'] > 99) {
+        $user_message .= '<p>please enter a CHARISMA score between 0 and 99 (inclusive.)</p>';
+        $has_error = true;
+    }
+
+    // It works!
+    if (!$has_error && add_character($values)) {
+        $user_message = '<p>Character added!</p>';
         $records = get_characters();
         include './view/table_list.php';
     }
 
-    //
+    // Report input errors
+    elseif ($has_error) {
+        include './view/table_add.php';
+    }
+
+    // CRIT FAIL!
     else {
+        echo $user_message;
         $error_message = 'Something went wrong when trying to save your new character.';
         include './errors/error.php';
     }
+
 }
 
 // Edit a character
@@ -145,7 +215,7 @@ elseif ($action == 'save-changes') {
     $has_error = false;
 
     // Check character name
-    if (empty(trim($changes['Character_Name']))) {
+    if (empty($changes['Character_Name'])) {
         $user_message .= '<p>Character name cannot be blank.</p>';
         $has_error = true;
     }
@@ -155,6 +225,8 @@ elseif ($action == 'save-changes') {
         $user_message .= '<p>Name may only contain letters, dashes, apostrophies, and spaces between names/words.</p>';
         $has_error = true;
     }
+
+    // TODO: Improve countermeasures to combat SQL injection via string input fields
 
     // Check class
     if ($changes['Class_ID'] > 11 || $changes['Class_ID'] < 1) {
@@ -204,18 +276,20 @@ elseif ($action == 'save-changes') {
         $has_error = true;
     }
 
-    if (!$has_error && update_character($changes, $changes['Character_ID'])) { // It works!
+    // It works!
+    if (!$has_error && update_character($changes, $changes['Character_ID'])) {
         $records = get_characters();
+        $user_message = '<p>Character updated!</p>';
         include './view/table_list.php';
     }
 
     // Report input errors
     elseif ($has_error) {
-
+        include './view/table_update.php';
     }
 
     // CRIT FAIL!
-    elseif (empty($user_message)) {
+    else {
         $user_message .= '<p>Something went horribly wrong. Please contact the webmaster!</p>';
         include './view/table_update.php';
     }
@@ -236,6 +310,7 @@ elseif ($action == 'confirm-deletion') {
         Use recursive logic to remove records tied to the character record. Once there is no
         other data in the database that relies on the character to exist, Delete the character.
     */
+    $user_message = '';
     if (
         delete_character(
             intval(
@@ -246,7 +321,7 @@ elseif ($action == 'confirm-deletion') {
             )
         )
     ) {
-        $user_message = 'Character';
+        $user_message = '<p>Character Deleted!</p>';
     }
     $records = get_characters();
     include './view/table_list.php';

@@ -18,6 +18,7 @@ Who			When			What
 ----------- --------------- -------------------------------------------------------------------
 CBAC		2025-03-07		Original Version
 CBAC        2025-03-12      Refactored all functions to focus only on the `characters` table.
+CBAC        2025-03-14      Completed functional versions of all functions.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -92,7 +93,8 @@ function add_character($values)
 
         $query .= ');';
 
-        echo $query;
+        //echo $query;
+
         $statement = $db->prepare($query);
         $statement->execute();
         $statement->closeCursor();
@@ -129,31 +131,9 @@ function update_character($values, $id)
 
         $query .= ' WHERE character_ID = :id;';
 
-        echo $query;
+        //echo $query;
 
         $statement = $db->prepare($query);
-
-        //$query .= ':Character_Name => ?,
-        //           :Class_ID => ?,
-        //           :Race_ID => ?,
-        //           :Str_Base => ?,
-        //           :Dex_Base => ?,
-        //           :Con_Base => ?,
-        //           :Int_Base => ?,
-        //           :Wis_Base => ?,
-        //           :Cha_Base => ?';
-        // $statement = $db->prepare($query);
-        // reset($values);
-        // $firstKey = key($values);
-        // foreach ($values as $key => $value) {
-        //     $statement->bindValue($key, $value);
-        //     if ($key === $firstKey) {
-        //         $statement->bindValue($key, $value, PDO::PARAM_STR);
-        //     } else {
-        //         $statement->bindValue($key, $value, PDO::PARAM_INT);
-        //     }
-        // }
-
         $statement->bindValue(':id', intval($values['Character_ID']), PDO::PARAM_INT);
         $statement->execute();
         $statement->closeCursor();
