@@ -70,28 +70,30 @@ elseif ($action == 'add-character') {
 elseif ($action == 'submit-character') {
 
     $values = [
-        'Character_Name' => get_val_from_postget('character-name', 'NAME'),
-        'Class_ID' => get_val_from_postget('character-class', 5), // Human default
-        'Race_ID' => get_val_from_postget('character-race', 7), // Fighter default
-        'Str_Base' => get_val_from_postget('str-stat', 0),
-        'Dex_Base' => get_val_from_postget('dex-stat', 0),
-        'Con_Base' => get_val_from_postget('con-stat', 0),
-        'Int_Base' => get_val_from_postget('int-stat', 0),
-        'Wis_Base' => get_val_from_postget('wis-stat', 0),
-        'Cha_Base' => get_val_from_postget('cha-stat', 0),
+        'Character_Name' => get_val_from_postget('character-name', ''),
+        'Class_ID' => get_val_from_postget('character-class', 0),
+        'Race_ID' => get_val_from_postget('character-race', 0),
+        'Str_Base' => get_val_from_postget('str-stat', -1),
+        'Dex_Base' => get_val_from_postget('dex-stat', -1),
+        'Con_Base' => get_val_from_postget('con-stat', -1),
+        'Int_Base' => get_val_from_postget('int-stat', -1),
+        'Wis_Base' => get_val_from_postget('wis-stat', -1),
+        'Cha_Base' => get_val_from_postget('cha-stat', -1)
     ];
-    $result = false;
+
     if (add_character($values)) {
-        $result = true;
+        $records = get_characters();
+        include './view/table_list.php';
+    } else {
+        $user_message = '';
     }
-    $records = get_characters();
-    include './view/table_list.php';
+
 }
 
 // Edit a character
 elseif ($action == 'edit-character') {
     $character_ID = get_val_from_postget('character_id', NULL);
-    $record = get_character_by_id($character_ID);
+    $record = get_character_by_id($character_ID); // used by table_update.php
     //echo count($record);
     //echo $record['Class_ID'];
     include './view/table_update.php';
@@ -100,23 +102,89 @@ elseif ($action == 'edit-character') {
 // Save the changes made
 elseif ($action == 'save-changes') {
     $changes = [
-        'Character_ID' => get_val_from_postget('Character_ID', NULL),
-        'Character_Name' => get_val_from_postget('Character_Name', 'NAME'),
-        'Class_ID' => get_val_from_postget('Class_ID', 5), // Human default
-        'Race_ID' => get_val_from_postget('Race_ID', 7), // Fighter default
-        'Str_Base' => get_val_from_postget('Str_Base', 0),
-        'Dex_Base' => get_val_from_postget('Dex_Base', 0),
-        'Con_Base' => get_val_from_postget('Con_Base', 0),
-        'Int_Base' => get_val_from_postget('Int_Base', 0),
-        'Wis_Base' => get_val_from_postget('Wis_Base', 0),
-        'Cha_Base' => get_val_from_postget('Cha_Base', 0),
+        'Character_ID' => get_val_from_postget('character-id', NULL),
+        'Character_Name' => get_val_from_postget('character-name', ''),
+        'Class_ID' => get_val_from_postget('character-class', 0),
+        'Race_ID' => get_val_from_postget('character-race', 0),
+        'Str_Base' => get_val_from_postget('str-stat', get_val_from_postget('old-str', -1)),
+        'Dex_Base' => get_val_from_postget('dex-stat', get_val_from_postget('old-dex', -1)),
+        'Con_Base' => get_val_from_postget('con-stat', get_val_from_postget('old-con', -1)),
+        'Int_Base' => get_val_from_postget('int-stat', get_val_from_postget('old-int', -1)),
+        'Wis_Base' => get_val_from_postget('wis-stat', get_val_from_postget('old-wis', -1)),
+        'Cha_Base' => get_val_from_postget('cha-stat', get_val_from_postget('old-cha', -1))
     ];
-    $result = false;
-    if (update_character($changes, 1)) {
-        $result = true;
+
+
+
+    $user_message = '';
+    $has_error = false;
+
+    // Check character name
+    if ($changes['Character_Name'] === '') {
+        $user_message .= '<p>Character name cannot be blank.</p>';
+        $has_error = true;
     }
-    $records = get_characters();
-    include './view/table_list.php';
+
+    // Check class
+    if ($changes['Class_ID'] > 11 || $changes['Class_ID'] < 1) {
+        $user_message .= '<p>An invalid Class value was detected. Please try again.</p>';
+        $has_error = true;
+    }
+
+    // Check race
+    if ($changes['Race_ID'] > 7 || $changes['Race_ID'] < 1) {
+        $user_message .= '<p>An invalid Race value was detected. Please try again.</p>';
+        $has_error = true;
+    }
+
+    // Check strength
+    if ($changes['Str_Base'] < 0 || $changes['Str_Base'] > 99) {
+        $user_message .= '<p>please enter a STRENGTH score between 0 and 99 (inclusive.)</p>';
+        $has_error = true;
+    }
+
+    // Check dexterity
+    if ($changes['Dex_Base'] < 0 || $changes['Dex_Base'] > 99) {
+        $user_message .= '<p>please enter a DEXTERITY score between 0 and 99 (inclusive.)</p>';
+        $has_error = true;
+    }
+
+    // Check constitution
+    if ($changes['Con_Base'] < 0 || $changes['Con_Base'] > 99) {
+        $user_message .= '<p>please enter a CONSTITUTION score between 0 and 99 (inclusive.)</p>';
+        $has_error = true;
+    }
+
+    // Check intelegence
+    if ($changes['Int_Base'] < 0 || $changes['Int_Base'] > 99) {
+        $user_message .= '<p>please enter a INTELLIGENCE score between 0 and 99 (inclusive.)</p>';
+        $has_error = true;
+    }
+
+    // Check wisdom
+    if ($changes['Wis_Base'] < 0 || $changes['Wis_Base'] > 99) {
+        $user_message .= '<p>please enter a WISDOM score between 0 and 99 (inclusive.)</p>';
+        $has_error = true;
+    }
+
+    // Check charisma
+    if ($changes['Cha_Base'] < 0 || $changes['Cha_Base'] > 99) {
+        $user_message .= '<p>please enter a CHARISMA score between 0 and 99 (inclusive.)</p>';
+        $has_error = true;
+    }
+
+    if (!$has_error && update_character($changes, $changes['Character_ID'])) { // It works!
+        $records = get_characters();
+        include './view/table_list.php';
+    }
+
+    // CRIT FAIL!
+    elseif ($user_message === '') {
+        $user_message .= '<p>Something went horribly wrong. Please contact the webmaster!</p>';
+    }
+    include './view/table_update.php';
+
+
 }
 
 // Delete a character
@@ -134,7 +202,6 @@ elseif ($action == 'confirm-deletion') {
         Use recursive logic to remove records tied to the character record. Once there is no
         other data in the database that relies on the character to exist, Delete the character.
     */
-    $result = false;
     if (
         delete_character(
             intval(
@@ -145,7 +212,7 @@ elseif ($action == 'confirm-deletion') {
             )
         )
     ) {
-        $result = true;
+        $user_message = 'Character';
     }
     $records = get_characters();
     include './view/table_list.php';

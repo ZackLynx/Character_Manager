@@ -16,15 +16,13 @@ CBAC		2025-03-07		Original Version
 -----------------------------------------------------------------------------------------------
 */
 
-// Lets see if we can pass values to other PHP files without GET or POST...
-// If this ends up being more secure, explore this further. 
-if (isset($result)) {
-    if ($result == true) {
-        echo '<p>Operation successful!</p>';
-    } else {
-        echo '<p> Operation failed!</p>';
-    }
-}
+// if (isset($result)) {
+//     if ($result == true) {
+//         echo '<p>Operation successful!</p>';
+//     } else {
+//         echo '<p> Operation failed!</p>';
+//     }
+// }
 ?>
 
 <form action="." method="post">

@@ -88,6 +88,6 @@ CBAC        2025-03-13      Added value placeholders. Corrected improper use of 
 
     <br>
 
-    <input type="hidden" name="action" value="submit-character">
+    <input type="hidden" name="action" value="save-changes">
     <input type="submit" value="SAVE CHANGES">
 </form>

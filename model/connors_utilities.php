@@ -12,7 +12,8 @@ ChangeLog:
 Who			When			What
 ----------- --------------- -------------------------------------------------------------------
 CBAC		2025-03-08		Original Version
-CBAC        2025-03-11      Added semicolon_check.
+CBAC        2025-03-11      Added early semicolon_check function.
+CBAC        2025-03-13      Added early prepare_string function.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -34,5 +35,24 @@ function semicolon_check($val)
         exit();
     }
 }
+
+/**
+ * Prepares a string for use as a value to be used in a SQL query.
+ * @param string $str the String to
+ * @return string|null The value of `$str` if valid, `null` otherwise.
+ */
+function prepare_string($str)
+{
+    if (isset($str) && is_string($str)) {
+        $str = trim($str);  // First trim the ends
+        if (empty($str)) {
+            return NULL;
+        }
+        // TODO: improve this function to handle special characters.
+        return $str;
+    }
+    return NULL; // If the value is bad, return null.
+}
+
 ?>
 

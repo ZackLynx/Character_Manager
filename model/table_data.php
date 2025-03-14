@@ -154,7 +154,7 @@ function update_character($values, $id)
         //     }
         // }
 
-        $statement->bindValue(':id', intval($id), PDO::PARAM_INT);
+        $statement->bindValue(':id', intval($values['Character_ID']), PDO::PARAM_INT);
         $statement->execute();
         $statement->closeCursor();
     } catch (Exception $error_message) {
