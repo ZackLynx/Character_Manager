@@ -114,8 +114,6 @@ elseif ($action == 'save-changes') {
         'Cha_Base' => get_val_from_postget('cha-stat', get_val_from_postget('old-cha', -1))
     ];
 
-
-
     $user_message = '';
     $has_error = false;
 
@@ -181,10 +179,8 @@ elseif ($action == 'save-changes') {
     // CRIT FAIL!
     elseif ($user_message === '') {
         $user_message .= '<p>Something went horribly wrong. Please contact the webmaster!</p>';
+        include './view/table_update.php';
     }
-    include './view/table_update.php';
-
-
 }
 
 // Delete a character

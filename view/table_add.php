@@ -16,6 +16,7 @@ CBAC        2025-03-13      Corrected improper use of <label> elements.
 -----------------------------------------------------------------------------------------------
 */
 
+
 // in the event that a value is bad and cannot be used by SQL, we need to hold onto already
 // entered data.
 $valMemory = [
@@ -32,6 +33,9 @@ $valMemory = [
 ?>
 
 <form action="." method="post">
+
+
+
     <label for="character-name">Character Name</label>
     <input type="text" name="character-name" id="character-name">
 
