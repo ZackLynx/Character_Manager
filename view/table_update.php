@@ -23,14 +23,17 @@ CBAC        2025-03-13      Added value placeholders. Corrected improper use of 
 
 <form action="." method="post">
     <input type="hidden" name="character-id" value="<?php echo $character_ID ?>">
+    <input type="hidden" name="old-name" value="<?php echo $record['Character_Name']; ?>">
 
     <label for="character-name">Character Name</label>
-    <input type="text" name="character-name">
+    <input type="text" name="character-name" id="character-name" placeholder="<?php
+    echo $record['Character_Name'];
+    ?>">
 
     <br>
 
     <label for="character-class">Class</label>
-    <select name="character-class">
+    <select name="character-class" id="character-class">
         <option value="1" <?php echo ($record['Class_ID'] == 1) ? 'selected' : ''; ?>>Barbarian</option>
         <option value="2" <?php echo ($record['Class_ID'] == 2) ? 'selected' : ''; ?>>Bard</option>
         <option value="3" <?php echo ($record['Class_ID'] == 3) ? 'selected' : ''; ?>>Cleric</option>
@@ -47,7 +50,7 @@ CBAC        2025-03-13      Added value placeholders. Corrected improper use of 
     <br>
 
     <label for="character-race">Race</label>
-    <select name="character-race">
+    <select name="character-race" id="character-race">
         <option value="1" <?php echo ($record['Race_ID'] == 1) ? 'selected' : ''; ?>>Dwarf</option>
         <option value="2" <?php echo ($record['Race_ID'] == 2) ? 'selected' : ''; ?>>Elf</option>
         <option value="3" <?php echo ($record['Race_ID'] == 3) ? 'selected' : ''; ?>>Gnome</option>
@@ -58,24 +61,30 @@ CBAC        2025-03-13      Added value placeholders. Corrected improper use of 
     </select>
 
     <br>
+    <input type="hidden" name="old-str" value="<?php echo $record['Str_Base'] ?>">
+    <input type="hidden" name="old-dex" value="<?php echo $record['Dex_Base'] ?>">
+    <input type="hidden" name="old-con" value="<?php echo $record['Con_Base'] ?>">
+    <input type="hidden" name="old-int" value="<?php echo $record['Int_Base'] ?>">
+    <input type="hidden" name="old-wis" value="<?php echo $record['Wis_Base'] ?>">
+    <input type="hidden" name="old-cha" value="<?php echo $record['Cha_Base'] ?>">
 
     <label for="str-stat">STR</label>
-    <input type="number" name="str-stat">
+    <input type="number" name="str-stat" id="str-stat" placeholder="<?php echo $record['Str_Base']; ?>">
     <br>
     <label for="dex-stat">DEX</label>
-    <input type="number" name="dex-stat">
+    <input type="number" name="dex-stat" id="dex-stat" placeholder="<?php echo $record['Dex_Base']; ?>">
     <br>
     <label for="con-stat">CON</label>
-    <input type="number" name="con-stat">
+    <input type="number" name="con-stat" id="con-stat" placeholder="<?php echo $record['Con_Base']; ?>">
     <br>
     <label for="int-stat">INT</label>
-    <input type="number" name="int-stat">
+    <input type="number" name="int-stat" id="int-stat" placeholder="<?php echo $record['Int_Base']; ?>">
     <br>
     <label for="wis-stat">WIS</label>
-    <input type="number" name="wis-stat">
+    <input type="number" name="wis-stat" id="wis-stat" placeholder="<?php echo $record['Wis_Base']; ?>">
     <br>
     <label for="cha-stat">CHA</label>
-    <input type="number" name="cha-stat">
+    <input type="number" name="cha-stat" id="cha-stat" placeholder="<?php echo $record['Cha_Base']; ?>">
 
     <br>
 

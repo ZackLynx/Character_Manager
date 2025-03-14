@@ -37,17 +37,17 @@ function get_val_from_postget($arr_val, $default_val)
 }
 
 
-$arr = [
-    'Character_Name' => 'Arnold',
-    'Class_ID' => 1,
-    'Race_ID' => 1,
-    'Str_Base' => 8,
-    'Dex_Base' => 8,
-    'Con_Base' => 8,
-    'Int_Base' => 8,
-    'Wis_Base' => 8,
-    'Cha_Base' => 8
-];
+// $arr = [
+// 'Character_Name' => 'Arnold',
+// 'Class_ID' => 1,
+//     'Race_ID' => 1,
+//     'Str_Base' => 8,
+//     'Dex_Base' => 8,
+//     'Con_Base' => 8,
+//     'Int_Base' => 8,
+//     'Wis_Base' => 8,
+//     'Cha_Base' => 8
+// ];
 //
 // update_character($arr, 1);
 // add_character($arr);
