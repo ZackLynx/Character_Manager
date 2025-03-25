@@ -230,56 +230,56 @@ elseif ($action == 'save-changes') {
 
     // Check class
     if ($changes['Class_ID'] > 11 || $changes['Class_ID'] < 1) {
-        $user_message .= '<p>An invalid Class value was detected. Please try again.</p>';
+        $user_message .= '<p class="system-message">An invalid Class value was detected. Please try again.</p>';
         $has_error = true;
     }
 
     // Check race
     if ($changes['Race_ID'] > 7 || $changes['Race_ID'] < 1) {
-        $user_message .= '<p>An invalid Race value was detected. Please try again.</p>';
+        $user_message .= '<p class="system-message">An invalid Race value was detected. Please try again.</p>';
         $has_error = true;
     }
 
     // Check strength
     if ($changes['Str_Base'] < 0 || $changes['Str_Base'] > 99) {
-        $user_message .= '<p>please enter a STRENGTH score between 0 and 99 (inclusive.)</p>';
+        $user_message .= '<p class="system-message">please enter a STRENGTH score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // Check dexterity
     if ($changes['Dex_Base'] < 0 || $changes['Dex_Base'] > 99) {
-        $user_message .= '<p>please enter a DEXTERITY score between 0 and 99 (inclusive.)</p>';
+        $user_message .= '<p class="system-message">please enter a DEXTERITY score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // Check constitution
     if ($changes['Con_Base'] < 0 || $changes['Con_Base'] > 99) {
-        $user_message .= '<p>please enter a CONSTITUTION score between 0 and 99 (inclusive.)</p>';
+        $user_message .= '<p class="system-message">please enter a CONSTITUTION score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // Check intelegence
     if ($changes['Int_Base'] < 0 || $changes['Int_Base'] > 99) {
-        $user_message .= '<p>please enter a INTELLIGENCE score between 0 and 99 (inclusive.)</p>';
+        $user_message .= '<p class="system-message">please enter a INTELLIGENCE score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // Check wisdom
     if ($changes['Wis_Base'] < 0 || $changes['Wis_Base'] > 99) {
-        $user_message .= '<p>please enter a WISDOM score between 0 and 99 (inclusive.)</p>';
+        $user_message .= '<p class="system-message">please enter a WISDOM score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // Check charisma
     if ($changes['Cha_Base'] < 0 || $changes['Cha_Base'] > 99) {
-        $user_message .= '<p>please enter a CHARISMA score between 0 and 99 (inclusive.)</p>';
+        $user_message .= '<p class="system-message">please enter a CHARISMA score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // It works!
     if (!$has_error && update_character($changes, $changes['Character_ID'])) {
         $records = get_characters();
-        $user_message = '<p>Character updated!</p>';
+        $user_message = '<p class="system-message">Character updated!</p>';
         include './view/table_list.php';
     }
 
@@ -290,7 +290,7 @@ elseif ($action == 'save-changes') {
 
     // CRIT FAIL!
     else {
-        $user_message .= '<p>Something went horribly wrong. Please contact the webmaster!</p>';
+        $user_message .= '<p class="system-message">Something went horribly wrong. Please contact the webmaster!</p>';
         include './view/table_update.php';
     }
 }
@@ -321,7 +321,7 @@ elseif ($action == 'confirm-deletion') {
             )
         )
     ) {
-        $user_message = '<p>Character Deleted!</p>';
+        $user_message = '<p class="system-message">Character Deleted!</p>';
     }
     $records = get_characters();
     include './view/table_list.php';

@@ -19,6 +19,7 @@ Who			When			What
 CBAC		2025-03-07		Original Version
 CBAC        2025-03-12      Refactored all functions to focus only on the `characters` table.
 CBAC        2025-03-14      Completed functional versions of all functions.
+CBAC        2025-03-25      Ammended get_characters to include the characters race.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -30,9 +31,9 @@ CBAC        2025-03-14      Completed functional versions of all functions.
 function get_characters($selection = '*')
 {
     global $db;
-    $query = 'SELECT characters.Character_ID, characters.Character_Name, classes.Class_Name
-              FROM characters, classes
-              WHERE characters.Class_ID = classes.Class_ID
+    $query = 'SELECT characters.Character_ID, characters.Character_Name, races.Race_Name, classes.Class_Name
+              FROM characters, races, classes
+              WHERE characters.Class_ID = classes.Class_ID AND characters.Race_ID = races.Race_ID
               ORDER BY characters.Character_ID ASC, characters.Class_ID ASC;';
     $statement = $db->prepare($query);
     $statement->execute();
@@ -66,6 +67,7 @@ function get_character_by_id($id)
  */
 function add_character($values)
 {
+    // TODO: Considder adding an additional layer of data integrity in this function.
     try {
         global $db;
         $query = 'INSERT INTO characters (
