@@ -20,22 +20,33 @@ CBAC        2025-03-13      Added value placeholders. Corrected improper use of 
 // in the event that a value is bad and cannot be used by SQL, we need to hold onto already
 // entered data.
 $valMemory = [];
-if (isset($record) && is_array($record)) {
-    //echo "Grabbing from Record variable";
+if (isset($old_record) && is_array($old_record)) {
     $valMemory = [
-        'Character_Name' => $record['Character_Name'],
-        'Class_ID' => $record['Class_ID'],
-        'Race_ID' => $record['Race_ID'],
-        'Str_Base' => $record['Str_Base'],
-        'Dex_Base' => $record['Dex_Base'],
-        'Con_Base' => $record['Con_Base'],
-        'Int_Base' => $record['Int_Base'],
-        'Wis_Base' => $record['Wis_Base'],
-        'Cha_Base' => $record['Cha_Base']
+        'Character_ID' => get_val_from_postget('character-id', $old_record['Character_ID']),
+        'Character_Name' => get_val_from_postget('character-name', get_val_from_postget('old-name', $old_record['Character_Name'])),
+        'Class_ID' => get_val_from_postget('character-class', get_val_from_postget('old-class', $old_record['Class_ID'])),
+        'Race_ID' => get_val_from_postget('character-race', get_val_from_postget('old-race', $old_record['Race_ID'])),
+        'Str_Base' => get_val_from_postget('str-stat', get_val_from_postget('old-str', $old_record['Str_Base'])),
+        'Dex_Base' => get_val_from_postget('dex-stat', get_val_from_postget('old-dex', $old_record['Dex_Base'])),
+        'Con_Base' => get_val_from_postget('con-stat', get_val_from_postget('old-con', $old_record['Con_Base'])),
+        'Int_Base' => get_val_from_postget('int-stat', get_val_from_postget('old-int', $old_record['Int_Base'])),
+        'Wis_Base' => get_val_from_postget('wis-stat', get_val_from_postget('old-wis', $old_record['Wis_Base'])),
+        'Cha_Base' => get_val_from_postget('cha-stat', get_val_from_postget('old-cha', $old_record['Cha_Base']))
     ];
+
+    // In the event 'Character_Name" was left blank...
+    if ($valMemory['Character_Name'] == '') {
+        $valMemory['Character_Name'] = $old_record['Character_Name'];
+    }
 } else {
+    /*
+    This else block shouldn't be entered as long as $old_record functions as intended.
+    leave this `else` block for redundancy.
+    */
+
     //echo "Grabbing from POST";
     $valMemory = [
+        'Character_ID' => get_val_from_postget('character-id', $old_record['Character_ID']),
         'Character_Name' => get_val_from_postget('character-name', get_val_from_postget('old-name', '')),
         'Class_ID' => get_val_from_postget('character-class', 0),
         'Race_ID' => get_val_from_postget('character-race', 0),
@@ -54,13 +65,12 @@ if (isset($user_message)) {
 ?>
 
 <form action="." method="post">
-    <input type="hidden" name="character-id" value="<?php echo $character_ID ?>">
-    <input type="hidden" name="old-name" value="<?php echo $record['Character_Name']; ?>">
+    <input type="hidden" name="character-id" value="<?php echo $valMemory['Character_ID'] ?>">
+    <input type="hidden" name="old-name" value="<?php echo $old_record['Character_Name']; ?>">
 
     <label for="character-name">Character Name</label>
     <input type="text" name="character-name" id="character-name" placeholder="<?php
-    echo $record['Character_Name'];
-    ?>">
+    echo $valMemory['Character_Name']; ?>" value="<?php echo $valMemory['Character_Name']; ?>">
 
     <br>
 

@@ -148,8 +148,8 @@ function update_character($values, $id)
 
 /**
  * Removes a character record from a table;
- * @param int $filters the record to be removed.
- * @return bool
+ * @param int $character_ID the record to be removed.
+ * @return bool `true` of the opperation was successful, `false` otherwise.
  */
 function delete_character($character_ID)
 {

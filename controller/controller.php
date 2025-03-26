@@ -152,7 +152,7 @@ elseif ($action == 'submit-character') {
     if (!$has_error && add_character($values)) {
         $user_message = '<p>Character added!</p>';
         $records = get_characters();
-        include './view/table_list.php';
+        header('Location: ./');
     }
 
     // Report input errors
@@ -172,7 +172,7 @@ elseif ($action == 'submit-character') {
 // Edit a character
 elseif ($action == 'edit-character') {
     $character_ID = get_val_from_postget('character_id', NULL);
-    $record = get_character_by_id($character_ID); // used by table_update.php
+    $old_record = get_character_by_id($character_ID); // used by table_update.php
     //echo count($record);
     //echo $record['Class_ID'];
     include './view/table_update.php';
@@ -278,19 +278,21 @@ elseif ($action == 'save-changes') {
 
     // It works!
     if (!$has_error && update_character($changes, $changes['Character_ID'])) {
-        $records = get_characters();
         $user_message = '<p class="system-message">Character updated!</p>';
-        include './view/table_list.php';
+        $records = get_characters();
+        header('Location: ./');
     }
 
     // Report input errors
     elseif ($has_error) {
+        $old_record = get_character_by_id($changes['Character_ID']);
         include './view/table_update.php';
     }
 
     // CRIT FAIL!
     else {
         $user_message .= '<p class="system-message">Something went horribly wrong. Please contact the webmaster!</p>';
+        $old_record = get_character_by_id($changes['Character_ID']);
         include './view/table_update.php';
     }
 }
@@ -322,9 +324,11 @@ elseif ($action == 'confirm-deletion') {
         )
     ) {
         $user_message = '<p class="system-message">Character Deleted!</p>';
+    } else {
+        $user_message = '<p class="system-message">Sorry, That record does not seem to exist in our records.</p>';
     }
-    $records = get_characters();
-    include './view/table_list.php';
+    $record = get_characters();
+    header('Location: ./');
 }
 ?>
 
