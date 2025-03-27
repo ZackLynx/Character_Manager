@@ -15,7 +15,7 @@ CBAC		2025-03-07		Original Version.
 CBAC        2025-03-13      Added value placeholders. Corrected improper use of <label>
                             elements.
 CBAC        2025-03-26      Refactored logic for value carry-over between failed submission
-                            attempts
+                            attempts. Added cancle button.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -134,4 +134,8 @@ if (isset($user_message)) {
 
     <input type="hidden" name="action" value="save-changes">
     <input type="submit" value="SAVE CHANGES">
+</form>
+<form action="." method="post">
+    <input type="hidden" name="action" value="view-characters">
+    <input type="submit" value="Cancle">
 </form>

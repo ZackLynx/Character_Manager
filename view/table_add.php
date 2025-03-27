@@ -13,6 +13,7 @@ Who			When			What
 ----------- --------------- -------------------------------------------------------------------
 CBAC		2025-03-07		Original Version.
 CBAC        2025-03-13      Corrected improper use of <label> elements.
+CBAC        2025-03-26      Added cancle button.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -35,9 +36,6 @@ if (isset($user_message)) {
 }
 ?>
 <form action="." method="post">
-
-
-
     <label for="character-name">Character Name</label>
     <input type="text" name="character-name" id="character-name">
 
@@ -97,4 +95,8 @@ if (isset($user_message)) {
 
     <input type="hidden" name="action" value="submit-character">
     <input type="submit" value="SAVE NEW CHARACTER">
+</form>
+<form action="." method="post">
+    <input type="hidden" name="action" value="view-characters">
+    <input type="submit" value="Cancle">
 </form>
