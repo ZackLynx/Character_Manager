@@ -13,7 +13,8 @@ Who			When			What
 ----------- --------------- -------------------------------------------------------------------
 CBAC		2025-03-07		Original Version.
 CBAC        2025-03-13      Corrected improper use of <label> elements.
-CBAC        2025-03-26      Added cancle button.
+CBAC        2025-03-26      Added cancel button.
+CBAC        2025-03-27      Amended Character Name field to retain its previously entered value.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -31,13 +32,14 @@ $valMemory = [
     'Wis_Base' => get_val_from_postget('wis-stat', 10),
     'Cha_Base' => get_val_from_postget('cha-stat', 10)
 ];
+
 if (isset($user_message)) {
     echo '<p>' . $user_message . '</p>';
 }
 ?>
 <form action="." method="post">
     <label for="character-name">Character Name</label>
-    <input type="text" name="character-name" id="character-name">
+    <input type="text" name="character-name" id="character-name" value="<?php echo $valMemory['Character_Name']; ?>">
 
     <br>
 
@@ -98,5 +100,5 @@ if (isset($user_message)) {
 </form>
 <form action="." method="post">
     <input type="hidden" name="action" value="view-characters">
-    <input type="submit" value="Cancle">
+    <input type="submit" value="Cancel">
 </form>

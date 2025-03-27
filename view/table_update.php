@@ -15,12 +15,16 @@ CBAC		2025-03-07		Original Version.
 CBAC        2025-03-13      Added value placeholders. Corrected improper use of <label>
                             elements.
 CBAC        2025-03-26      Refactored logic for value carry-over between failed submission
-                            attempts. Added cancle button.
+                            attempts. Added cancel button.
 -----------------------------------------------------------------------------------------------
 */
 
-// in the event that a value is bad and cannot be used by SQL, we need to hold onto already
-// entered data.
+/*
+In the event that a value is bad and cannot be used by SQL, we need to hold onto already
+entered data. The order of precedence should be most recently valid data entered then
+previously saved data. Use data stored in database as a fall back if the first two fail.
+*/
+
 $valMemory = [];
 if (isset($old_record) && is_array($old_record)) {
     $valMemory = [
@@ -36,14 +40,40 @@ if (isset($old_record) && is_array($old_record)) {
         'Cha_Base' => get_val_from_postget('cha-stat', get_val_from_postget('old-cha', $old_record['Cha_Base']))
     ];
 
-    // In the event 'Character_Name" was left blank...
+    // fill any empty fields with their previous values.
     if ($valMemory['Character_Name'] == '') {
         $valMemory['Character_Name'] = $old_record['Character_Name'];
+    }
+
+    // We'll also do checks on Class and Race in case of oddities.
+    if ($valMemory['Class_ID'] == '') {
+        $valMemory['Class_ID'] = $old_record['Class_ID'];
+    }
+    if ($valMemory['Race_ID'] == '') {
+        $valMemory['Race_ID'] = $old_record['Race_ID'];
+    }
+    if ($valMemory['Str_Base'] == '') {
+        $valMemory['Str_Base'] = $old_record['Str_Base'];
+    }
+    if ($valMemory['Dex_Base'] == '') {
+        $valMemory['Dex_Base'] = $old_record['Dex_Base'];
+    }
+    if ($valMemory['Con_Base'] == '') {
+        $valMemory['Con_Base'] = $old_record['Con_Base'];
+    }
+    if ($valMemory['Int_Base'] == '') {
+        $valMemory['Int_Base'] = $old_record['Int_Base'];
+    }
+    if ($valMemory['Wis_Base'] == '') {
+        $valMemory['Wis_Base'] = $old_record['Wis_Base'];
+    }
+    if ($valMemory['Cha_Base'] == '') {
+        $valMemory['Cha_Base'] = $old_record['Cha_Base'];
     }
 } else {
     /*
     This else block shouldn't be entered as long as $old_record functions as intended.
-    leave this `else` block for redundancy.
+    leave this `else` block here for redundancy.
     */
 
     //echo "Grabbing from POST";
@@ -67,7 +97,7 @@ if (isset($user_message)) {
 ?>
 
 <form action="." method="post">
-    <input type="hidden" name="character-id" value="<?php echo $valMemory['Character_ID'] ?>">
+    <input type="hidden" name="character-id" value="<?php echo $valMemory['Character_ID']; ?>">
     <input type="hidden" name="old-name" value="<?php echo $old_record['Character_Name']; ?>">
 
     <label for="character-name">Character Name</label>
@@ -137,5 +167,5 @@ if (isset($user_message)) {
 </form>
 <form action="." method="post">
     <input type="hidden" name="action" value="view-characters">
-    <input type="submit" value="Cancle">
+    <input type="submit" value="Cancel">
 </form>
