@@ -22,11 +22,11 @@ require './model/dbconnect.php';
 require './model/table_data.php';
 
 /**
- * First searches $_POST then $_GET for a given array key and returns a value if that key
+ * First searches `$_POST` then `$_GET` for a given array key and returns a value if that key
  * exists
  * @param string $arr_val the array key to look for
  * @param mixed $default_val the value to be returned if the key could not be found
- * @return mixed the value of $default_val
+ * @return mixed the value of from `$_POST` or `$_GET`, `$default_val` otherwise
  */
 function get_val_from_postget($arr_val, $default_val)
 {
@@ -305,6 +305,7 @@ elseif ($action == 'confirm-deletion') {
         character name. If the character name matches, begin the process of deleting.
     */
     $character_id = $_POST['character_id'];
+    $character_name = get_character_by_id($character_id)['Character_Name'];
     include './view/table_delete.php';
 } elseif ($action == 'delete-character') {
     /*

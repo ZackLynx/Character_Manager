@@ -13,13 +13,15 @@ ChangeLog:
 Who			When			What
 ----------- --------------- -------------------------------------------------------------------
 CBAC		2025-03-07		Original Version 
+CBAC        2025-03-27      First paragraph now specifies the name of the character to be
+                            deleted.
 -----------------------------------------------------------------------------------------------
 */
 ?>
 
 <main>
     <p>
-        You are trying to delete record: <?php echo $character_id; ?>
+        You are trying to delete &quot;<?php echo $character_name; ?>&quot;
     </p>
     <p>
         Are you sure?

@@ -38,10 +38,10 @@ function semicolon_check($val)
 
 
 /**
- * Checks if the persons name contains a dash (-), apostrophe ('), or alphabetic character.
+ * Checks if the persons name contains a dash `-`, apostrophe `'`, or alphabetic character.
  * Currently limited to characters from the standard ASCII table.
  * @param string $name a persons name.
- * @return bool {true} if all characters are valid, {false} otherwise.
+ * @return bool `true` if all characters are valid, `false` otherwise.
  */
 function validate_characters($name) // TODO: Expand list of valid characters.
 {

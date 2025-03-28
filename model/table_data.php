@@ -10,7 +10,7 @@ Purpose:	This is the model file for the project. All functions for database hand
 
             For this file, the term `Character` refers to a fictional character in a table top
             role playing game. the `characters` table in the database contains all characters
-            created and controled by players and the dungeon master.
+            created and controlled by players and the dungeon master.
 
 -----------------------------------------------------------------------------------------------
 ChangeLog:
@@ -19,16 +19,15 @@ Who			When			What
 CBAC		2025-03-07		Original Version
 CBAC        2025-03-12      Refactored all functions to focus only on the `characters` table.
 CBAC        2025-03-14      Completed functional versions of all functions.
-CBAC        2025-03-25      Ammended get_characters to include the characters race.
+CBAC        2025-03-25      Amended get_characters to include the characters race.
 -----------------------------------------------------------------------------------------------
 */
 
 /**
- * Gets a full list of all player characters in 
- * @param string $selection the columns in a string
+ * Gets a full list of all player characters in the `characters` table.
  * @return array an array of records.
  */
-function get_characters($selection = '*')
+function get_characters()
 {
     global $db;
     $query = 'SELECT characters.Character_ID, characters.Character_Name, races.Race_Name, classes.Class_Name
@@ -67,7 +66,7 @@ function get_character_by_id($id)
  */
 function add_character($values)
 {
-    // TODO: Considder adding an additional layer of data integrity in this function.
+    // TODO: Consider adding an additional layer of data integrity in this function.
     try {
         global $db;
         $query = 'INSERT INTO characters (
@@ -149,7 +148,7 @@ function update_character($values, $id)
 /**
  * Removes a character record from a table;
  * @param int $character_ID the record to be removed.
- * @return bool `true` of the opperation was successful, `false` otherwise.
+ * @return bool `true` of the operation was successful, `false` otherwise.
  */
 function delete_character($character_ID)
 {
