@@ -15,6 +15,7 @@ CBAC		2025-03-07		Original Version.
 CBAC        2025-03-13      Corrected improper use of <label> elements.
 CBAC        2025-03-26      Added cancel button.
 CBAC        2025-03-27      Amended Character Name field to retain its previously entered value.
+CBAC        2025-03-31      Added HTML min and max values to ability score input fields.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -37,6 +38,7 @@ if (isset($user_message)) {
     echo '<p>' . $user_message . '</p>';
 }
 ?>
+
 <form action="." method="post">
     <label for="character-name">Character Name</label>
     <input type="text" name="character-name" id="character-name" value="<?php echo $valMemory['Character_Name']; ?>">
@@ -76,22 +78,22 @@ if (isset($user_message)) {
     <br>
 
     <label for="str-stat">STR</label>
-    <input type="number" name="str-stat" id="str-stat" value="<?php echo $valMemory['Str_Base']; ?>">
+    <input type="number" name="str-stat" id="str-stat" value="<?php echo $valMemory['Str_Base']; ?>" min="0" max="99">
     <br>
     <label for="dex-stat">DEX</label>
-    <input type="number" name="dex-stat" id="dex-stat" value="<?php echo $valMemory['Dex_Base']; ?>">
+    <input type="number" name="dex-stat" id="dex-stat" value="<?php echo $valMemory['Dex_Base']; ?>" min="0" max="99">
     <br>
     <label for="con-stat">CON</label>
-    <input type="number" name="con-stat" id="con-stat" value="<?php echo $valMemory['Con_Base']; ?>">
+    <input type="number" name="con-stat" id="con-stat" value="<?php echo $valMemory['Con_Base']; ?>" min="0" max="99">
     <br>
     <label for="int-stat">INT</label>
-    <input type="number" name="int-stat" id="int-stat" value="<?php echo $valMemory['Int_Base']; ?>">
+    <input type="number" name="int-stat" id="int-stat" value="<?php echo $valMemory['Int_Base']; ?>" min="0" max="99">
     <br>
     <label for="wis-stat">WIS</label>
-    <input type="number" name="wis-stat" id="wis-stat" value="<?php echo $valMemory['Wis_Base']; ?>">
+    <input type="number" name="wis-stat" id="wis-stat" value="<?php echo $valMemory['Wis_Base']; ?>" min="0" max="99">
     <br>
     <label for="cha-stat">CHA</label>
-    <input type="number" name="cha-stat" id="cha-stat" value="<?php echo $valMemory['Cha_Base']; ?>">
+    <input type="number" name="cha-stat" id="cha-stat" value="<?php echo $valMemory['Cha_Base']; ?>" min="0" max="99">
 
     <br>
 

@@ -164,5 +164,26 @@ function delete_character($character_ID)
     }
     return true;
 }
+
+
+/////////////////////
+/* UTILITY QUERIES */
+/////////////////////
+
+/**
+ * supplies the list of skills used in the tabletop game.
+ * @return array a list of skills from the `skills` table.
+ */
+function get_skills()
+{
+    global $db;
+    $query = 'SELECT * FROM skills;';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $skill_list = $statement->fetchAll();
+    $statement->closeCursor();
+    return $skill_list;
+}
+
 ?>
 

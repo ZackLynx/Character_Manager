@@ -16,6 +16,7 @@ CBAC        2025-03-13      Added value placeholders. Corrected improper use of 
                             elements.
 CBAC        2025-03-26      Refactored logic for value carry-over between failed submission
                             attempts. Added cancel button.
+CBAC        2025-03-31      Added HTML min and max values to ability score input fields.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -97,7 +98,7 @@ if (isset($user_message)) {
 ?>
 
 <form action="." method="post">
-    <input type="hidden" name="character-id" value="<?php echo $valMemory['Character_ID']; ?>">
+    <!-- <input type="hidden" name="character-id" value="<?php echo $valMemory['Character_ID']; ?>">
     <input type="hidden" name="old-name" value="<?php echo $old_record['Character_Name']; ?>">
 
     <label for="character-name">Character Name</label>
@@ -143,24 +144,26 @@ if (isset($user_message)) {
     <input type="hidden" name="old-cha" value="<?php echo $valMemory['Cha_Base'] ?>">
 
     <label for="str-stat">STR</label>
-    <input type="number" name="str-stat" id="str-stat" value="<?php echo $valMemory['Str_Base']; ?>">
+    <input type="number" name="str-stat" id="str-stat" value="<?php echo $valMemory['Str_Base']; ?>" min="0" max="99">
     <br>
     <label for="dex-stat">DEX</label>
-    <input type="number" name="dex-stat" id="dex-stat" value="<?php echo $valMemory['Dex_Base']; ?>">
+    <input type="number" name="dex-stat" id="dex-stat" value="<?php echo $valMemory['Dex_Base']; ?>" min="0" max="99">
     <br>
     <label for="con-stat">CON</label>
-    <input type="number" name="con-stat" id="con-stat" value="<?php echo $valMemory['Con_Base']; ?>">
+    <input type="number" name="con-stat" id="con-stat" value="<?php echo $valMemory['Con_Base']; ?>" min="0" max="99">
     <br>
     <label for="int-stat">INT</label>
-    <input type="number" name="int-stat" id="int-stat" value="<?php echo $valMemory['Int_Base']; ?>">
+    <input type="number" name="int-stat" id="int-stat" value="<?php echo $valMemory['Int_Base']; ?>" min="0" max="99">
     <br>
     <label for="wis-stat">WIS</label>
-    <input type="number" name="wis-stat" id="wis-stat" value="<?php echo $valMemory['Wis_Base']; ?>">
+    <input type="number" name="wis-stat" id="wis-stat" value="<?php echo $valMemory['Wis_Base']; ?>" min="0" max="99">
     <br>
     <label for="cha-stat">CHA</label>
-    <input type="number" name="cha-stat" id="cha-stat" value="<?php echo $valMemory['Cha_Base']; ?>">
+    <input type="number" name="cha-stat" id="cha-stat" value="<?php echo $valMemory['Cha_Base']; ?>" min="0" max="99">
 
-    <br>
+    <br> -->
+
+    <?php include './view/npc_sheet.php'; ?>
 
     <input type="hidden" name="action" value="save-changes">
     <input type="submit" value="SAVE CHANGES">

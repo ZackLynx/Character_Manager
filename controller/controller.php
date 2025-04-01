@@ -173,9 +173,13 @@ elseif ($action == 'submit-character') {
 elseif ($action == 'edit-character') {
     $character_ID = get_val_from_postget('character_id', NULL);
     $old_record = get_character_by_id($character_ID); // used by table_update.php
+    $skill_list = get_skills();
     //echo count($record);
     //echo $record['Class_ID'];
+
+    //include './view/npc_sheet.php';
     include './view/table_update.php';
+
 }
 
 // Save the changes made
