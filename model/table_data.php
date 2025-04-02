@@ -148,7 +148,7 @@ function update_character($values, $id)
 /**
  * Removes a character record from a table;
  * @param int $character_ID the record to be removed.
- * @return bool `true` of the operation was successful, `false` otherwise.
+ * @return int The number of rows affected by the query.
  */
 function delete_character($character_ID)
 {
@@ -157,12 +157,13 @@ function delete_character($character_ID)
         $query = 'DELETE FROM characters WHERE Character_ID = ' . $character_ID . ';';
         $statement = $db->prepare($query);
         $statement->execute();
+        $num_of_records = $statement->rowCount(); // Will now return the number of rows affected. CBAC 2025-04-02
         $statement->closeCursor();
     } catch (Exception $error_message) {
         include './errors/error.php';
-        return false;
+        return 0;
     }
-    return true;
+    return $num_of_records;
 }
 
 
