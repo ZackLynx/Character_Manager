@@ -40,7 +40,7 @@ if (isset($user_message)) {
 ?>
 
 <form action="." method="post">
-    <label for="character-name">Character Name</label>
+    <!-- <label for="character-name">Character Name</label>
     <input type="text" name="character-name" id="character-name" value="<?php echo $valMemory['Character_Name']; ?>">
 
     <br>
@@ -95,7 +95,9 @@ if (isset($user_message)) {
     <label for="cha-stat">CHA</label>
     <input type="number" name="cha-stat" id="cha-stat" value="<?php echo $valMemory['Cha_Base']; ?>" min="0" max="99">
 
-    <br>
+    <br> -->
+
+    <?php include './view/npc_sheet.php'; ?>
 
     <input type="hidden" name="action" value="submit-character">
     <input type="submit" value="SAVE NEW CHARACTER">

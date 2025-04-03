@@ -18,10 +18,14 @@ CBAC        2025-03-14      Added a message space that shows up in response to a
 CBAC        2025-03-25      Added another add-button to the bottom of the list. Ideal for when
                             the list grows long.
 -----------------------------------------------------------------------------------------------
+TODO: Implement PHP Sessions for result messages after skills are implemented.
+-----------------------------------------------------------------------------------------------
 */
 
 if (isset($user_message) && !empty($user_message)) {
     echo $user_message;
+} else {
+    echo '<p>Please select a character.</p>';
 }
 
 ?>

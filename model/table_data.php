@@ -20,6 +20,8 @@ CBAC		2025-03-07		Original Version
 CBAC        2025-03-12      Refactored all functions to focus only on the `characters` table.
 CBAC        2025-03-14      Completed functional versions of all functions.
 CBAC        2025-03-25      Amended get_characters to include the characters race.
+CBAC        2025-04-02      Add, Update, and Delete methods now return the number of records
+                            affected.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -62,7 +64,7 @@ function get_character_by_id($id)
 /**
  * Adds one or more records to a table.
  * @param array $values The records to be added.
- * @return bool `true` if the insertion was successful, `false` otherwise.
+ * @return int The number of rows affected by the query.
  */
 function add_character($values)
 {
@@ -98,19 +100,20 @@ function add_character($values)
 
         $statement = $db->prepare($query);
         $statement->execute();
+        $num_row_affected = $statement->rowCount(); // Will now return the number of rows affected. CBAC 2025-04-02
         $statement->closeCursor();
     } catch (Exception $error_message) {
         include './errors/error.php';
-        return false;
+        return 0;
     }
-    return true;
+    return $num_row_affected;
 }
 
 /**
  * Updates an existing character record in a table.
  * @param array $values the values to be updated.
  * @param int $id the primary key of the record or filters for multiple records.
- * @return bool `true` if the update was successful, `false` otherwise.
+ * @return int The number of rows affected by the query.
  */
 function update_character($values, $id)
 {
@@ -137,12 +140,13 @@ function update_character($values, $id)
         $statement = $db->prepare($query);
         $statement->bindValue(':id', intval($values['Character_ID']), PDO::PARAM_INT);
         $statement->execute();
+        $num_row_affected = $statement->rowCount(); // Will now return the number of rows affected. CBAC 2025-04-02
         $statement->closeCursor();
     } catch (Exception $error_message) {
         include './errors/error.php';
-        return false;
+        return 0;
     }
-    return true;
+    return $num_row_affected;
 }
 
 /**
@@ -184,6 +188,21 @@ function get_skills()
     $skill_list = $statement->fetchAll();
     $statement->closeCursor();
     return $skill_list;
+}
+
+/**
+ * Summary of get_class_skills
+ * @return array
+ */
+function get_class_skills()
+{
+    global $db;
+    $query = 'SELECT * FROM classes_skills;';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $class_skills = $statement->fetchAll();
+    $statement->closeCursor();
+    return $class_skills;
 }
 
 ?>

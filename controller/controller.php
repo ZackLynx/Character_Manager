@@ -15,6 +15,8 @@ CBAC		2025-03-11		Original Version
 CBAC        2025-03-14      Completed version 1 of CRUD actions with system messages for 
                             successful additions, edits, and deletions of characters.
 -----------------------------------------------------------------------------------------------
+TODO: Implement PHP Sessions for result messages after skills are implemented.
+-----------------------------------------------------------------------------------------------
 */
 
 require './model/connors_utilities.php';
@@ -65,6 +67,7 @@ if ($action == 'view-characters') {
 
 // Add a character
 elseif ($action == 'add-character') {
+    $skill_list = get_skills();
     include './view/table_add.php';
 }
 
@@ -149,7 +152,7 @@ elseif ($action == 'submit-character') {
     }
 
     // It works!
-    if (!$has_error && add_character($values)) {
+    if (!$has_error && (add_character($values) > 0)) {
         $user_message = '<p>Character added!</p>';
         $records = get_characters();
         header('Location: ./');
@@ -166,7 +169,6 @@ elseif ($action == 'submit-character') {
         $error_message = 'Something went wrong when trying to save your new character.';
         include './errors/error.php';
     }
-
 }
 
 // Edit a character
@@ -281,8 +283,8 @@ elseif ($action == 'save-changes') {
     }
 
     // It works!
-    if (!$has_error && update_character($changes, $changes['Character_ID'])) {
-        $user_message = '<p class="system-message">Character updated!</p>';
+    if (!$has_error && (update_character($changes, $changes['Character_ID']) > 0)) {
+        $user_message = '<p class="system-message">Character updated!</p>'; // Refactor for session instead.
         $records = get_characters();
         header('Location: ./');
     }
@@ -326,7 +328,7 @@ elseif ($action == 'confirm-deletion') {
                     NULL
                 )
             )
-        )
+        ) > 0
     ) {
         $user_message = '<p class="system-message">Character Deleted!</p>';
     } else {

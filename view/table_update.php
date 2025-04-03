@@ -99,7 +99,7 @@ if (isset($user_message)) {
 
 <form action="." method="post">
     <!-- <input type="hidden" name="character-id" value="<?php echo $valMemory['Character_ID']; ?>">
-    <input type="hidden" name="old-name" value="<?php echo $old_record['Character_Name']; ?>">
+    <input type="hidden" name="old-name" value="<?php echo $valMemory['Character_Name']; ?>">
 
     <label for="character-name">Character Name</label>
     <input type="text" name="character-name" id="character-name" placeholder="<?php
