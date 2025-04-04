@@ -20,83 +20,22 @@ CBAC        2025-03-31      Migrated core functionality of `table_update.php` to
 CBAC        2025-03-30      Beginning work on Skills section
 CBAC        2025-03-31      Migrated core functionality of `table_update.php` to here.
 -----------------------------------------------------------------------------------------------
+Still To Do:
+Dynamically assign this variable based on the characters ability scores.
+Make this field dynamic with the class selected via JavaScript.
 */
 
-/*
-In the event that a value is bad and cannot be used by SQL, we need to hold onto already
-entered data. The order of precedence should be most recently valid data entered then
-previously saved data. Use data stored in database as a fall back if the first two fail.
-*/
-
-// $valMemory = [];
-// if (isset($old_record) && is_array($old_record)) {
-//     $valMemory = [
-//         'Character_ID' => get_val_from_postget('character-id', $old_record['Character_ID']),
-//         'Character_Name' => get_val_from_postget('character-name', get_val_from_postget('old-name', $old_record['Character_Name'])),
-//         'Class_ID' => get_val_from_postget('character-class', get_val_from_postget('old-class', $old_record['Class_ID'])),
-//         'Race_ID' => get_val_from_postget('character-race', get_val_from_postget('old-race', $old_record['Race_ID'])),
-//         'Str_Base' => get_val_from_postget('str-stat', get_val_from_postget('old-str', $old_record['Str_Base'])),
-//         'Dex_Base' => get_val_from_postget('dex-stat', get_val_from_postget('old-dex', $old_record['Dex_Base'])),
-//         'Con_Base' => get_val_from_postget('con-stat', get_val_from_postget('old-con', $old_record['Con_Base'])),
-//         'Int_Base' => get_val_from_postget('int-stat', get_val_from_postget('old-int', $old_record['Int_Base'])),
-//         'Wis_Base' => get_val_from_postget('wis-stat', get_val_from_postget('old-wis', $old_record['Wis_Base'])),
-//         'Cha_Base' => get_val_from_postget('cha-stat', get_val_from_postget('old-cha', $old_record['Cha_Base']))
-//     ];
-
-//     // fill any empty fields with their previous values.
-//     if ($valMemory['Character_Name'] == '') {
-//         $valMemory['Character_Name'] = $old_record['Character_Name'];
-//     }
-
-//     // We'll also do checks on Class and Race in case of oddities.
-//     if ($valMemory['Class_ID'] == '') {
-//         $valMemory['Class_ID'] = $old_record['Class_ID'];
-//     }
-//     if ($valMemory['Race_ID'] == '') {
-//         $valMemory['Race_ID'] = $old_record['Race_ID'];
-//     }
-//     if ($valMemory['Str_Base'] == '') {
-//         $valMemory['Str_Base'] = $old_record['Str_Base'];
-//     }
-//     if ($valMemory['Dex_Base'] == '') {
-//         $valMemory['Dex_Base'] = $old_record['Dex_Base'];
-//     }
-//     if ($valMemory['Con_Base'] == '') {
-//         $valMemory['Con_Base'] = $old_record['Con_Base'];
-//     }
-//     if ($valMemory['Int_Base'] == '') {
-//         $valMemory['Int_Base'] = $old_record['Int_Base'];
-//     }
-//     if ($valMemory['Wis_Base'] == '') {
-//         $valMemory['Wis_Base'] = $old_record['Wis_Base'];
-//     }
-//     if ($valMemory['Cha_Base'] == '') {
-//         $valMemory['Cha_Base'] = $old_record['Cha_Base'];
-//     }
-// } else {
-//     /*
-//     This else block shouldn't be entered as long as $old_record functions as intended.
-//     leave this `else` block here for redundancy.
-//     */
-
-//     //echo "Grabbing from POST";
-//     $valMemory = [
-//         'Character_ID' => get_val_from_postget('character-id', $character_ID),
-//         'Character_Name' => get_val_from_postget('character-name', get_val_from_postget('old-name', '')),
-//         'Class_ID' => get_val_from_postget('character-class', 0),
-//         'Race_ID' => get_val_from_postget('character-race', 0),
-//         'Str_Base' => get_val_from_postget('str-stat', get_val_from_postget('old-str', 10)),
-//         'Dex_Base' => get_val_from_postget('dex-stat', get_val_from_postget('old-dex', 10)),
-//         'Con_Base' => get_val_from_postget('con-stat', get_val_from_postget('old-con', 10)),
-//         'Int_Base' => get_val_from_postget('int-stat', get_val_from_postget('old-int', 10)),
-//         'Wis_Base' => get_val_from_postget('wis-stat', get_val_from_postget('old-wis', 10)),
-//         'Cha_Base' => get_val_from_postget('cha-stat', get_val_from_postget('old-cha', 10))
-//     ];
-// }
+/**
+ * Before including this file, initialize the following variables:
+ * @param array $valMemory A full record from the `characters` table
+ * @param array $skill_list A 2-dimensional array containing the data from the `skills` table.
+ */
 
 if (isset($user_message)) {
     echo '<p>' . $user_message . '</p>';
 }
+
+$abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 ?>
 
 
@@ -253,37 +192,16 @@ if (isset($user_message)) {
             </tr>
             <?php foreach ($skill_list as $skill): ?>
                 <tr>
-                    <td>
-                        <?php echo $skill['Skill_Name']; ?>
-                    </td>
-                    <td>
-                        <?php echo $skill['Is_Untrained'] === 1 ? "yes" : "no" ?>
-                    </td>
-                    <td>
-                        calculated total
-                    </td>
-                    <td> <!-- TODO: Dynamically assign this variable based on the characters ability scores. -->
-                        DEX (+3)
-                    </td>
-                    <td> <!-- TODO: Make this field dynamic with the class selected via JavaScript. -->
-                        bool
-                    </td>
-                    <td>
-                        <input type="number" name="<?php echo $skill['Short_Name']; ?>_ranks" id="">
-                    </td>
-                    <td>
-                        <input type="number" name="<?php echo $skill['Short_Name']; ?>_racial" id="">
-                    </td>
-                    <td>
-                        <input type="number" name="<?php echo $skill['Short_Name']; ?>_feats" id="">
-                    </td>
-                    <td>
-                        <input type="number" name="<?php echo $skill['Short_Name']; ?>_misc" id="">
-                    </td>
-                    <td>
-                        <input type="number" name="" id="armor_check_penalty">
-                        <!-- based on armor -->
-                    </td>
+                    <td><?php echo $skill['Skill_Name']; ?></td>
+                    <td><?php echo $skill['Is_Untrained'] === 1 ? "yes" : "no" ?></td>
+                    <td>calculated total</td>
+                    <td><?php echo $abilities[$skill['Ability_ID'] - 1]; ?></td><!-- TODO: Dynamically assign this variable based on the characters ability scores. -->
+                    <td>bool</td><!-- TODO: Make this field dynamic with the class selected via JavaScript. -->
+                    <td><input type="number" name="<?php echo $skill['Short_Name']; ?>_ranks"></td>
+                    <td><input type="number" name="<?php echo $skill['Short_Name']; ?>_racial"></td>
+                    <td><input type="number" name="<?php echo $skill['Short_Name']; ?>_feats"></td>
+                    <td><input type="number" name="<?php echo $skill['Short_Name']; ?>_misc"></td>
+                    <td><input type="number" name="armor_check_penalty" id=""></td><!-- based on armor -->
                 </tr>
             <?php endforeach; ?>
         </table>

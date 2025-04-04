@@ -14,16 +14,12 @@ Who			When			What
 CBAC		2025-03-07		Original Version 
 -----------------------------------------------------------------------------------------------
 */
-
-
 ?>
-
 <footer>
     <p>
         &copy; 2025, Connor Bryan Andrew Clawson. All rights reserved.
     </p>
 </footer>
-
+</div>
 </body>
-
 </html>
