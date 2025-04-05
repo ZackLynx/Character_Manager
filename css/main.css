@@ -11,6 +11,8 @@ ChangeLog:
 Who			    When			      What
 ----------- --------------- -------------------------------------------------------------------
 CBAC        2025-03-07      Original Version 
+CBAC        2025-04-04      Added more padding to the bottom so the footer doesn't cover the
+                            buttons at the bottom of the character sheet forms.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -42,7 +44,8 @@ footer {
 }
 
 .content-wrap {
-  padding-bottom: 3rem;
+  padding-bottom: 4rem;
+  /* keep this larger so the buttons have space above the footer. */
 }
 
 #system_message {
@@ -63,6 +66,16 @@ h1 {
 table {
   margin: auto;
   margin-bottom: 1rem;
+  border-spacing: 0;
+}
+
+th,
+td {
+  padding: .1rem .25rem;
+}
+
+.skill-fields {
+  width: 2rem;
 }
 
 tr:nth-child(even) {
@@ -71,6 +84,19 @@ tr:nth-child(even) {
 
 tr:nth-child(odd) {
   background-color: #d8d8d8;
+}
+
+/* Hide number field arrows https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 /* Forms */

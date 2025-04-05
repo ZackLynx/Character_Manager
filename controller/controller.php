@@ -160,6 +160,7 @@ elseif ($action == 'submit-character') {
 
     // Report input errors
     elseif ($has_error) {
+        $skill_list = get_skills();
         include './view/table_add.php';
     }
 

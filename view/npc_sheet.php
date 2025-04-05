@@ -17,8 +17,6 @@ CBAC		2025-03-07		Original Version.
 CBAC        2025-03-10      renamed to `npc_sheet.php`
 CBAC        2025-03-30      Beginning work on Skills section
 CBAC        2025-03-31      Migrated core functionality of `table_update.php` to here.
-CBAC        2025-03-30      Beginning work on Skills section
-CBAC        2025-03-31      Migrated core functionality of `table_update.php` to here.
 -----------------------------------------------------------------------------------------------
 Still To Do:
 Dynamically assign this variable based on the characters ability scores.
@@ -30,10 +28,6 @@ Make this field dynamic with the class selected via JavaScript.
  * @param array $valMemory A full record from the `characters` table
  * @param array $skill_list A 2-dimensional array containing the data from the `skills` table.
  */
-
-if (isset($user_message)) {
-    echo '<p>' . $user_message . '</p>';
-}
 
 $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 ?>
@@ -61,7 +55,10 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
     echo $valMemory['Character_Name']; ?>" value="<?php echo $valMemory['Character_Name']; ?>" required>
     <label for="character-class">Class</label>
     <select name="character-class" id="character-class">
-        <?php if (get_val_from_postget('action', NULL) === 'add-character') { ?>
+        <?php if (
+            get_val_from_postget('action', NULL) === 'add-character' ||
+            get_val_from_postget('action', NULL) === 'submit-character'
+        ) { ?>
             <option value="0" <?php echo ($valMemory['Class_ID'] == 0) ? 'selected' : ''; ?>>Select a Class</option>
         <?php } ?>
         <option value="1" <?php echo ($valMemory['Class_ID'] == 1) ? 'selected' : ''; ?>>Barbarian</option>
@@ -83,7 +80,10 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
     <div id="secondary-info">
         <label for="character-race">Race</label>
         <select name="character-race" id="character-race">
-            <?php if (get_val_from_postget('action', NULL) === 'add-character') { ?>
+            <?php if (
+                get_val_from_postget('action', NULL) === 'add-character' ||
+                get_val_from_postget('action', NULL) === 'submit-character'
+            ) { ?>
                 <option value="0" <?php echo ($valMemory['Class_ID'] == 0) ? 'selected' : ''; ?>>Select a Race</option>
             <?php } ?>
             <option value="1" <?php echo ($valMemory['Race_ID'] == 1) ? 'selected' : ''; ?>>Dwarf</option>
@@ -193,17 +193,18 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
             <?php foreach ($skill_list as $skill): ?>
                 <tr>
                     <td><?php echo $skill['Skill_Name']; ?></td>
-                    <td><?php echo $skill['Is_Untrained'] === 1 ? "yes" : "no" ?></td>
+                    <td><?php echo $skill['Is_Untrained'] === 1 ? '&#x2B24;' : '' ?></td>
                     <td>calculated total</td>
                     <td><?php echo $abilities[$skill['Ability_ID'] - 1]; ?></td><!-- TODO: Dynamically assign this variable based on the characters ability scores. -->
                     <td>bool</td><!-- TODO: Make this field dynamic with the class selected via JavaScript. -->
-                    <td><input type="number" name="<?php echo $skill['Short_Name']; ?>_ranks"></td>
-                    <td><input type="number" name="<?php echo $skill['Short_Name']; ?>_racial"></td>
-                    <td><input type="number" name="<?php echo $skill['Short_Name']; ?>_feats"></td>
-                    <td><input type="number" name="<?php echo $skill['Short_Name']; ?>_misc"></td>
-                    <td><input type="number" name="armor_check_penalty" id=""></td><!-- based on armor -->
+                    <td><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Ranks" value="<?php echo $valMemory[$skill['Short_Name'] . '_Ranks']; ?>"></td>
+                    <td><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Racial" value="<?php echo $valMemory[$skill['Short_Name'] . '_Racial']; ?>"></td>
+                    <td><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Feats" value="<?php echo $valMemory[$skill['Short_Name'] . '_Feats']; ?>"></td>
+                    <td><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Misc" value="<?php echo $valMemory[$skill['Short_Name'] . '_Misc']; ?>"></td>
+                    <td></td><!-- To Be Implemented -->
                 </tr>
             <?php endforeach; ?>
+
         </table>
     </div>
 
