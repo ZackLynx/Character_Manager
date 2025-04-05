@@ -284,18 +284,19 @@ function update_character($values, $id)
 {
     try {
         global $db;
+        global $columns;
 
         $query = 'UPDATE characters SET ';
         end($values);
         $lastKey = key($values);
         reset($values);
-        foreach ($values as $key => &$value) {
-            if ($key === $lastKey) {
-                $query .= $key . ' = ';
-                $query .= is_numeric($value) ? $value : '\'' . $value . '\'';
+        foreach ($columns as $column) {
+            if ($column == end($columns)) {
+                $query .= $column . ' = ';
+                $query .= is_numeric($values[$column]) ? $values[$column] : '\'' . $values[$column] . '\'';
             } else {
-                $query .= $key . ' = ';
-                $query .= is_numeric($value) ? $value . ', ' : '\'' . $value . '\', ';
+                $query .= $column . ' = ';
+                $query .= is_numeric($values[$column]) ? $values[$column] . ', ' : '\'' . $values[$column] . '\', ';
             }
         }
 
@@ -357,8 +358,8 @@ function get_skills()
 }
 
 /**
- * Summary of get_class_skills
- * @return array
+ * Gets a list denoting the class skills for each class from the `classes_skills` table.
+ * @return array the list denoting which skills are class skills
  */
 function get_class_skills()
 {

@@ -201,34 +201,16 @@ elseif ($action == 'edit-character') {
 // Save the changes made
 elseif ($action == 'save-changes') {
     $changes = [
-        'Character_ID' => get_val_from_postget('character-id', NULL),
-        'Character_Name' => (get_val_from_postget('character-name', '')),
-        'Class_ID' => get_val_from_postget('character-class', 0),
-        'Race_ID' => get_val_from_postget('character-race', 0),
-        'Str_Base' => get_val_from_postget(
-            'str-stat',
-            get_val_from_postget('old-str', -1)
-        ),
-        'Dex_Base' => get_val_from_postget(
-            'dex-stat',
-            get_val_from_postget('old-dex', -1)
-        ),
-        'Con_Base' => get_val_from_postget(
-            'con-stat',
-            get_val_from_postget('old-con', -1)
-        ),
-        'Int_Base' => get_val_from_postget(
-            'int-stat',
-            get_val_from_postget('old-int', -1)
-        ),
-        'Wis_Base' => get_val_from_postget(
-            'wis-stat',
-            get_val_from_postget('old-wis', -1)
-        ),
-        'Cha_Base' => get_val_from_postget(
-            'cha-stat',
-            get_val_from_postget('old-cha', -1)
-        )
+        'Character_ID' => $_POST['Character_ID'],
+        'Character_Name' => get_val_from_postget('Character_Name', ''),
+        'Class_ID' => get_val_from_postget('Class_ID', 0),
+        'Race_ID' => get_val_from_postget('Race_ID', 0),
+        'Str_Base' => get_val_from_postget('Str_Base', -1),
+        'Dex_Base' => get_val_from_postget('Dex_Base', -1),
+        'Con_Base' => get_val_from_postget('Con_Base', -1),
+        'Int_Base' => get_val_from_postget('Int_Base', -1),
+        'Wis_Base' => get_val_from_postget('Wis_Base', -1),
+        'Cha_Base' => get_val_from_postget('Cha_Base', -1)
     ];
     $changes['Character_Name'] = trim($changes['Character_Name']);
     $user_message = '';
@@ -297,7 +279,7 @@ elseif ($action == 'save-changes') {
     }
 
     // It works!
-    if (!$has_error && (update_character($changes, $changes['Character_ID']) > 0)) {
+    if (!$has_error && (update_character($_POST, $changes['Character_ID']) > 0)) {
         $user_message = '<p class="system-message">Character updated!</p>'; // Refactor for session instead.
         $records = get_characters();
         header('Location: ./');
@@ -306,13 +288,16 @@ elseif ($action == 'save-changes') {
     // Report input errors
     elseif ($has_error) {
         $old_record = get_character_by_id($changes['Character_ID']);
+        $skill_list = get_skills();
         include './view/table_update.php';
     }
 
     // CRIT FAIL!
     else {
         $user_message .= '<p class="system-message">Something went horribly wrong. Please contact the webmaster!</p>';
+
         $old_record = get_character_by_id($changes['Character_ID']);
+        $skill_list = get_skills();
         include './view/table_update.php';
     }
 }
