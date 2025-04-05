@@ -26,71 +26,18 @@ entered data. The order of precedence should be most recently valid data entered
 previously saved data. Use data stored in database as a fall back if the first two fail.
 */
 
+/**
+ * The following variables MUST be initiallized before this page is included:
+ * @param array $old_record a key-value array representing a record from the `characters` table.
+ * @param array $skill_list A 2-dimensional array containing the data from the `skills` table.
+ */
+
 $valMemory = [];
-if (isset($old_record) && is_array($old_record)) {
-    $valMemory = [
-        'Character_ID' => get_val_from_postget('character-id', $old_record['Character_ID']),
-        'Character_Name' => get_val_from_postget('character-name', get_val_from_postget('old-name', $old_record['Character_Name'])),
-        'Class_ID' => get_val_from_postget('character-class', get_val_from_postget('old-class', $old_record['Class_ID'])),
-        'Race_ID' => get_val_from_postget('character-race', get_val_from_postget('old-race', $old_record['Race_ID'])),
-        'Str_Base' => get_val_from_postget('str-stat', get_val_from_postget('old-str', $old_record['Str_Base'])),
-        'Dex_Base' => get_val_from_postget('dex-stat', get_val_from_postget('old-dex', $old_record['Dex_Base'])),
-        'Con_Base' => get_val_from_postget('con-stat', get_val_from_postget('old-con', $old_record['Con_Base'])),
-        'Int_Base' => get_val_from_postget('int-stat', get_val_from_postget('old-int', $old_record['Int_Base'])),
-        'Wis_Base' => get_val_from_postget('wis-stat', get_val_from_postget('old-wis', $old_record['Wis_Base'])),
-        'Cha_Base' => get_val_from_postget('cha-stat', get_val_from_postget('old-cha', $old_record['Cha_Base']))
-    ];
 
-    // fill any empty fields with their previous values.
-    if ($valMemory['Character_Name'] == '') {
-        $valMemory['Character_Name'] = $old_record['Character_Name'];
-    }
-
-    // We'll also do checks on Class and Race in case of oddities.
-    if ($valMemory['Class_ID'] == '') {
-        $valMemory['Class_ID'] = $old_record['Class_ID'];
-    }
-    if ($valMemory['Race_ID'] == '') {
-        $valMemory['Race_ID'] = $old_record['Race_ID'];
-    }
-    if ($valMemory['Str_Base'] == '') {
-        $valMemory['Str_Base'] = $old_record['Str_Base'];
-    }
-    if ($valMemory['Dex_Base'] == '') {
-        $valMemory['Dex_Base'] = $old_record['Dex_Base'];
-    }
-    if ($valMemory['Con_Base'] == '') {
-        $valMemory['Con_Base'] = $old_record['Con_Base'];
-    }
-    if ($valMemory['Int_Base'] == '') {
-        $valMemory['Int_Base'] = $old_record['Int_Base'];
-    }
-    if ($valMemory['Wis_Base'] == '') {
-        $valMemory['Wis_Base'] = $old_record['Wis_Base'];
-    }
-    if ($valMemory['Cha_Base'] == '') {
-        $valMemory['Cha_Base'] = $old_record['Cha_Base'];
-    }
-} else {
-    /*
-    This else block shouldn't be entered as long as $old_record functions as intended.
-    leave this `else` block here for redundancy.
-    */
-
-    //echo "Grabbing from POST";
-    $valMemory = [
-        'Character_ID' => get_val_from_postget('character-id', $old_record['Character_ID']),
-        'Character_Name' => get_val_from_postget('character-name', get_val_from_postget('old-name', '')),
-        'Class_ID' => get_val_from_postget('character-class', 0),
-        'Race_ID' => get_val_from_postget('character-race', 0),
-        'Str_Base' => get_val_from_postget('str-stat', get_val_from_postget('old-str', 10)),
-        'Dex_Base' => get_val_from_postget('dex-stat', get_val_from_postget('old-dex', 10)),
-        'Con_Base' => get_val_from_postget('con-stat', get_val_from_postget('old-con', 10)),
-        'Int_Base' => get_val_from_postget('int-stat', get_val_from_postget('old-int', 10)),
-        'Wis_Base' => get_val_from_postget('wis-stat', get_val_from_postget('old-wis', 10)),
-        'Cha_Base' => get_val_from_postget('cha-stat', get_val_from_postget('old-cha', 10))
-    ];
+foreach ($old_record as $key => $value) {
+    $valMemory[$key] = get_val_from_postget($key, $value);
 }
+
 
 if (isset($user_message)) {
     echo '<p>' . $user_message . '</p>';

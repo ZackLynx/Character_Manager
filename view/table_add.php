@@ -20,19 +20,23 @@ CBAC        2025-04-04      Legacy code removed, see `table_add_old.php`
 -----------------------------------------------------------------------------------------------
 */
 
+/**
+ * The following variables MUST be initiallized before this page is included:
+ * @param array $skill_list A 2-dimensional array containing the data from the `skills` table.
+ */
 
 // in the event that a value is bad and cannot be used by SQL, we need to hold onto already
 // entered data.
 $valMemory = [
-    'Character_Name' => get_val_from_postget('character-name', ''),
-    'Class_ID' => get_val_from_postget('character-class', 0),
-    'Race_ID' => get_val_from_postget('character-race', 0),
-    'Str_Base' => get_val_from_postget('str-stat', 10),
-    'Dex_Base' => get_val_from_postget('dex-stat', 10),
-    'Con_Base' => get_val_from_postget('con-stat', 10),
-    'Int_Base' => get_val_from_postget('int-stat', 10),
-    'Wis_Base' => get_val_from_postget('wis-stat', 10),
-    'Cha_Base' => get_val_from_postget('cha-stat', 10),
+    'Character_Name' => get_val_from_postget('Character_Name', ''),
+    'Class_ID' => get_val_from_postget('Class_ID', 0),
+    'Race_ID' => get_val_from_postget('Race_ID', 0),
+    'Str_Base' => get_val_from_postget('Str_Base', 10),
+    'Dex_Base' => get_val_from_postget('Dex_Base', 10),
+    'Con_Base' => get_val_from_postget('Con_Base', 10),
+    'Int_Base' => get_val_from_postget('Int_Base', 10),
+    'Wis_Base' => get_val_from_postget('Wis_Base', 10),
+    'Cha_Base' => get_val_from_postget('Cha_Base', 10),
     'Acrob_Ranks' => get_val_from_postget('Acrob_Ranks', 0),
     'Acrob_Racial' => get_val_from_postget('Acrob_Racial', 0),
     'Acrob_Feats' => get_val_from_postget('Acrob_Feats', 0),

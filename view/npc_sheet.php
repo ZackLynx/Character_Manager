@@ -24,7 +24,7 @@ Make this field dynamic with the class selected via JavaScript.
 */
 
 /**
- * Before including this file, initialize the following variables:
+ * The following variables MUST be initiallized before this page is included:
  * @param array $valMemory A full record from the `characters` table
  * @param array $skill_list A 2-dimensional array containing the data from the `skills` table.
  */
@@ -32,29 +32,16 @@ Make this field dynamic with the class selected via JavaScript.
 $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 ?>
 
-
-<!-- Reserved for data redundancy -->
-
 <?php if (get_val_from_postget('action', NULL) === 'edit-character') { ?>
-    <input type="hidden" name="character-id" value="<?php echo $valMemory['Character_ID']; ?>" required>
+    <input type="hidden" name="Character_ID" value="<?php echo $valMemory['Character_ID']; ?>" required>
 <?php } ?>
 
-
-<input type="hidden" name="old-name" value="<?php echo $valMemory['Character_Name']; ?>" required>
-<!-- Old scores -->
-<input type="hidden" name="old-str" value="<?php echo $valMemory['Str_Base'] ?>">
-<input type="hidden" name="old-dex" value="<?php echo $valMemory['Dex_Base'] ?>">
-<input type="hidden" name="old-con" value="<?php echo $valMemory['Con_Base'] ?>">
-<input type="hidden" name="old-int" value="<?php echo $valMemory['Int_Base'] ?>">
-<input type="hidden" name="old-wis" value="<?php echo $valMemory['Wis_Base'] ?>">
-<input type="hidden" name="old-cha" value="<?php echo $valMemory['Cha_Base'] ?>">
-
 <div id="primary-info">
-    <label for="character-name">Character Name</label>
-    <input type="text" name="character-name" id="character-name" placeholder="<?php
+    <label for="Character_Name">Character Name</label>
+    <input type="text" name="Character_Name" id="Character_Name" placeholder="<?php
     echo $valMemory['Character_Name']; ?>" value="<?php echo $valMemory['Character_Name']; ?>" required>
-    <label for="character-class">Class</label>
-    <select name="character-class" id="character-class">
+    <label for="Class_ID">Class</label>
+    <select name="Class_ID" id="Class_ID">
         <?php if (
             get_val_from_postget('action', NULL) === 'add-character' ||
             get_val_from_postget('action', NULL) === 'submit-character'
@@ -78,8 +65,8 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 </div>
 <div class="two-column">
     <div id="secondary-info">
-        <label for="character-race">Race</label>
-        <select name="character-race" id="character-race">
+        <label for="Race_ID">Race</label>
+        <select name="Race_ID" id="Race_ID">
             <?php if (
                 get_val_from_postget('action', NULL) === 'add-character' ||
                 get_val_from_postget('action', NULL) === 'submit-character'
@@ -102,8 +89,8 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         <!-- in row major order, display total, modifier, temp score, and temp modifier fields -->
         <div id="strength-scores">
             <div class="total">
-                <label for="str-stat">STR</label>
-                <input type="number" name="str-stat" id="str-stat" value="<?php echo $valMemory['Str_Base']; ?>" min="0" max="99">
+                <label for="Str_Base">STR</label>
+                <input type="number" name="Str_Base" id="Str_Base" value="<?php echo $valMemory['Str_Base']; ?>" min="0" max="99">
             </div>
             <div class="modifier">
             </div>
@@ -114,8 +101,8 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         </div>
         <div id="dexterity-scores">
             <div class="total">
-                <label for="dex-stat">DEX</label>
-                <input type="number" name="dex-stat" id="dex-stat" value="<?php echo $valMemory['Dex_Base']; ?>" min="0" max="99">
+                <label for="Dex_Base">DEX</label>
+                <input type="number" name="Dex_Base" id="Dex_Base" value="<?php echo $valMemory['Dex_Base']; ?>" min="0" max="99">
             </div>
             <div class="modifier">
             </div>
@@ -126,8 +113,8 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         </div>
         <div id="constitution-scores">
             <div class="total">
-                <label for="con-stat">CON</label>
-                <input type="number" name="con-stat" id="con-stat" value="<?php echo $valMemory['Con_Base']; ?>" min="0" max="99">
+                <label for="Con_Base">CON</label>
+                <input type="number" name="Con_Base" id="Con_Base" value="<?php echo $valMemory['Con_Base']; ?>" min="0" max="99">
             </div>
             <div class="modifier">
             </div>
@@ -138,8 +125,8 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         </div>
         <div id="intelligence-scores">
             <div class="total">
-                <label for="int-stat">INT</label>
-                <input type="number" name="int-stat" id="int-stat" value="<?php echo $valMemory['Int_Base']; ?>" min="0" max="99">
+                <label for="Int_Base">INT</label>
+                <input type="number" name="Int_Base" id="Int_Base" value="<?php echo $valMemory['Int_Base']; ?>" min="0" max="99">
             </div>
             <div class="modifier">
             </div>
@@ -150,8 +137,8 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         </div>
         <div id="wisdom-scores">
             <div class="total">
-                <label for="wis-stat">WIS</label>
-                <input type="number" name="wis-stat" id="wis-stat" value="<?php echo $valMemory['Wis_Base']; ?>" min="0" max="99">
+                <label for="Wis_Base">WIS</label>
+                <input type="number" name="Wis_Base" id="Wis_Base" value="<?php echo $valMemory['Wis_Base']; ?>" min="0" max="99">
             </div>
             <div class="modifier">
             </div>
@@ -162,8 +149,8 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         </div>
         <div id="charisma-scores">
             <div class="total">
-                <label for="cha-stat">CHA</label>
-                <input type="number" name="cha-stat" id="cha-stat" value="<?php echo $valMemory['Cha_Base']; ?>" min="0" max="99">
+                <label for="Cha_Base">CHA</label>
+                <input type="number" name="Cha_Base" id="Cha_Base" value="<?php echo $valMemory['Cha_Base']; ?>" min="0" max="99">
             </div>
             <div class="modifier">
             </div>
@@ -176,6 +163,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
     <div id="equipment">
     </div>
 
+    <!-- Skills -->
     <div id="skills">
         <table class="skills-list">
             <tr>

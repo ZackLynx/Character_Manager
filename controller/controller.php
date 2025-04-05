@@ -15,7 +15,8 @@ CBAC		2025-03-11		Original Version
 CBAC        2025-03-14      Completed version 1 of CRUD actions with system messages for 
                             successful additions, edits, and deletions of characters.
 -----------------------------------------------------------------------------------------------
-TODO: Implement PHP Sessions for result messages after skills are implemented.
+TODO:   Implement PHP Sessions for result messages after skills are implemented.
+        Deprecate the 'old' value fields in table_add and table_update.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -74,16 +75,20 @@ elseif ($action == 'add-character') {
 // Submit the new character
 elseif ($action == 'submit-character') {
 
+    //add_character($_POST);
+    //foreach ($_POST as $key => $value) {
+    //    echo '<p>' . $key . ' => ' . $value . '</p>';
+    //}
     $values = [
-        'Character_Name' => get_val_from_postget('character-name', ''),
-        'Class_ID' => get_val_from_postget('character-class', 0),
-        'Race_ID' => get_val_from_postget('character-race', 0),
-        'Str_Base' => get_val_from_postget('str-stat', -1),
-        'Dex_Base' => get_val_from_postget('dex-stat', -1),
-        'Con_Base' => get_val_from_postget('con-stat', -1),
-        'Int_Base' => get_val_from_postget('int-stat', -1),
-        'Wis_Base' => get_val_from_postget('wis-stat', -1),
-        'Cha_Base' => get_val_from_postget('cha-stat', -1)
+        'Character_Name' => get_val_from_postget('Character_Name', ''),
+        'Class_ID' => get_val_from_postget('Class_ID', 0),
+        'Race_ID' => get_val_from_postget('Race_ID', 0),
+        'Str_Base' => get_val_from_postget('Str_Base', -1),
+        'Dex_Base' => get_val_from_postget('Dex_Base', -1),
+        'Con_Base' => get_val_from_postget('Con_Base', -1),
+        'Int_Base' => get_val_from_postget('Int_Base', -1),
+        'Wis_Base' => get_val_from_postget('Wis_Base', -1),
+        'Cha_Base' => get_val_from_postget('Cha_Base', -1)
     ];
     $values['Character_Name'] = trim($values['Character_Name']);
     $user_message = '';
@@ -152,7 +157,7 @@ elseif ($action == 'submit-character') {
     }
 
     // It works!
-    if (!$has_error && (add_character($values) > 0)) {
+    if (!$has_error && (add_character($_POST) > 0)) {
         $user_message = '<p>Character added!</p>';
         $records = get_characters();
         header('Location: ./');
@@ -170,6 +175,7 @@ elseif ($action == 'submit-character') {
         $error_message = 'Something went wrong when trying to save your new character.';
         include './errors/error.php';
     }
+
 }
 
 // Edit a character
@@ -179,8 +185,6 @@ elseif ($action == 'edit-character') {
     $skill_list = get_skills();
     //echo count($record);
     //echo $record['Class_ID'];
-
-    //include './view/npc_sheet.php';
     include './view/table_update.php';
 
 }
