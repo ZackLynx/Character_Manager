@@ -14,6 +14,7 @@ Who			When			What
 CBAC		2025-03-11		Original Version 
 CBAC        2025-03-14      Completed version 1 of CRUD actions with system messages for 
                             successful additions, edits, and deletions of characters.
+CBAC        2025-04-04      Refactored the `submit-character` action to include skills.
 -----------------------------------------------------------------------------------------------
 TODO:   Implement PHP Sessions for result messages after skills are implemented.
         Deprecate the 'old' value fields in table_add and table_update.
@@ -154,6 +155,14 @@ elseif ($action == 'submit-character') {
     if ($values['Cha_Base'] < 0 || $values['Cha_Base'] > 99) {
         $user_message .= '<p>please enter a CHARISMA score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
+    }
+
+    foreach ($columns as $column) {
+        if (empty(get_val_from_postget($column, ''))) {
+            $user_message .= '<p>One or more values in the skills list is empty. please enter a whole number into each empty field.</p>';
+            $has_error = true;
+        }
+        break;
     }
 
     // It works!
