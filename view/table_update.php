@@ -17,6 +17,7 @@ CBAC        2025-03-13      Added value placeholders. Corrected improper use of 
 CBAC        2025-03-26      Refactored logic for value carry-over between failed submission
                             attempts. Added cancel button.
 CBAC        2025-03-31      Added HTML min and max values to ability score input fields.
+CBAC        2025-04-04      Legacy code removed, see `old_pages/table_update-old.php`
 -----------------------------------------------------------------------------------------------
 */
 

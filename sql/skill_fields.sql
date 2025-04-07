@@ -1,3 +1,19 @@
+/*
+-----------------------------------------------------------------------------------------------
+Name:       skill_fields.sql
+Author:     Connor Bryan Andrew Clawson
+Date:       2025-04-04
+Language:   SQL
+System:     MySQL 8.2.12
+Purpose:    This single querry adds the skill fields for the `characters` table.
+
+-----------------------------------------------------------------------------------------------
+ChangeLog:
+Who         When            What
+----------- --------------- -------------------------------------------------------------------
+CBAC        2025-04-04      Original Version
+-----------------------------------------------------------------------------------------------
+*/
 ALTER TABLE `characters` 
 ADD COLUMN `Acrob_Ranks` int DEFAULT 0,
 ADD COLUMN `Acrob_Racial` int DEFAULT 0,

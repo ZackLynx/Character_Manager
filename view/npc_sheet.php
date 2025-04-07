@@ -16,7 +16,9 @@ Who			When			What
 CBAC		2025-03-07		Original Version.
 CBAC        2025-03-10      renamed to `npc_sheet.php`
 CBAC        2025-03-30      Beginning work on Skills section
-CBAC        2025-03-31      Migrated core functionality of `table_update.php` to here.
+CBAC        2025-03-31      Migrated common form elements to here.
+CBAC        2025-04-04      Renamed fields to be consistent with `characters` table column
+                            names.
 -----------------------------------------------------------------------------------------------
 Still To Do:
 Dynamically assign this variable based on the characters ability scores.

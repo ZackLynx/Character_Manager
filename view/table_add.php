@@ -16,7 +16,8 @@ CBAC        2025-03-13      Corrected improper use of <label> elements.
 CBAC        2025-03-26      Added cancel button.
 CBAC        2025-03-27      Amended Character Name field to retain its previously entered value.
 CBAC        2025-03-31      Added HTML min and max values to ability score input fields.
-CBAC        2025-04-04      Legacy code removed, see `table_add_old.php`
+CBAC        2025-04-04      `valMemory` expanded to include skills. Legacy code removed, see
+                            `old_pages/table_add_old.php`
 -----------------------------------------------------------------------------------------------
 */
 

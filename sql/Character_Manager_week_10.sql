@@ -1,3 +1,21 @@
+/*
+-----------------------------------------------------------------------------------------------
+Name:       Character_Manager_week_10.sql
+Author:     Connor Bryan Andrew Clawson
+Date:       2025-04-04
+Language:   SQL
+System:     MySQL 8.2.12
+Purpose:    Database backup generated using myphpadmin. RUN THIS FIRST before using the
+            character manager.
+
+-----------------------------------------------------------------------------------------------
+ChangeLog:
+Who         When            What
+----------- --------------- -------------------------------------------------------------------
+CBAC        2025-04-04      Original Version
+-----------------------------------------------------------------------------------------------
+*/
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/

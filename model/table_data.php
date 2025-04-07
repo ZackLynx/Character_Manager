@@ -21,7 +21,7 @@ CBAC        2025-03-12      Refactored all functions to focus only on the `chara
 CBAC        2025-03-14      Completed functional versions of all functions.
 CBAC        2025-03-25      Amended get_characters to include the characters race.
 CBAC        2025-04-02      Add, Update, and Delete methods now return the number of records
-                            affected.
+                            affected. Columns array added for reference and iteration.
 -----------------------------------------------------------------------------------------------
 */
 

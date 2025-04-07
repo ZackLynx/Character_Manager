@@ -14,7 +14,8 @@ Who			When			What
 CBAC		2025-03-11		Original Version 
 CBAC        2025-03-14      Completed version 1 of CRUD actions with system messages for 
                             successful additions, edits, and deletions of characters.
-CBAC        2025-04-04      Refactored the `submit-character` action to include skills.
+CBAC        2025-04-04      Refactored the `submit-character` and `save-changes` actions to
+                            include skills.
 -----------------------------------------------------------------------------------------------
 TODO:   Implement PHP Sessions for result messages after skills are implemented.
         Deprecate the 'old' value fields in table_add and table_update.
