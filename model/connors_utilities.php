@@ -52,8 +52,8 @@ function validate_characters($name) // TODO: Expand list of valid characters.
         $ascii_val = ord($char);
         // return false if the character is not within our valid ranges.
         if (
-            ($ascii_val == 32) ||                       // space character
-            ($ascii_val == 39 || $ascii_val == 45) ||   // ' , -
+            ($ascii_val == 32) || //($ascii_val == 92) || // space character, \
+            ($ascii_val == 39) || ($ascii_val == 45) || // ' , -
             ($ascii_val >= 65 && $ascii_val <= 90) ||   // A to Z
             ($ascii_val >= 97 && $ascii_val <= 122)     // a to z
         ) {

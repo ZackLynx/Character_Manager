@@ -19,6 +19,8 @@ CBAC        2025-03-30      Beginning work on Skills section
 CBAC        2025-03-31      Migrated common form elements to here.
 CBAC        2025-04-04      Renamed fields to be consistent with `characters` table column
                             names.
+CBAC        2025-04-08      Character_ID field now appears when a submission attempt has
+                            failed.
 -----------------------------------------------------------------------------------------------
 Still To Do:
 Dynamically assign this variable based on the characters ability scores.
@@ -34,7 +36,10 @@ Make this field dynamic with the class selected via JavaScript.
 $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 ?>
 
-<?php if (get_val_from_postget('action', NULL) === 'edit-character') { ?>
+<?php if ( // 2025-04-08 Character_ID field now appears when a submission attempt has failed.
+    get_val_from_postget('action', NULL) === 'edit-character' ||
+    get_val_from_postget('action', NULL) === 'save-changes'
+) { ?>
     <input type="hidden" name="Character_ID" value="<?php echo $valMemory['Character_ID']; ?>" required>
 <?php } ?>
 
