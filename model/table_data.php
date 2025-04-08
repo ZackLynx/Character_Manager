@@ -293,10 +293,10 @@ function update_character($values, $id)
         foreach ($columns as $column) {
             if ($column == end($columns)) {
                 $query .= $column . ' = ';
-                $query .= is_numeric($values[$column]) ? $values[$column] : '\'' . $values[$column] . '\'';
+                $query .= is_numeric($values[$column]) ? $values[$column] : '\'' . addslashes($values[$column]) . '\'';
             } else {
                 $query .= $column . ' = ';
-                $query .= is_numeric($values[$column]) ? $values[$column] . ', ' : '\'' . $values[$column] . '\', ';
+                $query .= is_numeric($values[$column]) ? $values[$column] . ', ' : '\'' . addslashes($values[$column]) . '\', ';
             }
         }
 

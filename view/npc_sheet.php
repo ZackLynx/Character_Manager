@@ -36,7 +36,7 @@ Make this field dynamic with the class selected via JavaScript.
 $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 ?>
 
-<input type="hidden" name="Character_ID" value="<?php echo isset($valMemory['Character_ID']) ? $valMemory['Character_ID'] : 0; ?>" required>
+<input type="hidden" name="Character_ID" value="<?php echo $valMemory['Character_ID'] ?? 0; ?>" required>
 
 <div id="primary-info">
     <label for="Character_Name">Character Name</label>
