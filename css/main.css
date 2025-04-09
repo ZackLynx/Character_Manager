@@ -13,6 +13,7 @@ Who			    When			      What
 CBAC        2025-03-07      Original Version 
 CBAC        2025-04-04      Added more padding to the bottom so the footer doesn't cover the
                             buttons at the bottom of the character sheet forms.
+CBAC        2025-04-09      Added color and allignment to the .system-message class.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -48,7 +49,8 @@ footer {
   /* keep this larger so the buttons have space above the footer. */
 }
 
-#system_message {
+.system-message {
+  color: #d00;
   text-align: center;
 }
 

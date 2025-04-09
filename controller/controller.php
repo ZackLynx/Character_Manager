@@ -280,10 +280,18 @@ elseif ($action == 'save-changes') {
     }
 
     // It works!
-    if (!$has_error && (update_character($_POST, $changes['Character_ID']) > 0)) {
-        $user_message = '<p class="system-message">Character updated!</p>'; // Refactor for session instead.
-        $records = get_characters();
-        header('Location: ./');
+    // 2025-04-09 - PHP now reports to the user if any changes to the record actually happened.
+    if (!$has_error) { // Attempt the update
+        if (update_character($_POST, $changes['Character_ID']) > 0) { // record updated
+            $user_message = '<p class="system-message">Character updated!</p>'; // Refactor for session instead.
+            $records = get_characters();
+            header('Location: ./');
+        } else { // no record updated, no changes.
+            $user_message = '<p class="system-message">You have not entered any changes.<br>If you would like to leave this character as is, please click on the cancel button.</p>';
+            $old_record = get_character_by_id($changes['Character_ID']);
+            $skill_list = get_skills();
+            include './view/table_update.php';
+        }
     }
 
     // Report input errors
