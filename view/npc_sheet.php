@@ -97,6 +97,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
     </div>
     <div id="ability-scores">
         <!-- in row major order, display total, modifier, temp score, and temp modifier fields -->
+        <!-- Replace with table -->
         <div id="strength-scores">
             <div class="total">
                 <label for="Str_Base">STR</label>
@@ -169,6 +170,127 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
             <div class="temp-modifier">
             </div>
         </div>
+        <table hidden>
+            <tr>
+                <th>
+                    <!-- This space intentionally left blank -->
+                </th>
+                <th>
+                    Ability Score
+                </th>
+                <th>
+                    Ability Modifier
+                </th>
+                <th>
+                    Temp Score
+                </th>
+                <th>
+                    Temp Modifier
+                </th>
+            </tr>
+            <tr>
+                <td class="ablity-label">
+                    STR
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="ablity-label">
+                    DEX
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="ablity-label">
+                    CON
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="ablity-label">
+                    INT
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="ablity-label">
+                    WIS
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="ablity-label">
+                    CHA
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        </table>
     </div>
     <div id="equipment">
     </div>
@@ -177,29 +299,29 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
     <div id="skills">
         <table class="skills-list">
             <tr>
-                <th>Skill Name</th>
-                <th>Untrained</th>
-                <th>Skill Bonus</th>
-                <th>Ability</th>
-                <th>Class Skill</th>
-                <th>Ranks</th>
-                <th>Racial</th>
-                <th>Feats</th>
-                <th>Misc</th>
-                <th>ACP</th>
+                <th class="skill-header">Skill<br>Name</th>
+                <th class="skill-header">Untrained</th>
+                <th class="skill-header">Skill<br>Bonus</th>
+                <th class="skill-header">Ability</th>
+                <th class="skill-header">Class<br>Skill</th>
+                <th class="skill-header">Ranks</th>
+                <th class="skill-header">Racial</th>
+                <th class="skill-header">Feats</th>
+                <th class="skill-header">Misc</th>
+                <th class="skill-header">ACP</th>
             </tr>
             <?php foreach ($skill_list as $skill): ?>
                 <tr>
-                    <td><?php echo $skill['Skill_Name']; ?></td>
-                    <td><?php echo $skill['Is_Untrained'] === 1 ? '&#x2B24;' : '' ?></td>
-                    <td>calculated total</td>
-                    <td><?php echo $abilities[$skill['Ability_ID'] - 1]; ?></td><!-- TODO: Dynamically assign this variable based on the characters ability scores. -->
-                    <td>bool</td><!-- TODO: Make this field dynamic with the class selected via JavaScript. -->
-                    <td><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Ranks" value="<?php echo $valMemory[$skill['Short_Name'] . '_Ranks']; ?>" required></td>
-                    <td><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Racial" value="<?php echo $valMemory[$skill['Short_Name'] . '_Racial']; ?>" required></td>
-                    <td><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Feats" value="<?php echo $valMemory[$skill['Short_Name'] . '_Feats']; ?>" required></td>
-                    <td><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Misc" value="<?php echo $valMemory[$skill['Short_Name'] . '_Misc']; ?>" required></td>
-                    <td></td><!-- To Be Implemented -->
+                    <td class="skill-name"><?php echo $skill['Skill_Name']; ?></td>
+                    <td class="is-untrained"><?php echo $skill['Is_Untrained'] === 1 ? '&FilledSmallSquare;' : '' ?></td>
+                    <td class="skill-total">&pm;##</td>
+                    <td class="ability-mod"><?php echo $abilities[$skill['Ability_ID'] - 1]; ?></td><!-- TODO: Dynamically assign this variable based on the characters ability scores. -->
+                    <td class="is-class-skill">bool</td><!-- TODO: Make this field dynamic with the class selected via JavaScript. -->
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Ranks" value="<?php echo $valMemory[$skill['Short_Name'] . '_Ranks']; ?>" required></td>
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Racial" value="<?php echo $valMemory[$skill['Short_Name'] . '_Racial']; ?>" required></td>
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Feats" value="<?php echo $valMemory[$skill['Short_Name'] . '_Feats']; ?>" required></td>
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Misc" value="<?php echo $valMemory[$skill['Short_Name'] . '_Misc']; ?>" required></td>
+                    <td class="skill-acp"></td><!-- To Be Implemented -->
                 </tr>
             <?php endforeach; ?>
 

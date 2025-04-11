@@ -13,7 +13,10 @@ Who			    When			      What
 CBAC        2025-03-07      Original Version 
 CBAC        2025-04-04      Added more padding to the bottom so the footer doesn't cover the
                             buttons at the bottom of the character sheet forms.
-CBAC        2025-04-09      Added color and allignment to the .system-message class.
+CBAC        2025-04-09      Added color and allignment to the .system-message and .error 
+                            classes.
+CBAC        2025-04-11      Begining refactor of skill list table and character name, race, and
+                            class with their own grouped sections. 
 -----------------------------------------------------------------------------------------------
 */
 
@@ -80,10 +83,6 @@ td {
   padding: .1rem .25rem;
 }
 
-.skill-fields {
-  width: 2rem;
-}
-
 tr:nth-child(even) {
   background-color: #c0c0c0;
 }
@@ -139,4 +138,23 @@ label {
 
 .button {
   margin-top: 1rem;
+}
+
+/* Skills Table */
+.skill-header {
+  height: 2rem;
+  /*transform: rotate(45deg);
+  text-align: left;*/
+}
+
+.skill-fields {
+  width: 1.5rem;
+}
+
+.is-untrained,
+.skill-total,
+.ability-mod,
+.is-class-skill,
+.skill-acp {
+  text-align: center;
 }
