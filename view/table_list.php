@@ -17,15 +17,16 @@ CBAC        2025-03-14      Added a message space that shows up in response to a
                             action.'
 CBAC        2025-03-25      Added another add-button to the bottom of the list. Ideal for when
                             the list grows long.
+CBAC        2025-04-11      Renamed $user_message to $system_message
 -----------------------------------------------------------------------------------------------
 TODO: Implement PHP Sessions for result messages after skills are implemented.
 -----------------------------------------------------------------------------------------------
 */
 
-if (isset($user_message) && !empty($user_message)) {
-    echo $user_message;
+if (isset($system_message) && !empty($system_message)) {
+    echo $system_message;
 } else {
-    echo '<p>Please select a character.</p>';
+    echo '<p class=\'system-message\' >Please select a character.</p>';
 }
 
 ?>

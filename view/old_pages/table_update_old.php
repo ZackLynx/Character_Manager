@@ -93,8 +93,8 @@ if (isset($old_record) && is_array($old_record)) {
     ];
 }
 
-if (isset($user_message)) {
-    echo '<p>' . $user_message . '</p>';
+if (isset($system_message)) {
+    echo '<p>' . $system_message . '</p>';
 }
 ?>
 

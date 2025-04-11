@@ -18,6 +18,7 @@ CBAC        2025-03-27      Amended Character Name field to retain its previousl
 CBAC        2025-03-31      Added HTML min and max values to ability score input fields.
 CBAC        2025-04-04      `valMemory` expanded to include skills. Legacy code removed, see
                             `old_pages/table_add_old.php`
+CBAC        2025-04-11      Renamed $user_message to $system_message
 -----------------------------------------------------------------------------------------------
 */
 
@@ -180,8 +181,8 @@ $valMemory = [
     'Umdev_Misc' => get_val_from_postget('Umdev_Misc', 0)
 ];
 
-if (isset($user_message)) {
-    echo '<p>' . $user_message . '</p>';
+if (isset($system_message)) {
+    echo '<p>' . $system_message . '</p>';
 }
 ?>
 

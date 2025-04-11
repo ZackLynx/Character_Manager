@@ -16,6 +16,7 @@ CBAC        2025-03-14      Completed version 1 of CRUD actions with system mess
                             successful additions, edits, and deletions of characters.
 CBAC        2025-04-04      Refactored the `submit-character` and `save-changes` actions to
                             include skills.
+CBAC        2025-04-11      Renamed $user_message to $system_message
 -----------------------------------------------------------------------------------------------
 TODO:   Implement PHP Sessions for result messages after skills are implemented.
         Deprecate the 'old' value fields in table_add and table_update.
@@ -93,18 +94,18 @@ elseif ($action == 'submit-character') {
         'Cha_Base' => get_val_from_postget('Cha_Base', -1)
     ];
     $values['Character_Name'] = trim($values['Character_Name']);
-    $user_message = '';
+    $system_message = '';
     $has_error = false;
 
     // Check character name
     if (empty($values['Character_Name'])) {
-        $user_message .= '<p>Character name cannot be blank.</p>';
+        $system_message .= '<p class="system-message error">Character name cannot be blank.</p>';
         $has_error = true;
     }
 
     // Check for illegal characters
     if (!validate_characters($values['Character_Name'])) {
-        $user_message .= '<p>Name may only contain letters, dashes, apostrophies, and spaces between names/words.</p>';
+        $system_message .= '<p class="system-message error">Name may only contain letters, dashes, apostrophies, and spaces between names/words.</p>';
         $has_error = true;
     }
 
@@ -112,55 +113,55 @@ elseif ($action == 'submit-character') {
 
     // Check class
     if ($values['Class_ID'] > 11 || $values['Class_ID'] < 1) {
-        $user_message .= '<p>An invalid Class value was detected. Please try again.</p>';
+        $system_message .= '<p class="system-message error">An invalid Class value was detected. Please try again.</p>';
         $has_error = true;
     }
 
     // Check race
     if ($values['Race_ID'] > 7 || $values['Race_ID'] < 1) {
-        $user_message .= '<p>An invalid Race value was detected. Please try again.</p>';
+        $system_message .= '<p class="system-message error">An invalid Race value was detected. Please try again.</p>';
         $has_error = true;
     }
 
     // Check strength
     if ($values['Str_Base'] < 0 || $values['Str_Base'] > 99) {
-        $user_message .= '<p>please enter a STRENGTH score between 0 and 99 (inclusive.)</p>';
+        $system_message .= '<p class="system-message error">please enter a STRENGTH score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // Check dexterity
     if ($values['Dex_Base'] < 0 || $values['Dex_Base'] > 99) {
-        $user_message .= '<p>please enter a DEXTERITY score between 0 and 99 (inclusive.)</p>';
+        $system_message .= '<p class="system-message error">please enter a DEXTERITY score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // Check constitution
     if ($values['Con_Base'] < 0 || $values['Con_Base'] > 99) {
-        $user_message .= '<p>please enter a CONSTITUTION score between 0 and 99 (inclusive.)</p>';
+        $system_message .= '<p class="system-message error">please enter a CONSTITUTION score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // Check intelegence
     if ($values['Int_Base'] < 0 || $values['Int_Base'] > 99) {
-        $user_message .= '<p>please enter a INTELLIGENCE score between 0 and 99 (inclusive.)</p>';
+        $system_message .= '<p class="system-message error">please enter a INTELLIGENCE score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // Check wisdom
     if ($values['Wis_Base'] < 0 || $values['Wis_Base'] > 99) {
-        $user_message .= '<p>please enter a WISDOM score between 0 and 99 (inclusive.)</p>';
+        $system_message .= '<p class="system-message error">please enter a WISDOM score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // Check charisma
     if ($values['Cha_Base'] < 0 || $values['Cha_Base'] > 99) {
-        $user_message .= '<p>please enter a CHARISMA score between 0 and 99 (inclusive.)</p>';
+        $system_message .= '<p class="system-message error">please enter a CHARISMA score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     foreach ($columns as $column) {
         if (empty(get_val_from_postget($column, ''))) {
-            $user_message .= '<p>One or more values in the skills list is empty. please enter a whole number into each empty field.</p>';
+            $system_message .= '<p class="system-message error">One or more values in the skills list is empty. please enter a whole number into each empty field.</p>';
             $has_error = true;
         }
         break;
@@ -168,7 +169,7 @@ elseif ($action == 'submit-character') {
 
     // It works!
     if (!$has_error && (add_character($_POST) > 0)) {
-        $user_message = '<p>Character added!</p>';
+        $system_message = '<p class="system-message">Character added!</p>';
         $records = get_characters();
         header('Location: ./');
     }
@@ -181,7 +182,7 @@ elseif ($action == 'submit-character') {
 
     // CRIT FAIL!
     else {
-        echo $user_message;
+        echo $system_message;
         $error_message = 'Something went wrong when trying to save your new character.';
         include './errors/error.php';
     }
@@ -214,18 +215,18 @@ elseif ($action == 'save-changes') {
         'Cha_Base' => get_val_from_postget('Cha_Base', -1)
     ];
     $changes['Character_Name'] = trim($changes['Character_Name']);
-    $user_message = '';
+    $system_message = '';
     $has_error = false;
 
     // Check character name
     if (empty($changes['Character_Name'])) {
-        $user_message .= '<p>Character name cannot be blank.</p>';
+        $system_message .= '<p class="system-message error">Character name cannot be blank.</p>';
         $has_error = true;
     }
 
     // check for illegal characters
     if (!validate_characters($changes['Character_Name'])) {
-        $user_message .= '<p>Name may only contain letters, dashes, apostrophies, and spaces between names/words.</p>';
+        $system_message .= '<p class="system-message error">Name may only contain letters, dashes, apostrophies, and spaces between names/words.</p>';
         $has_error = true;
     }
 
@@ -233,49 +234,49 @@ elseif ($action == 'save-changes') {
 
     // Check class
     if ($changes['Class_ID'] > 11 || $changes['Class_ID'] < 1) {
-        $user_message .= '<p class="system-message">An invalid Class value was detected. Please try again.</p>';
+        $system_message .= '<p class= class="system-message error">An invalid Class value was detected. Please try again.</p>';
         $has_error = true;
     }
 
     // Check race
     if ($changes['Race_ID'] > 7 || $changes['Race_ID'] < 1) {
-        $user_message .= '<p class="system-message">An invalid Race value was detected. Please try again.</p>';
+        $system_message .= '<p class="system-message error">An invalid Race value was detected. Please try again.</p>';
         $has_error = true;
     }
 
     // Check strength
     if ($changes['Str_Base'] < 0 || $changes['Str_Base'] > 99) {
-        $user_message .= '<p class="system-message">please enter a STRENGTH score between 0 and 99 (inclusive.)</p>';
+        $system_message .= '<p class="system-message error">please enter a STRENGTH score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // Check dexterity
     if ($changes['Dex_Base'] < 0 || $changes['Dex_Base'] > 99) {
-        $user_message .= '<p class="system-message">please enter a DEXTERITY score between 0 and 99 (inclusive.)</p>';
+        $system_message .= '<p class="system-message error">please enter a DEXTERITY score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // Check constitution
     if ($changes['Con_Base'] < 0 || $changes['Con_Base'] > 99) {
-        $user_message .= '<p class="system-message">please enter a CONSTITUTION score between 0 and 99 (inclusive.)</p>';
+        $system_message .= '<p class="system-message error">please enter a CONSTITUTION score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // Check intelegence
     if ($changes['Int_Base'] < 0 || $changes['Int_Base'] > 99) {
-        $user_message .= '<p class="system-message">please enter a INTELLIGENCE score between 0 and 99 (inclusive.)</p>';
+        $system_message .= '<p class="system-message error">please enter a INTELLIGENCE score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // Check wisdom
     if ($changes['Wis_Base'] < 0 || $changes['Wis_Base'] > 99) {
-        $user_message .= '<p class="system-message">please enter a WISDOM score between 0 and 99 (inclusive.)</p>';
+        $system_message .= '<p class="system-message error">please enter a WISDOM score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
     // Check charisma
     if ($changes['Cha_Base'] < 0 || $changes['Cha_Base'] > 99) {
-        $user_message .= '<p class="system-message">please enter a CHARISMA score between 0 and 99 (inclusive.)</p>';
+        $system_message .= '<p class="system-message error">please enter a CHARISMA score between 0 and 99 (inclusive.)</p>';
         $has_error = true;
     }
 
@@ -283,11 +284,11 @@ elseif ($action == 'save-changes') {
     // 2025-04-09 - PHP now reports to the user if any changes to the record actually happened.
     if (!$has_error) { // Attempt the update
         if (update_character($_POST, $changes['Character_ID']) > 0) { // record updated
-            $user_message = '<p class="system-message">Character updated!</p>'; // Refactor for session instead.
+            $system_message = '<p class="system-message">Character updated!</p>'; // Refactor for session instead.
             $records = get_characters();
             header('Location: ./');
         } else { // no record updated, no changes.
-            $user_message = '<p class="system-message">You have not entered any changes.<br>If you would like to leave this character as is, please click on the cancel button.</p>';
+            $system_message = '<p class="system-message error">You have not entered any changes.<br>If you would like to leave this character as is, please click on the cancel button.</p>';
             $old_record = get_character_by_id($changes['Character_ID']);
             $skill_list = get_skills();
             include './view/table_update.php';
@@ -303,7 +304,7 @@ elseif ($action == 'save-changes') {
 
     // CRIT FAIL!
     else {
-        $user_message .= '<p class="system-message">Something went horribly wrong. Please contact the webmaster!</p>';
+        $system_message .= '<p class="system-message error">Something went horribly wrong. Please contact the webmaster!</p>';
 
         $old_record = get_character_by_id($changes['Character_ID']);
         $skill_list = get_skills();
@@ -327,7 +328,7 @@ elseif ($action == 'confirm-deletion') {
         Use recursive logic to remove records tied to the character record. Once there is no
         other data in the database that relies on the character to exist, Delete the character.
     */
-    $user_message = '';
+    $system_message = '';
     if (
         delete_character(
             intval(
@@ -338,9 +339,9 @@ elseif ($action == 'confirm-deletion') {
             )
         ) > 0
     ) {
-        $user_message = '<p class="system-message">Character Deleted!</p>';
+        $system_message = '<p class="system-message">Character Deleted!</p>';
     } else {
-        $user_message = '<p class="system-message">Sorry, That record does not seem to exist in our records.</p>';
+        $system_message = '<p class="system-message error">Sorry, That record does not seem to exist in our records.</p>';
     }
     $record = get_characters();
     header('Location: ./');

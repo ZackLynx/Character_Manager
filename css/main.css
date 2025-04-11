@@ -50,8 +50,11 @@ footer {
 }
 
 .system-message {
-  color: #d00;
   text-align: center;
+}
+
+.error {
+  color: #d00;
 }
 
 .add-button {
@@ -115,6 +118,15 @@ input[type=number] {
 label {
   float: left;
   padding-right: .5em;
+}
+
+.box {
+  display: flex;
+  flex-direction: row;
+}
+
+.box > div {
+  margin: .5rem 2rem;
 }
 
 .field {

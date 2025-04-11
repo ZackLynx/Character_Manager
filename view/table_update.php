@@ -18,6 +18,7 @@ CBAC        2025-03-26      Refactored logic for value carry-over between failed
                             attempts. Added cancel button.
 CBAC        2025-03-31      Added HTML min and max values to ability score input fields.
 CBAC        2025-04-04      Legacy code removed, see `old_pages/table_update-old.php`
+CBAC        2025-04-11      Renamed $user_message to $system_message
 -----------------------------------------------------------------------------------------------
 */
 
@@ -40,8 +41,8 @@ foreach ($old_record as $key => $value) {
 }
 
 
-if (isset($user_message)) {
-    echo '<p>' . $user_message . '</p>';
+if (isset($system_message)) {
+    echo '<p>' . $system_message . '</p>';
 }
 ?>
 

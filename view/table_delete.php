@@ -15,6 +15,7 @@ Who			When			What
 CBAC		2025-03-07		Original Version 
 CBAC        2025-03-27      First paragraph now specifies the name of the character to be
                             deleted.
+CBAC        2025-04-11      Renamed $user_message to $system_message
 -----------------------------------------------------------------------------------------------
 */
 ?>
