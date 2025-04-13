@@ -17,7 +17,8 @@ CBAC        2025-03-14      Added a message space that shows up in response to a
                             action.'
 CBAC        2025-03-25      Added another add-button to the bottom of the list. Ideal for when
                             the list grows long.
-CBAC        2025-04-11      Renamed $user_message to $system_message
+CBAC        2025-04-11      Renamed $user_message to $system_message.
+CBAC        2025-04-13      Added 'Last Modified' column to table view.
 -----------------------------------------------------------------------------------------------
 TODO: Implement PHP Sessions for result messages after skills are implemented.
 -----------------------------------------------------------------------------------------------
@@ -49,6 +50,9 @@ if (isset($system_message) && !empty($system_message)) {
         <th>
             Class
         </th>
+        <th>
+            Last Modified
+        </th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
     </tr>
@@ -63,6 +67,9 @@ if (isset($system_message) && !empty($system_message)) {
             </td>
             <td>
                 <?php echo $record['Class_Name']; ?>
+            </td>
+            <td>
+                <?php echo $record['Last_Update'] ?>
             </td>
             <td> <!-- EDIT -->
                 <form action="." method="post">

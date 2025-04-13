@@ -22,6 +22,7 @@ CBAC        2025-03-14      Completed functional versions of all functions.
 CBAC        2025-03-25      Amended get_characters to include the characters race.
 CBAC        2025-04-02      Add, Update, and Delete methods now return the number of records
                             affected. Columns array added for reference and iteration.
+CBAC        2025-04-13      Added Last_Update column for get_characters().
 -----------------------------------------------------------------------------------------------
 */
 
@@ -191,7 +192,7 @@ $columns = [
 function get_characters()
 {
     global $db;
-    $query = 'SELECT characters.Character_ID, characters.Character_Name, races.Race_Name, classes.Class_Name
+    $query = 'SELECT characters.Character_ID, characters.Character_Name, races.Race_Name, classes.Class_Name, Last_Update
               FROM characters, races, classes
               WHERE characters.Class_ID = classes.Class_ID AND characters.Race_ID = races.Race_ID
               ORDER BY characters.Character_ID ASC, characters.Class_ID ASC;';
