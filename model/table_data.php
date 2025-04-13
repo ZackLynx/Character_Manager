@@ -191,7 +191,7 @@ $columns = [
 function get_characters()
 {
     global $db;
-    $query = 'SELECT characters.Character_ID, characters.Character_Name, races.Race_Name, classes.Class_Name
+    $query = 'SELECT characters.Character_ID, characters.Character_Name, races.Race_Name, classes.Class_Name, Last_Update
               FROM characters, races, classes
               WHERE characters.Class_ID = classes.Class_ID AND characters.Race_ID = races.Race_ID
               ORDER BY characters.Character_ID ASC, characters.Class_ID ASC;';

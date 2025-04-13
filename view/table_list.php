@@ -49,6 +49,9 @@ if (isset($system_message) && !empty($system_message)) {
         <th>
             Class
         </th>
+        <th>
+            Last Modified
+        </th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
     </tr>
@@ -63,6 +66,9 @@ if (isset($system_message) && !empty($system_message)) {
             </td>
             <td>
                 <?php echo $record['Class_Name']; ?>
+            </td>
+            <td>
+                <?php echo $record['Last_Update'] ?>
             </td>
             <td> <!-- EDIT -->
                 <form action="." method="post">
