@@ -17,15 +17,23 @@ CBAC        2025-03-14      Completed version 1 of CRUD actions with system mess
 CBAC        2025-04-04      Refactored the `submit-character` and `save-changes` actions to
                             include skills.
 CBAC        2025-04-11      Renamed $user_message to $system_message
+CBAC        2025-04-14      Added PHP session functionality.
 -----------------------------------------------------------------------------------------------
 TODO:   Implement PHP Sessions for result messages after skills are implemented.
         Deprecate the 'old' value fields in table_add and table_update.
+        Add a "this site uses cookies" disclamer.
 -----------------------------------------------------------------------------------------------
 */
 
 require './model/connors_utilities.php';
 require './model/dbconnect.php';
 require './model/table_data.php';
+
+if (session_status() == PHP_SESSION_NONE) {
+    $lifetime = 60 * 60 * 24 * 365;
+    session_set_cookie_params($lifetime, '/');
+    session_start();
+}
 
 /**
  * First searches `$_POST` then `$_GET` for a given array key and returns a value if that key
@@ -194,6 +202,8 @@ elseif ($action == 'edit-character') {
     $character_ID = get_val_from_postget('character_id', NULL);
     $old_record = get_character_by_id($character_ID); // used by table_update.php
     $skill_list = get_skills();
+    $_SESSION['character_data'] = $old_record;
+    $_SESSION['skill_list'] = $skill_list;
     //echo count($record);
     //echo $record['Class_ID'];
     include './view/table_update.php';

@@ -23,6 +23,9 @@ CBAC        2025-04-13      Added 'Last Modified' column to table view.
 TODO: Implement PHP Sessions for result messages after skills are implemented.
 -----------------------------------------------------------------------------------------------
 */
+if (session_status() == PHP_SESSION_ACTIVE) {
+    echo "<p>Session ID: " . session_id() . "</p>";
+}
 
 if (isset($system_message) && !empty($system_message)) {
     echo $system_message;
