@@ -48,6 +48,7 @@ if (isset($system_message)) {
 
 <form action="." method="post">
     <?php include './view/npc_sheet.php'; ?>
+    <input type="hidden" name="last-action" value="edit-character">
     <input type="hidden" name="action" value="save-changes">
     <input type="submit" value="SAVE CHANGES">
 </form>
