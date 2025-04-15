@@ -70,7 +70,6 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         </div>
     </div>
     <!-- level -->
-    <!-- challenge rating -->
 </div>
 <div class="two-column">
     <div id="secondary-info">
@@ -327,9 +326,16 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         </table>
     </div>
 
+    <div id="feats-block">
+        <div id="feat-list"></div>
+        <button id="add-feat" value="Add A Feat"></button>
+    </div>
+
     <div id="inventory">
     </div>
-    <div id="notes">
+    <div id="notes-block">
+        <label for="notes">Notes</label>
+        <input type="text" name="notes" id="notes">
     </div>
 </div>
 <div id="health">
