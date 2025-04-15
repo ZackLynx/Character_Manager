@@ -36,60 +36,75 @@ var featCount = 0;
  * 
  * To avoid behavior anolamies, **DO NOT SUBTRACT IT!**
  */
-var featNum = 0;
+var featInc = 0;
 
 
 /**
  * Adds new form elements with unique names to the DOM. PHP will then make use of the $POST data
  * submitted by the user to add or modify the database.
  * 
- * Auto increments `featNum`.
+ * Auto increments `featInc`.
+ * @param {number} i The database index of the feat in the `feats` table, `0` if new.
  */
-function addFeat() {
+function addFeat(i) {
+    featNum = "feat_" + featInc;
+
+    // Div container for feat.
+    featDiv = document.createElement("div");
+    featDiv.setAttribute("id", featNum);
+
     // Feat ID hidden field for PHP to use.
     var feat_ID = document.createElement("input");
     feat_ID.setAttribute("hidden");
-    feat_ID.name = "Feat_ID";
-    feat_ID.value = 0; // 0 if new, > 0 if existing.
+    feat_ID.name = "Feat_" + featInc + "_ID";
+    feat_ID.value = i; // 0 if new, > 0 if existing.
 
     //Feat Name
     var featNameLabel = document.createElement("label");
-    featNameLabel.setAttribute("for", "feat_name_")
+    featNameLabel.setAttribute("for", featNum + "_name");
+
     var featName = document.createElement("input");
     featName.type = "text";
-    featName.name = "feat_name_";
-    featName.placeholder = featNum;
+    featName.name = featNum + "_name";
+    featName.placeholder = featInc;
 
     // Feat Description
+    var featDescLabel = document.createElement("label");
+    featDescLabel.setAttribute("for", featNum + "_desc");
+
     var featDesc = document.createElement("input");
-    featDesc.type = "text" + featNum;
-    featDesc.name = "feat_desc_" + featNum;
-    featDesc.setAttribute("class", "feat-desc");
-    featNum++;
+    featDesc.type = "text";
+    featDesc.name = featNum + "_desc" + featInc;
+    featDesc.setAttribute("class", "feat_desc");
+    featInc++;
 
     // Delete button
     var deleteButton = document.createElement("button");
-    deleteButton.addEventListener("click", removeFeat(featNum));
+    deleteButton.addEventListener("click", removeFeat(featInc));
 
     //Add to DOM
-    document.getElementById("feat-list").appendChild(featName);
-    document.getElementById("feat-list").appendChild(featDesc);
+    newDiv = document.getElementById("feat-list").appendChild(featDiv);
+    newDiv.appendChild(feat_ID);
+    newDiv.appendChild(featNameLabel);
+    newDiv.appendChild(featName);
+    newDiv.appendChild(featDescLabel);
+    newDiv.appendChild(featDisc);
 }
 
 /**
  * Removes a feat div and its children safely from the DOM.
- * @param {number} i 
+ * @param {number} i The number at the end of the feats div ID
  */
 function removeFeat(i) {
-    var button = getElementById
-    // Remove EventListener from button
+    // Remove EventListener from deleteButton
+    document.getElementById("feat_" + i).getElementsByTagName("button").removeEventListener("click", removeFeat())
 
     // Clear children
 
 
     // remove div element
 
-    // Mark feat_ID for deletion.
+    // Mark feat_ID for deletion if its from the database.
 }
 
 var addFeatButton = document.getElementById("add-feat");

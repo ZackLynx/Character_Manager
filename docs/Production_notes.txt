@@ -1,1 +1,38 @@
-Add CSS for feat description.
+Feat system
+
+`Feats` table
+---------------------------------------------------------
+| Feat_ID | Character_ID | Feat_Name | Feat_Description |
+---------------------------------------------------------
+| Integer | Integer      | VarText   | Text             |
+          | Foreign Key  |
+          | `Characters` |
+
+Feat Form
+--------------------------------------------------------------------
+
+Feat Name:_______________
+Description:
+---------------------------------------------------------
+| Lorem Ipsum                                           |
+|                                                       | ----------
+|                                                       | | Delete |
+|                                                       | ----------
+|                                                       |
+---------------------------------------------------------
+
+HTML version
+--------------------------------------------------------------------
+
+<div id="feat-##">
+    <input type="number" name="Feat_ID" value="0" hidden>
+    <label for="Feat_Name">Feat Name</label>
+    <input type="text" name="Feat_Name" placeholder="Feat Name">
+    <label for="Feat_Description">Description</label>
+    <input type="text" name="Feat_Description" placeholder="Enter your feats description here.">
+    <button value="delete-feat"></button>
+</div>
+
+STYLE TODO:
+Feat container.
+feat description.
