@@ -55,7 +55,7 @@ function addFeat(i) {
 
     // Feat ID hidden field for PHP to use.
     var feat_ID = document.createElement("input");
-    feat_ID.setAttribute("hidden");
+    feat_ID.setAttribute("hidden", "hidden");
     feat_ID.name = "Feat_" + featInc + "_ID";
     feat_ID.value = i; // 0 if new, > 0 if existing.
 
@@ -80,7 +80,7 @@ function addFeat(i) {
 
     // Delete button
     var deleteButton = document.createElement("button");
-    deleteButton.addEventListener("click", removeFeat(featInc));
+    //deleteButton.addEventListener("click", removeFeat(featInc));
 
     //Add to DOM
     newDiv = document.getElementById("feat-list").appendChild(featDiv);
@@ -88,7 +88,7 @@ function addFeat(i) {
     newDiv.appendChild(featNameLabel);
     newDiv.appendChild(featName);
     newDiv.appendChild(featDescLabel);
-    newDiv.appendChild(featDisc);
+    newDiv.appendChild(featDesc);
 }
 
 /**
@@ -97,7 +97,7 @@ function addFeat(i) {
  */
 function removeFeat(i) {
     // Remove EventListener from deleteButton
-    document.getElementById("feat_" + i).getElementsByTagName("button").removeEventListener("click", removeFeat())
+    //document.getElementById("feat_" + i).getElementsByTagName("button").removeEventListener("click", removeFeat());
 
     // Clear children
 
@@ -107,7 +107,11 @@ function removeFeat(i) {
     // Mark feat_ID for deletion if its from the database.
 }
 
+
+addFeat(0);
+
 var addFeatButton = document.getElementById("add-feat");
-addFeatButton.addEventListener("click", addFeat());
+//addFeatButton.addEventListener("click", addFeat);
+//document.getElementById("feat-list").appendChild(addFeatButton);
 
 //execute whenever a value changes.

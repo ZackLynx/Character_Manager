@@ -33,6 +33,10 @@ HTML version
     <button value="delete-feat"></button>
 </div>
 
+FUNCTION of addFeat:
+This function is used to populate the feats list with any new feats provided in the sessions
+feats array. That array has records pulled from the feats table. 
+
 STYLE TODO:
 Feat container.
 feat description.
