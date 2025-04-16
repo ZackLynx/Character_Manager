@@ -160,4 +160,27 @@ label {
 }
 
 /* Feats */
-.feat-desc {}
+.feat-box {
+  border: 1px solid black;
+  max-width: 40rem;
+  margin: 1rem;
+  padding: .5rem;
+}
+
+.feat-label {
+  width: 5.5rem;
+  height: 1rem;
+  text-align: right;
+}
+
+.feat-field {}
+
+.feat_desc {
+  min-height: 3rem;
+  width: 32rem;
+  resize: vertical;
+}
+
+.delete-button {
+  float: right;
+}
