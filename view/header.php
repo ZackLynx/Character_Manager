@@ -34,4 +34,4 @@ CBAC		2025-03-07		Original Version
         <header>
             <h1>Character Manager</h1>
         </header>
-        <div class="content-wrap">
+        <main class="content-wrap">

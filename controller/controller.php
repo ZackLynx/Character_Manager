@@ -79,6 +79,8 @@ if ($action == 'view-characters') {
 
 // Add a character
 elseif ($action == 'add-character') {
+    // Feats will be handled via a cookie.
+    setcookie('feats', '', 86400, '/');
     $skill_list = get_skills();
     include './view/table_add.php';
 }

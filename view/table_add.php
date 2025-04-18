@@ -178,7 +178,8 @@ $valMemory = [
     'Umdev_Ranks' => get_val_from_postget('Umdev_Ranks', 0),
     'Umdev_Racial' => get_val_from_postget('Umdev_Racial', 0),
     'Umdev_Feats' => get_val_from_postget('Umdev_Feats', 0),
-    'Umdev_Misc' => get_val_from_postget('Umdev_Misc', 0)
+    'Umdev_Misc' => get_val_from_postget('Umdev_Misc', 0),
+    'Notes' => get_val_from_postget('Notes', '')
 ];
 
 if (isset($system_message)) {
