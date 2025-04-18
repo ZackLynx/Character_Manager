@@ -1,8 +1,10 @@
 var featInc = 0;
 
 /**
+ * Creates a block of HTML code that contains the fields for entering a feat into a
+ * character sheet.
  * 
- * @param {Number} i 
+ * @param {Number} i The Feat_ID of the feat in the `feats` database. `0` otherwise.
  */
 function addFeat(i) {
     featNum = "feat_" + featInc;
@@ -29,7 +31,7 @@ function addFeat(i) {
     var featName = document.createElement("input");
     featName.type = "text";
     featName.name = featNum + "_name";
-    featName.placeholder = featInc;
+    // featName.placeholder = featInc;
     featName.id = featName.name;
     featName.setAttribute("Class", "feat-field");
 
@@ -38,6 +40,13 @@ function addFeat(i) {
     deleteButton.setAttribute("Class", "delete-button");
     deleteButton.innerText = "Delete Feat";
     deleteButton.addEventListener("click", function () {
+        // If feat_ID > 0
+        if (feat_ID.value > 0) {
+            // Mark for deletion
+
+        }
+
+        // remove the feats <div>
         var featDiv = deleteButton.parentElement;
         featDiv.remove();
     });
@@ -45,7 +54,7 @@ function addFeat(i) {
     // Feat Description
     var featDescLabel = document.createElement("label");
     featDescLabel.setAttribute("for", featNum + "_desc");
-    featDescLabel.innerText = "Description: "
+    featDescLabel.innerText = "Description:"
     featDescLabel.setAttribute("Class", "feat-label");
 
     var featDesc = document.createElement("textarea");
@@ -62,6 +71,7 @@ function addFeat(i) {
     newDiv.appendChild(deleteButton);
     newDiv.appendChild(document.createElement("br"));
     newDiv.appendChild(featDescLabel);
+    newDiv.appendChild(document.createElement("br"));
     newDiv.appendChild(featDesc);
 
     featInc++;

@@ -373,5 +373,22 @@ function get_class_skills()
     return $class_skills;
 }
 
+/**
+ * Summary of get_feats
+ * @param int $character_id The ID of the character whose feats are being pulled.
+ * @return array All the feats posessed by the character.
+ */
+function get_feats($character_id)
+{
+    global $db;
+    $query = 'SELECT * FROM feats WHERE Character_ID = :id;';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $character_id);
+    $statement->execute();
+    $feats = []($statement->rowCount() > 0) ? $statement->fetchAll() : [];
+    $statement->closeCursor();
+    return $feats;
+}
+
 ?>
 

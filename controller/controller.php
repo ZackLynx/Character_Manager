@@ -206,8 +206,9 @@ elseif ($action == 'edit-character') {
     $_SESSION['skill_list'] = $skill_list;
     //echo count($record);
     //echo $record['Class_ID'];
+    $character_feats = get_feats($character_ID);
+    setcookie("feats", );
     include './view/table_update.php';
-
 }
 
 // Save the changes made
