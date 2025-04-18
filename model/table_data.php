@@ -385,7 +385,7 @@ function get_feats($character_id)
     $statement = $db->prepare($query);
     $statement->bindValue(':id', $character_id);
     $statement->execute();
-    $feats = []($statement->rowCount() > 0) ? $statement->fetchAll() : [];
+    $feats = ($statement->rowCount() > 0) ? $statement->fetchAll() : [];
     $statement->closeCursor();
     return $feats;
 }

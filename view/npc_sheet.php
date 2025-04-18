@@ -322,20 +322,22 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                     <td class="skill-acp"></td><!-- To Be Implemented -->
                 </tr>
             <?php endforeach; ?>
-
         </table>
     </div>
 
     <div id="feats-block">
         <div id="feat-list"></div>
-        <button id="add-feat" value="Add A Feat"></button>
+        <div class="center-button">
+            <button type="button" id="add-feat-button">Add A Feat</button>
+        </div>
     </div>
 
     <div id="inventory">
     </div>
     <div id="notes-block">
         <label for="notes">Notes</label>
-        <input type="text" name="notes" id="notes">
+        <br>
+        <textarea name="notes" id="notes"></textarea>
     </div>
 </div>
 <div id="health">
@@ -356,3 +358,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
     <div id="effects">
     </div>
 </div>
+
+<script src="./js/character_sheet.js">
+
+</script>

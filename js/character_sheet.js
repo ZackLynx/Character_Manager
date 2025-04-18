@@ -30,7 +30,7 @@ var featCount = 0;
  * Used to uniquely identify each feat entry in the DOM. This value will increment up like an
  * Auto ID in a DB. 
  * 
- * To avoid behavior anolamies, **DO NOT SUBTRACT IT!**
+ * To avoid behavior anomalies, **DO NOT SUBTRACT IT!**
  */
 var featInc = 0;
 
@@ -77,9 +77,9 @@ function addFeat(i) {
         // If feat_ID > 0
         if (feat_ID.value > 0) {
             // Mark for deletion
-
         }
 
+        featCount--;
         // remove the feats <div>
         var featDiv = deleteButton.parentElement;
         featDiv.remove();
@@ -109,6 +109,7 @@ function addFeat(i) {
     newDiv.appendChild(featDesc);
 
     featInc++;
+    featCount++;
 }
 
 var button = document.getElementById('add-feat-button');
