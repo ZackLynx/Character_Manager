@@ -15,7 +15,6 @@ CBAC		2025-03-07		Original Version
 -----------------------------------------------------------------------------------------------
 */
 ?>
-</main>
 <footer>
     <p>
         &copy; 2025, Connor Bryan Andrew Clawson. All rights reserved.

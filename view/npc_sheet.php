@@ -326,7 +326,20 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
     </div>
 
     <div id="feats-block">
-        <div id="feat-list"></div>
+        <div id="feat-list">
+            <?php foreach ($_SESSION['feats'] as $feat): ?>
+                <div id="feat_<?php echo $featNum; ?>" class="feat-box">
+                    <input hidden="hidden" name="Feat_<?php echo $featNum; ?>_ID" id="Feat_<?php echo $featNum; ?>_ID" value="<?php echo $featNum; ?>">
+                    <label for="feat_<?php echo $featNum; ?>_name" class="feat-label">Feat Name: </label>
+                    <input type="text" name="feat_<?php echo $featNum; ?>_name" id="feat_<?php echo $featNum; ?>_name" class="feat-field">
+                    <button class="delete-button">Delete Feat</button>
+                    <br>
+                    <label for="feat_<?php echo $featNum; ?>_desc" class="feat-label">Description:</label>
+                    <br>
+                    <textarea name="feat_<?php echo $featNum; ?>_desc" id="feat_<?php echo $featNum; ?>_desc" class="feat-field feat_desc"></textarea>
+                </div>
+            <?php endforeach; ?>
+        </div>
         <div class="center-button">
             <button type="button" id="add-feat-button">Add A Feat</button>
         </div>

@@ -25,7 +25,7 @@ include './view/header.php';
 
 ?>
 
-<main>
+<main class="content-wrap">
     <?php include './controller/controller.php'; ?>
 </main>
 

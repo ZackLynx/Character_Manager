@@ -17,19 +17,10 @@ CBAC        2025-04-15      Renamed file from `skills_autocalc.js` to `character
 -----------------------------------------------------------------------------------------------
 */
 
+
 ///////////
 /* FEATS */
 ///////////
-
-/** 
- * The number of feats attached to the characters sheet.
- */
-var featCount = 0;
-var countField = document.getElementById("feat-list").appendChild(document.createElement("input"));
-countField.type = "text";
-countField.name = "numOfFeats";
-countField.
-
 
 /**
  * Used to uniquely identify each feat entry in the DOM. This value will increment up like an
