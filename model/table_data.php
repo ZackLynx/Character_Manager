@@ -390,5 +390,21 @@ function get_feats($character_id)
     return $feats;
 }
 
+/**
+ * Summary of delete_feats
+ * @param mixed $feat_IDs
+ * @return int
+ */
+function delete_feats($feat_IDs)
+{
+    global $db;
+    $query = 'DELETE FROM feats WHERE Feat_ID IN (' . $feat_IDs . ');';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $rows_affected = $statement->rowCount();
+    $statement->closeCursor();
+    return $rows_affected;
+}
+
 ?>
 

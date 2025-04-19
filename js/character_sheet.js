@@ -71,15 +71,12 @@ function addFeat() {
     deleteButton.className = "delete-button";
     deleteButton.innerText = "Delete Feat";
     deleteButton.addEventListener("click", function () {
-        // If feat_ID > 0
-        if (feat_ID.value > 0) {
-
+        if (confirm("Delete this feat? (This action cannot be undone)")) {
+            featCount--;
+            // remove the feats <div>
+            var featDiv = deleteButton.parentElement;
+            featDiv.remove();
         }
-        alert(feat_ID.value);
-        featCount--;
-        // remove the feats <div>
-        var featDiv = deleteButton.parentElement;
-        featDiv.remove();
     });
 
     // Feat Description
@@ -113,17 +110,22 @@ function addFeat() {
 $buttons = document.getElementsByClassName("delete-button");
 Array.from($buttons).forEach($button => {
     $button.addEventListener("click", function (event) {
-        // If feat_ID > 0
-        if (event.currentTarget.value > 0) {
-            // Confirm that the user wants to delete this feat.
+        if (confirm("Delete this feat? (This action cannot be undone)")) {
+            // If feat_ID > 0
+            if (event.currentTarget.value > 0) {
+                var arr = document.getElementById('feats-to-delete');
+                if (arr.value.length === 0) {
+                    arr.setAttribute("value", event.currentTarget.value);
+                } else {
+                    arr.setAttribute("value", arr.value + "," + event.currentTarget.value);
+                }
+            }
+
+            featCount--;
+            // remove the feats <div>
+            var featDiv = event.currentTarget.parentElement;
+            featDiv.remove();
         }
-
-
-
-        featCount--;
-        // remove the feats <div>
-        var featDiv = event.currentTarget.parentElement;
-        featDiv.remove();
     });
 });
 

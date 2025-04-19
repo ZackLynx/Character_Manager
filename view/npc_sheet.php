@@ -341,12 +341,13 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 </div>
                 <?php $featNum++;
             endforeach; ?>
-            <input type="text" id="feats_imported" value="<?php echo $featNum; ?>" hidden>
+
         </div>
         <div class="center-button">
             <button type="button" id="add-feat-button">Add A Feat</button>
         </div>
-        <input hidden type="text">
+        <input type="text" id="feats_imported" value="<?php echo $featNum; ?>" hidden>
+        <input type="text" name="feats-to-delete" id="feats-to-delete" value="" hidden>
     </div>
 
     <div id="inventory">
