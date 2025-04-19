@@ -252,22 +252,35 @@ function add_character($values)
             }
         }
 
-        // END NEW CODE
-
         // using the same order of the columns entered, arrange the data for SQL.
+        // foreach ($columns as $column) {
+        //     if ($column == end($columns)) {
+        //         $query .= is_numeric($values[$column]) ? $values[$column] : '\'' . $values[$column] . '\'';
+        //     } else {
+        //         $query .= is_numeric($values[$column]) ? $values[$column] . ', ' : '\'' . $values[$column] . '\', ';
+        //     }
+        // }
+
+        // NEW VALUE BIND METHOD
         foreach ($columns as $column) {
             if ($column == end($columns)) {
-                $query .= is_numeric($values[$column]) ? $values[$column] : '\'' . $values[$column] . '\'';
+                $query .= ':' . $column;
             } else {
-                $query .= is_numeric($values[$column]) ? $values[$column] . ', ' : '\'' . $values[$column] . '\', ';
+                $query .= ':' . $column . ', ';
             }
         }
 
         $query .= ');';
 
-        // echo $query;
+        //echo $query;
 
         $statement = $db->prepare($query);
+
+        // NEW VALUE BIND METHOD
+        foreach ($columns as $column) {
+            $statement->bindValue(':' . $column, $values[$column]);
+        }
+
         $statement->execute();
         $num_row_affected = $statement->rowCount(); // Will now return the number of rows affected. CBAC 2025-04-02
         $statement->closeCursor();
@@ -296,18 +309,21 @@ function update_character($values, $id)
         reset($values);
         foreach ($columns as $column) {
             if ($column == end($columns)) {
-                $query .= $column . ' = ';
-                $query .= is_numeric($values[$column]) ? $values[$column] : '\'' . addslashes($values[$column]) . '\'';
+                $query .= $column . ' = :' . $column;
+                // $query .= is_numeric($values[$column]) ? $values[$column] : '\'' . addslashes($values[$column]) . '\'';
             } else {
-                $query .= $column . ' = ';
-                $query .= is_numeric($values[$column]) ? $values[$column] . ', ' : '\'' . addslashes($values[$column]) . '\', ';
+                $query .= $column . ' = :' . $column . ', ';
+                // $query .= is_numeric($values[$column]) ? $values[$column] . ', ' : '\'' . addslashes($values[$column]) . '\', ';
             }
         }
 
         $query .= ' WHERE character_ID = :id;';
-        //echo $query;
+        // echo $query;
 
         $statement = $db->prepare($query);
+        foreach ($columns as $column) {
+            $statement->bindValue(':' . $column, $values[$column]);
+        }
         $statement->bindValue(':id', intval($values['Character_ID']), PDO::PARAM_INT);
         $statement->execute();
         $num_row_affected = $statement->rowCount(); // Will now return the number of rows affected. CBAC 2025-04-02

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2025 at 09:52 PM
+-- Generation Time: Apr 19, 2025 at 09:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -21,16 +21,16 @@ SET time_zone = "+00:00";
 -- Database: `character_manager`
 --
 DROP DATABASE IF EXISTS `character_manager`;
-
 CREATE DATABASE IF NOT EXISTS `character_manager` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-
 USE `character_manager`;
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `abilities`
 --
 
+DROP TABLE IF EXISTS `abilities`;
 CREATE TABLE `abilities` (
   `Ability_ID` int(11) NOT NULL,
   `Ability_Name` varchar(12) NOT NULL,
@@ -55,6 +55,7 @@ INSERT INTO `abilities` (`Ability_ID`, `Ability_Name`, `Ability_Short`) VALUES
 -- Table structure for table `characters`
 --
 
+DROP TABLE IF EXISTS `characters`;
 CREATE TABLE `characters` (
   `Character_ID` int(11) NOT NULL,
   `Character_Name` varchar(100) DEFAULT NULL,
@@ -206,21 +207,22 @@ CREATE TABLE `characters` (
   `Umdev_Racial` int(11) DEFAULT 0,
   `Umdev_Feats` int(11) DEFAULT 0,
   `Umdev_Misc` int(11) DEFAULT 0,
-  `Last_Update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `Last_Update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `Notes` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `characters`
 --
 
-INSERT INTO `characters` (`Character_ID`, `Character_Name`, `Class_ID`, `Race_ID`, `Str_Base`, `Dex_Base`, `Con_Base`, `Int_Base`, `Wis_Base`, `Cha_Base`, `Acrob_Ranks`, `Acrob_Racial`, `Acrob_Feats`, `Acrob_Misc`, `Appra_Ranks`, `Appra_Racial`, `Appra_Feats`, `Appra_Misc`, `Bluff_Ranks`, `Bluff_Racial`, `Bluff_Feats`, `Bluff_Misc`, `Climb_Ranks`, `Climb_Racial`, `Climb_Feats`, `Climb_Misc`, `Craft_Ranks`, `Craft_Racial`, `Craft_Feats`, `Craft_Misc`, `Diplo_Ranks`, `Diplo_Racial`, `Diplo_Feats`, `Diplo_Misc`, `DsDev_Ranks`, `DsDev_Racial`, `DsDev_Feats`, `DsDev_Misc`, `Disgu_Ranks`, `Disgu_Racial`, `Disgu_Feats`, `Disgu_Misc`, `Escar_Ranks`, `Escar_Racial`, `Escar_Feats`, `Escar_Misc`, `Fly_Ranks`, `Fly_Racial`, `Fly_Feats`, `Fly_Misc`, `Hanim_Ranks`, `Hanim_Racial`, `Hanim_Feats`, `Hanim_Misc`, `Heal_Ranks`, `Heal_Racial`, `Heal_Feats`, `Heal_Misc`, `Intim_Ranks`, `Intim_Racial`, `Intim_Feats`, `Intim_Misc`, `Karca_Ranks`, `Karca_Racial`, `Karca_Feats`, `Karca_Misc`, `Kdung_Ranks`, `Kdung_Racial`, `Kdung_Feats`, `Kdung_Misc`, `Kengi_Ranks`, `Kengi_Racial`, `Kengi_Feats`, `Kengi_Misc`, `Kgeog_Ranks`, `Kgeog_Racial`, `Kgeog_Feats`, `Kgeog_Misc`, `Khist_Ranks`, `Khist_Racial`, `Khist_Feats`, `Khist_Misc`, `Kloca_Ranks`, `Kloca_Racial`, `Kloca_Feats`, `Kloca_Misc`, `Knatu_Ranks`, `Knatu_Racial`, `Knatu_Feats`, `Knatu_Misc`, `Knobi_Ranks`, `Knobi_Racial`, `Knobi_Feats`, `Knobi_Misc`, `Kplan_Ranks`, `Kplan_Racial`, `Kplan_Feats`, `Kplan_Misc`, `Kreli_Ranks`, `Kreli_Racial`, `Kreli_Feats`, `Kreli_Misc`, `Lingu_Ranks`, `Lingu_Racial`, `Lingu_Feats`, `Lingu_Misc`, `Perce_Ranks`, `Perce_Racial`, `Perce_Feats`, `Perce_Misc`, `Perfo_Ranks`, `Perfo_Racial`, `Perfo_Feats`, `Perfo_Misc`, `Profe_Ranks`, `Profe_Racial`, `Profe_Feats`, `Profe_Misc`, `Ride_Ranks`, `Ride_Racial`, `Ride_Feats`, `Ride_Misc`, `Senmo_Ranks`, `Senmo_Racial`, `Senmo_Feats`, `Senmo_Misc`, `SOH_Ranks`, `SOH_Racial`, `SOH_Feats`, `SOH_Misc`, `Spcft_Ranks`, `Spcft_Racial`, `Spcft_Feats`, `Spcft_Misc`, `Stlth_Ranks`, `Stlth_Racial`, `Stlth_Feats`, `Stlth_Misc`, `Survi_Ranks`, `Survi_Racial`, `Survi_Feats`, `Survi_Misc`, `Swim_Ranks`, `Swim_Racial`, `Swim_Feats`, `Swim_Misc`, `Umdev_Ranks`, `Umdev_Racial`, `Umdev_Feats`, `Umdev_Misc`, `Last_Update`) VALUES
-(1, 'Conan', 1, 7, 14, 13, 15, 10, 12, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-04-13 20:54:15'),
-(4, 'Bob', 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-04-13 20:54:15'),
-(6, 'Ales', 2, 5, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-04-13 20:54:15'),
-(7, 'Snails', 2, 2, 10, 10, 10, 14, 7, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-04-13 20:54:15'),
-(10, 'Leeroy', 1, 1, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-04-13 20:54:15'),
-(11, 'Kelly', 1, 1, 10, 10, 10, 10, 10, 10, 1, 2, 3, 4, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-04-13 20:54:15'),
-(13, 'Connor\'s character', 2, 2, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-04-13 20:54:15');
+INSERT INTO `characters` (`Character_ID`, `Character_Name`, `Class_ID`, `Race_ID`, `Str_Base`, `Dex_Base`, `Con_Base`, `Int_Base`, `Wis_Base`, `Cha_Base`, `Acrob_Ranks`, `Acrob_Racial`, `Acrob_Feats`, `Acrob_Misc`, `Appra_Ranks`, `Appra_Racial`, `Appra_Feats`, `Appra_Misc`, `Bluff_Ranks`, `Bluff_Racial`, `Bluff_Feats`, `Bluff_Misc`, `Climb_Ranks`, `Climb_Racial`, `Climb_Feats`, `Climb_Misc`, `Craft_Ranks`, `Craft_Racial`, `Craft_Feats`, `Craft_Misc`, `Diplo_Ranks`, `Diplo_Racial`, `Diplo_Feats`, `Diplo_Misc`, `DsDev_Ranks`, `DsDev_Racial`, `DsDev_Feats`, `DsDev_Misc`, `Disgu_Ranks`, `Disgu_Racial`, `Disgu_Feats`, `Disgu_Misc`, `Escar_Ranks`, `Escar_Racial`, `Escar_Feats`, `Escar_Misc`, `Fly_Ranks`, `Fly_Racial`, `Fly_Feats`, `Fly_Misc`, `Hanim_Ranks`, `Hanim_Racial`, `Hanim_Feats`, `Hanim_Misc`, `Heal_Ranks`, `Heal_Racial`, `Heal_Feats`, `Heal_Misc`, `Intim_Ranks`, `Intim_Racial`, `Intim_Feats`, `Intim_Misc`, `Karca_Ranks`, `Karca_Racial`, `Karca_Feats`, `Karca_Misc`, `Kdung_Ranks`, `Kdung_Racial`, `Kdung_Feats`, `Kdung_Misc`, `Kengi_Ranks`, `Kengi_Racial`, `Kengi_Feats`, `Kengi_Misc`, `Kgeog_Ranks`, `Kgeog_Racial`, `Kgeog_Feats`, `Kgeog_Misc`, `Khist_Ranks`, `Khist_Racial`, `Khist_Feats`, `Khist_Misc`, `Kloca_Ranks`, `Kloca_Racial`, `Kloca_Feats`, `Kloca_Misc`, `Knatu_Ranks`, `Knatu_Racial`, `Knatu_Feats`, `Knatu_Misc`, `Knobi_Ranks`, `Knobi_Racial`, `Knobi_Feats`, `Knobi_Misc`, `Kplan_Ranks`, `Kplan_Racial`, `Kplan_Feats`, `Kplan_Misc`, `Kreli_Ranks`, `Kreli_Racial`, `Kreli_Feats`, `Kreli_Misc`, `Lingu_Ranks`, `Lingu_Racial`, `Lingu_Feats`, `Lingu_Misc`, `Perce_Ranks`, `Perce_Racial`, `Perce_Feats`, `Perce_Misc`, `Perfo_Ranks`, `Perfo_Racial`, `Perfo_Feats`, `Perfo_Misc`, `Profe_Ranks`, `Profe_Racial`, `Profe_Feats`, `Profe_Misc`, `Ride_Ranks`, `Ride_Racial`, `Ride_Feats`, `Ride_Misc`, `Senmo_Ranks`, `Senmo_Racial`, `Senmo_Feats`, `Senmo_Misc`, `SOH_Ranks`, `SOH_Racial`, `SOH_Feats`, `SOH_Misc`, `Spcft_Ranks`, `Spcft_Racial`, `Spcft_Feats`, `Spcft_Misc`, `Stlth_Ranks`, `Stlth_Racial`, `Stlth_Feats`, `Stlth_Misc`, `Survi_Ranks`, `Survi_Racial`, `Survi_Feats`, `Survi_Misc`, `Swim_Ranks`, `Swim_Racial`, `Swim_Feats`, `Swim_Misc`, `Umdev_Ranks`, `Umdev_Racial`, `Umdev_Feats`, `Umdev_Misc`, `Last_Update`, `Notes`) VALUES
+(1, 'Conan', 1, 7, 14, 13, 15, 10, 12, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-04-19 09:14:43', 'This is a note'),
+(4, 'Bob', 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-04-19 09:10:03', NULL),
+(6, 'Ales', 2, 5, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-04-19 09:10:03', NULL),
+(7, 'Snails', 2, 2, 10, 10, 10, 14, 7, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-04-19 09:10:03', NULL),
+(10, 'Leeroy', 1, 1, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-04-19 09:10:03', ''),
+(11, 'Kelly', 1, 1, 10, 10, 10, 10, 10, 10, 1, 2, 3, 4, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-04-19 09:10:03', NULL),
+(20, 'Eds guy', 6, 1, 1, 1, 1, 1, 99, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-04-19 19:09:00', 'Notes');
 
 -- --------------------------------------------------------
 
@@ -228,6 +230,7 @@ INSERT INTO `characters` (`Character_ID`, `Character_Name`, `Class_ID`, `Race_ID
 -- Table structure for table `classes`
 --
 
+DROP TABLE IF EXISTS `classes`;
 CREATE TABLE `classes` (
   `Class_ID` int(11) NOT NULL,
   `Class_Name` varchar(20) DEFAULT NULL,
@@ -257,6 +260,7 @@ INSERT INTO `classes` (`Class_ID`, `Class_Name`, `Die_ID`) VALUES
 -- Table structure for table `classes_skills`
 --
 
+DROP TABLE IF EXISTS `classes_skills`;
 CREATE TABLE `classes_skills` (
   `C_S_ID` int(11) NOT NULL,
   `Class_ID` int(11) NOT NULL,
@@ -285,6 +289,7 @@ INSERT INTO `classes_skills` (`C_S_ID`, `Class_ID`, `Skill_ID`) VALUES
 -- Table structure for table `dice`
 --
 
+DROP TABLE IF EXISTS `dice`;
 CREATE TABLE `dice` (
   `Die_ID` int(11) NOT NULL,
   `Die_Sides` int(11) NOT NULL
@@ -309,6 +314,7 @@ INSERT INTO `dice` (`Die_ID`, `Die_Sides`) VALUES
 -- Table structure for table `feats`
 --
 
+DROP TABLE IF EXISTS `feats`;
 CREATE TABLE `feats` (
   `Feat_ID` int(11) NOT NULL,
   `Character_ID` int(11) NOT NULL,
@@ -321,8 +327,11 @@ CREATE TABLE `feats` (
 --
 
 INSERT INTO `feats` (`Feat_ID`, `Character_ID`, `Feat_Name`, `Feat_Desc`) VALUES
-(1, 1, 'Simple Weapon Proficiency', 'You are trained in the use of basic weapons.\n\nBenefit: You make attack rolls with simple weapons without penalty.\n\nNormal: When using a weapon with which you are not proficient, you take a –4 penalty on attack rolls.\n\nSpecial: All characters except for druids, monks, and wizards are automatically proficient with all simple weapons. They need not select this feat.'),
-(2, 13, 'Simple Weapon Proficiency', 'You are trained in the use of basic weapons.\n\nBenefit: You make attack rolls with simple weapons without penalty.\n\nNormal: When using a weapon with which you are not proficient, you take a –4 penalty on attack rolls.\n\nSpecial: All characters except for druids, monks, and wizards are automatically proficient with all simple weapons. They need not select this feat.');
+(1, 1, 'Simple Weapon Proficiency', 'You are trained in the use of basic weapons.\r\n\r\nBenefit: You make attack rolls with simple weapons without penalty.\r\n\r\nNormal: When using a weapon with which you are not proficient, you take a –4 penalty on attack rolls.\r\n\r\nSpecial: All characters except for druids, monks, and wizards are automatically proficient with all simple weapons. They need not select this feat.'),
+(8, 10, 'Hail Mary', 'You cannot be intimidated or stopped when provoking attacks of opportunity'),
+(9, 10, 'Exotic Weapon Proficiency (Comically Large Axe)', 'You are capable of wielding one unique weapon type'),
+(10, 1, 'Bite', 'You have a bite attack.'),
+(11, 20, 'dsagf', 'asdgrwe');
 
 -- --------------------------------------------------------
 
@@ -330,6 +339,7 @@ INSERT INTO `feats` (`Feat_ID`, `Character_ID`, `Feat_Name`, `Feat_Desc`) VALUES
 -- Table structure for table `races`
 --
 
+DROP TABLE IF EXISTS `races`;
 CREATE TABLE `races` (
   `Race_ID` int(11) NOT NULL,
   `Race_Name` varchar(20) NOT NULL,
@@ -361,6 +371,7 @@ INSERT INTO `races` (`Race_ID`, `Race_Name`, `Str_Mod`, `Dex_Mod`, `Con_Mod`, `I
 -- Table structure for table `skills`
 --
 
+DROP TABLE IF EXISTS `skills`;
 CREATE TABLE `skills` (
   `Skill_ID` int(11) NOT NULL,
   `Skill_Name` varchar(50) DEFAULT NULL,
@@ -483,7 +494,7 @@ ALTER TABLE `abilities`
 -- AUTO_INCREMENT for table `characters`
 --
 ALTER TABLE `characters`
-  MODIFY `Character_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `Character_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `classes`
@@ -507,7 +518,7 @@ ALTER TABLE `dice`
 -- AUTO_INCREMENT for table `feats`
 --
 ALTER TABLE `feats`
-  MODIFY `Feat_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Feat_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `races`
