@@ -254,6 +254,35 @@ elseif ($action == 'save-changes') {
         'Cha_Base' => get_val_from_postget('Cha_Base', -1)
     ];
     $changes['Character_Name'] = trim($changes['Character_Name']);
+
+    // Process feats from POST and or GET.
+    $character_feats = [];
+
+    // Used if all entries are valid.
+    $modified_feats = [];
+    $new_feats = [];
+    $deleted_feats = [];
+    $total = get_val_from_postget('num-of-feats', 0);
+    $i = 0;
+    $j = 0;
+    while ($i < $total) {
+        if (isset($_POST['feat_' . $j . '_name'])) {
+            $feat_id = get_val_from_postget('feat_' . $j . '_ID', 0);
+            $feat_name = get_val_from_postget('feat_' . $j . '_name', '');
+            $feat_desc = get_val_from_postget('feat_' . $j . '_desc', '');
+            array_push($character_feats, ['Feat_ID' => $feat_id, 'Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
+            if (intval($_POST['feat_' . $j . '_ID']) === 0) {
+                array_push($new_feats, ['Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
+            }
+            $i++;
+            $j++;
+        } else {
+            $j++;
+        }
+    }
+
+
+
     $system_message = '';
     $has_error = false;
 
