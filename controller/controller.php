@@ -378,7 +378,7 @@ elseif ($action == 'save-changes') {
         $feats_changed = 0;
         if (sizeof($existing_feats) > 0) {
             foreach ($existing_feats as $feat) {
-                $feats_changed += modify_feat($feat['Feat_ID'], trim($feat['Feat_Name']), trim($feat['Feat_Desc']));
+                $feats_changed += modify_feat($changes['Character_ID'], $feat['Feat_ID'], trim($feat['Feat_Name']), trim($feat['Feat_Desc']));
             }
         }
 
@@ -398,7 +398,7 @@ elseif ($action == 'save-changes') {
 
             // Deleted Feats
             if (sizeof($deleted_feats) > 0) {
-                delete_feats($deleted_feats);
+                delete_feats($changes['Character_ID'], $deleted_feats);
             }
 
             $system_message = '<p class="system-message">Character updated!</p>'; // Refactor for session instead.

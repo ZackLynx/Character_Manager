@@ -394,20 +394,15 @@ function get_feats($character_id)
     return $feats;
 }
 
-/**
- * Summary of add_feat
- * @param mixed $character_id
- * @param mixed $name
- * @param mixed $desc
- * @return int
- */
+
 function add_feat($character_id, $name, $desc)
 {
     global $db;
-    $query = 'INSERT INTO feats (Character_ID, Feat_Name, Feat_Desc) VALUES (:ID, :feat_name, :feat_desc);';
+    $query = 'INSERT INTO feats (Character_ID, Feat_Name, Feat_Desc) VALUES (:id, :feat_name, :feat_desc);
+              UPDATE characters SET Last_Update = NOW() WHERE Character_ID = :id;';
 
     $statement = $db->prepare($query);
-    $statement->bindValue(':ID', $character_id);
+    $statement->bindValue(':id', $character_id);
     $statement->bindValue(':feat_name', $name);
     $statement->bindValue('feat_desc', $desc);
     $statement->execute();
@@ -416,37 +411,31 @@ function add_feat($character_id, $name, $desc)
     return $result;
 }
 
-/**
- * Summary of modify_feat
- * @param mixed $feat_id
- * @param mixed $name
- * @param mixed $desc
- * @return int
- */
-function modify_feat($feat_id, $name, $desc)
+
+function modify_feat($character_id, $feat_id, $name, $desc)
 {
     global $db;
-    $query = 'UPDATE feats SET Feat_Name = :feat_name, Feat_Desc = :feat_desc WHERE Feat_ID = :id';
+    $query = 'UPDATE feats SET Feat_Name = :feat_name, Feat_Desc = :feat_desc WHERE Feat_ID = :id;
+              UPDATE characters SET Last_Update = NOW() WHERE Character_ID = :character_id;';
     $statement = $db->prepare($query);
     $statement->bindValue(':id', $feat_id);
     $statement->bindValue(':feat_name', $name);
     $statement->bindValue(':feat_desc', $desc);
+    $statement->bindValue(':character_id', $character_id);
     $statement->execute();
     $result = $statement->rowCount();
     $statement->closeCursor();
     return $result;
 }
 
-/**
- * Summary of delete_feats
- * @param mixed $feat_IDs
- * @return int
- */
-function delete_feats($feat_IDs)
+
+function delete_feats($character_id, $feat_IDs)
 {
     global $db;
-    $query = 'DELETE FROM feats WHERE Feat_ID IN (' . implode($feat_IDs) . ');';
+    $query = 'DELETE FROM feats WHERE Feat_ID IN (' . implode($feat_IDs) . ');
+              UPDATE characters SET Last_Update = NOW() WHERE Character_ID = :id;';
     $statement = $db->prepare($query);
+    $statement->bindValue(':id', $character_id);
     $statement->execute();
     $rows_affected = $statement->rowCount();
     $statement->closeCursor();
