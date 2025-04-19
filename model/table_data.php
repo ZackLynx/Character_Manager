@@ -303,7 +303,7 @@ function update_character($values, $id)
         }
 
         $query .= ' WHERE character_ID = :id;';
-        echo $query;
+        //echo $query;
 
         $statement = $db->prepare($query);
         $statement->bindValue(':id', intval($values['Character_ID']), PDO::PARAM_INT);

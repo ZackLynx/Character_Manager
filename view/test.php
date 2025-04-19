@@ -2,6 +2,8 @@
 // foreach ($_POST as $key => $value) {
 //     echo "" . $key . " => " . $value . "<br>";
 // }
-echo update_character($_POST, $changes['Character_ID']);
+echo 'value: ' . !empty($new_feats) . '<br>';
+echo 'value: ' . !empty($existing_feats) . '<br>';
+echo 'value: ' . !empty($deleted_feats) . '<br>';
 ?>
 

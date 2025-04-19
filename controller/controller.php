@@ -259,7 +259,7 @@ elseif ($action == 'save-changes') {
 
     // Process feats from POST and or GET.
     $character_feats = [];
-    $modified_feats = [];   // Used if all entries
+    $existing_feats = [];   // Used if all entries
     $new_feats = [];        // are valid.
 
     $total = get_val_from_postget('num-of-feats', 0);
@@ -279,7 +279,7 @@ elseif ($action == 'save-changes') {
             }
             // Modified feats
             else {
-                array_push($modified_feats, ['Feat_ID' => $feat_id, 'Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
+                array_push($existing_feats, ['Feat_ID' => $feat_id, 'Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
             }
             $i++;
             $j++;
@@ -373,24 +373,26 @@ elseif ($action == 'save-changes') {
     // 2025-04-09 - PHP now reports to the user if any changes to the record actually happened.
     if (!$has_error) { // Attempt the update
         // include './view/test.php';
+
+        // Existing feats
+        $feats_changed = 0;
+        if (sizeof($existing_feats) > 0) {
+            foreach ($existing_feats as $feat) {
+                $feats_changed += modify_feat($feat['Feat_ID'], trim($feat['Feat_Name']), trim($feat['Feat_Desc']));
+            }
+        }
+
         if (
             (update_character($_POST, $changes['Character_ID']) > 0) ||
-            (sizeof($new_feats) > 0) ||
-            (sizeof($modified_feats) > 0) ||
-            (sizeof($deleted_feats) > 0)
+            (!empty($new_feats)) ||
+            $feats_changed ||
+            (!empty($deleted_feats))
         ) { // record updated
             // Process feats
             // New feats
             if (sizeof($new_feats) > 0) {
                 foreach ($new_feats as $feat) {
                     add_feat($changes['Character_ID'], trim($feat['Feat_Name']), trim($feat['Feat_Desc']));
-                }
-            }
-
-            // existing feats
-            if (sizeof($modified_feats) > 0) {
-                foreach ($modified_feats as $feat) {
-                    modify_feat($feat['Feat_ID'], trim($feat['Feat_Name']), trim($feat['Feat_Desc']));
                 }
             }
 
