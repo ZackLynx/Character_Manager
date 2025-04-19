@@ -395,7 +395,7 @@ function get_feats($character_id)
  * @param mixed $character_id
  * @param mixed $name
  * @param mixed $desc
- * @return void
+ * @return int
  */
 function add_feat($character_id, $name, $desc)
 {
@@ -407,7 +407,30 @@ function add_feat($character_id, $name, $desc)
     $statement->bindValue(':feat_name', $name);
     $statement->bindValue('feat_desc', $desc);
     $statement->execute();
+    $result = $statement->rowCount();
     $statement->closeCursor();
+    return $result;
+}
+
+/**
+ * Summary of modify_feat
+ * @param mixed $feat_id
+ * @param mixed $name
+ * @param mixed $desc
+ * @return int
+ */
+function modify_feat($feat_id, $name, $desc)
+{
+    global $db;
+    $query = 'UPDATE feats SET Feat_Name = :feat_name, Feat_Desc = :feat_desc WHERE Feat_ID = :id';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $feat_id);
+    $statement->bindValue(':feat_name', $name);
+    $statement->bindValue(':feat_desc', $desc);
+    $statement->execute();
+    $result = $statement->rowCount();
+    $statement->closeCursor();
+    return $result;
 }
 
 /**
@@ -418,7 +441,7 @@ function add_feat($character_id, $name, $desc)
 function delete_feats($feat_IDs)
 {
     global $db;
-    $query = 'DELETE FROM feats WHERE Feat_ID IN (' . $feat_IDs . ');';
+    $query = 'DELETE FROM feats WHERE Feat_ID IN (' . implode($feat_IDs) . ');';
     $statement = $db->prepare($query);
     $statement->execute();
     $rows_affected = $statement->rowCount();

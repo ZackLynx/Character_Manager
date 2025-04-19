@@ -195,6 +195,7 @@ elseif ($action == 'submit-character') {
         if (empty(trim($feat['Feat_Name']))) {
             $system_message .= '<p class="system-message error">One or more feats has a blank name. Please give these feats a name.</p>';
             $has_error = true;
+            break;
         }
     }
 
@@ -215,7 +216,6 @@ elseif ($action == 'submit-character') {
     // Report input errors
     elseif ($has_error) {
         $skill_list = get_skills();
-
         include './view/table_add.php';
     }
 
@@ -257,11 +257,9 @@ elseif ($action == 'save-changes') {
 
     // Process feats from POST and or GET.
     $character_feats = [];
+    $modified_feats = [];   // Used if all entries
+    $new_feats = [];        // are valid.
 
-    // Used if all entries are valid.
-    $modified_feats = [];
-    $new_feats = [];
-    $deleted_feats = [];
     $total = get_val_from_postget('num-of-feats', 0);
     $i = 0;
     $j = 0;
@@ -270,9 +268,16 @@ elseif ($action == 'save-changes') {
             $feat_id = get_val_from_postget('feat_' . $j . '_ID', 0);
             $feat_name = get_val_from_postget('feat_' . $j . '_name', '');
             $feat_desc = get_val_from_postget('feat_' . $j . '_desc', '');
+
             array_push($character_feats, ['Feat_ID' => $feat_id, 'Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
+
+            // New feats
             if (intval($_POST['feat_' . $j . '_ID']) === 0) {
                 array_push($new_feats, ['Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
+            }
+            // Modified feats
+            else {
+                array_push($modified_feats, ['Feat_ID' => $feat_id, 'Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
             }
             $i++;
             $j++;
@@ -281,6 +286,11 @@ elseif ($action == 'save-changes') {
         }
     }
 
+    // Deleted feats
+    $deleted_feats = [];
+    if (isset($_POST['feats-to-delete']) && (strlen(trim($_POST['feats-to-delete'])) > 0)) {
+        array_push($deleted_feats, get_val_from_postget('feats-to-delete', 0));
+    }
 
 
     $system_message = '';
@@ -348,10 +358,44 @@ elseif ($action == 'save-changes') {
         $has_error = true;
     }
 
+    // Check feat names for blanks
+    foreach ($character_feats as $feat) {
+        if (empty(trim($feat['Feat_Name']))) {
+            $system_message .= '<p class="system-message error">One or more feats has a blank name. Please give these feats a name.</p>';
+            $has_error = true;
+            break;
+        }
+    }
+
     // It works!
     // 2025-04-09 - PHP now reports to the user if any changes to the record actually happened.
     if (!$has_error) { // Attempt the update
-        if (update_character($_POST, $changes['Character_ID']) > 0) { // record updated
+        if (
+            (update_character($_POST, $changes['Character_ID']) > 0) ||
+            (sizeof($new_feats) > 0) ||
+            (sizeof($modified_feats) > 0) ||
+            (sizeof($deleted_feats) > 0)
+        ) { // record updated
+            // Process feats
+            // New feats
+            if (sizeof($new_feats) > 0) {
+                foreach ($new_feats as $feat) {
+                    add_feat($changes['Character_ID'], trim($feat['Feat_Name']), trim($feat['Feat_Desc']));
+                }
+            }
+
+            // existing feats
+            if (sizeof($modified_feats) > 0) {
+                foreach ($modified_feats as $feat) {
+                    modify_feat($feat['Feat_ID'], trim($feat['Feat_Name']), trim($feat['Feat_Desc']));
+                }
+            }
+
+            // Deleted Feats
+            if (sizeof($deleted_feats) > 0) {
+                delete_feats($deleted_feats);
+            }
+
             $system_message = '<p class="system-message">Character updated!</p>'; // Refactor for session instead.
             $records = get_characters();
             header('Location: ./');

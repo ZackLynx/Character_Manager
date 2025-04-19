@@ -349,7 +349,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
             <button type="button" id="add-feat-button">Add A Feat</button>
         </div>
         <input type="text" name="num-of-feats" id="num-of-feats" value="<?php echo $featNum; ?>" hidden>
-        <input type="text" name="feats-to-delete" id="feats-to-delete" value="0" hidden>
+        <input type="text" name="feats-to-delete" id="feats-to-delete" hidden>
     </div>
 
     <div id="inventory">
