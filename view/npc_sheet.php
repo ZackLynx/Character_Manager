@@ -355,9 +355,9 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
     <div id="inventory">
     </div>
     <div id="notes-block">
-        <label for="notes">Notes</label>
+        <label for="Notes">Notes</label>
         <br>
-        <textarea name="notes" id="notes"></textarea>
+        <textarea name="Notes" id="Notes"><?php echo $valMemory['Notes']; ?></textarea>
     </div>
 </div>
 <div id="health">

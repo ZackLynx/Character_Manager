@@ -182,7 +182,8 @@ $columns = [
     'Umdev_Ranks',
     'Umdev_Racial',
     'Umdev_Feats',
-    'Umdev_Misc'
+    'Umdev_Misc',
+    'Notes'
 ];
 
 /**
@@ -279,7 +280,7 @@ function add_character($values)
  * Updates an existing character record in a table.
  * @param array $values the values to be updated.
  * @param int $id the primary key of the record or filters for multiple records.
- * @return int The number of rows affected by the query.
+ * @return mixed The number of rows affected by the query.
  */
 function update_character($values, $id)
 {
@@ -302,8 +303,7 @@ function update_character($values, $id)
         }
 
         $query .= ' WHERE character_ID = :id;';
-
-        //echo $query;
+        echo $query;
 
         $statement = $db->prepare($query);
         $statement->bindValue(':id', intval($values['Character_ID']), PDO::PARAM_INT);
@@ -315,10 +315,11 @@ function update_character($values, $id)
         return 0;
     }
     return $num_row_affected;
+    // return $query;
 }
 
 /**
- * Removes a character record from a table;
+ * Removes a character record and any feats belonging to that character from their respective tables.
  * @param int $character_ID the record to be removed.
  * @return int The number of rows affected by the query.
  */
@@ -326,8 +327,11 @@ function delete_character($character_ID)
 {
     try {
         global $db;
-        $query = 'DELETE FROM characters WHERE Character_ID = ' . $character_ID . ';';
+        // Feats
+        $query = 'DELETE FROM feats WHERE Character_ID = :id;
+                  DELETE FROM characters WHERE Character_ID = :id;';
         $statement = $db->prepare($query);
+        $statement->bindValue(':id', $character_ID);
         $statement->execute();
         $num_of_records = $statement->rowCount(); // Will now return the number of rows affected. CBAC 2025-04-02
         $statement->closeCursor();

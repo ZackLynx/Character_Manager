@@ -201,6 +201,7 @@ elseif ($action == 'submit-character') {
 
     // It works!
     if (!$has_error && (add_character($_POST) > 0)) {
+
         $character_ID = $db->lastInsertId();
 
         // Process feats
@@ -241,6 +242,7 @@ elseif ($action == 'edit-character') {
 
 // Save the changes made
 elseif ($action == 'save-changes') {
+    // include './view/test.php';
     $changes = [
         'Character_ID' => $_POST['Character_ID'],
         'Character_Name' => get_val_from_postget('Character_Name', ''),
@@ -288,7 +290,7 @@ elseif ($action == 'save-changes') {
 
     // Deleted feats
     $deleted_feats = [];
-    if (isset($_POST['feats-to-delete']) && (strlen(trim($_POST['feats-to-delete'])) > 0)) {
+    if (isset($_POST['feats-to-delete']) && (!empty(trim($_POST['feats-to-delete'])))) {
         array_push($deleted_feats, get_val_from_postget('feats-to-delete', 0));
     }
 
@@ -370,6 +372,7 @@ elseif ($action == 'save-changes') {
     // It works!
     // 2025-04-09 - PHP now reports to the user if any changes to the record actually happened.
     if (!$has_error) { // Attempt the update
+        // include './view/test.php';
         if (
             (update_character($_POST, $changes['Character_ID']) > 0) ||
             (sizeof($new_feats) > 0) ||
@@ -442,14 +445,14 @@ elseif ($action == 'confirm-deletion') {
     */
     $system_message = '';
     if (
-        delete_character(
+        (delete_character(
             intval(
                 get_val_from_postget(
                     'character_id',
                     NULL
                 )
             )
-        ) > 0
+        ) > 0)
     ) {
         $system_message = '<p class="system-message">Character Deleted!</p>';
     } else {
