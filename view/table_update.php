@@ -40,7 +40,6 @@ foreach ($old_record as $key => $value) {
     $valMemory[$key] = get_val_from_postget($key, $value);
 }
 
-
 if (isset($system_message)) {
     echo '<p>' . $system_message . '</p>';
 }

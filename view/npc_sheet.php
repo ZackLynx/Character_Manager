@@ -327,18 +327,21 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 
     <div id="feats-block">
         <div id="feat-list">
-            <?php foreach ($_SESSION['feats'] as $feat): ?>
+            <?php $featNum = 0;
+            foreach ($character_feats as $feat): ?>
                 <div id="feat_<?php echo $featNum; ?>" class="feat-box">
-                    <input hidden="hidden" name="Feat_<?php echo $featNum; ?>_ID" id="Feat_<?php echo $featNum; ?>_ID" value="<?php echo $featNum; ?>">
+                    <input hidden="hidden" name="Feat_<?php echo $featNum; ?>_ID" id="Feat_<?php echo $featNum; ?>_ID" value="<?php echo $feat['Feat_ID']; ?>">
                     <label for="feat_<?php echo $featNum; ?>_name" class="feat-label">Feat Name: </label>
-                    <input type="text" name="feat_<?php echo $featNum; ?>_name" id="feat_<?php echo $featNum; ?>_name" class="feat-field">
-                    <button class="delete-button">Delete Feat</button>
+                    <input type="text" name="feat_<?php echo $featNum; ?>_name" id="feat_<?php echo $featNum; ?>_name" class="feat-field" value="<?php echo $feat['Feat_Name']; ?>">
+                    <button type="button" class="delete-button" value="<?php echo $featNum; ?>">Delete Feat</button>
                     <br>
                     <label for="feat_<?php echo $featNum; ?>_desc" class="feat-label">Description:</label>
                     <br>
-                    <textarea name="feat_<?php echo $featNum; ?>_desc" id="feat_<?php echo $featNum; ?>_desc" class="feat-field feat_desc"></textarea>
+                    <textarea name="feat_<?php echo $featNum; ?>_desc" id="feat_<?php echo $featNum; ?>_desc" class="feat-field feat_desc"><?php echo $feat['Feat_Desc']; ?></textarea>
                 </div>
-            <?php endforeach; ?>
+                <?php $featNum++;
+            endforeach; ?>
+            <input type="text" id="feats_imported" value="<?php echo $featNum; ?>" hidden>
         </div>
         <div class="center-button">
             <button type="button" id="add-feat-button">Add A Feat</button>

@@ -21,6 +21,7 @@ CBAC        2025-04-15      Renamed file from `skills_autocalc.js` to `character
 ///////////
 /* FEATS */
 ///////////
+var featCount = 0;
 
 /**
  * Used to uniquely identify each feat entry in the DOM. This value will increment up like an
@@ -28,7 +29,9 @@ CBAC        2025-04-15      Renamed file from `skills_autocalc.js` to `character
  * 
  * To avoid behavior anomalies, **DO NOT SUBTRACT IT!**
  */
-var featInc = 0;
+var featInc = document.getElementById("feats_imported").value ?? 0;
+
+
 
 /**
  * Creates a block of HTML code that contains the fields for entering a feat into a
@@ -67,7 +70,8 @@ function addFeat(i) {
 
     // Delete button
     var deleteButton = document.createElement("button");
-    deleteButton.setAttribute("Class", "delete-button");
+    deleteButton.type = "button";
+    deleteButton.className = "delete-button";
     deleteButton.innerText = "Delete Feat";
     deleteButton.addEventListener("click", function () {
         // If feat_ID > 0
@@ -107,6 +111,23 @@ function addFeat(i) {
     featInc++;
     featCount++;
 }
+
+// add "deleteButton" functionality to PHP generated delete feat buttons.
+$buttons = document.getElementsByClassName("delete-button");
+Array.from($buttons).forEach($button => {
+    $button.addEventListener("click", function (event) {
+        // If feat_ID > 0
+        if (event.currentTarget.value > 0) {
+            // Mark for deletion
+        }
+
+        featCount--;
+        // remove the feats <div>
+        var featDiv = event.currentTarget.parentElement;
+        featDiv.remove();
+    });
+});
+
 
 var button = document.getElementById('add-feat-button');
 button.addEventListener('click', addFeat);

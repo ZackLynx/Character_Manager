@@ -207,7 +207,6 @@ elseif ($action == 'edit-character') {
     //echo count($record);
     //echo $record['Class_ID'];
     $character_feats = get_feats($character_ID);
-    setcookie("feats", );
     include './view/table_update.php';
 }
 
