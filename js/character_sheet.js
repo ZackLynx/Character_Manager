@@ -36,10 +36,8 @@ var featInc = document.getElementById("feats_imported").value ?? 0;
 /**
  * Creates a block of HTML code that contains the fields for entering a feat into a
  * character sheet.
- * 
- * @param {Number} i The Feat_ID of the feat in the `feats` database. `0` otherwise.
  */
-function addFeat(i) {
+function addFeat() {
     featNum = "feat_" + featInc;
 
     // Div container for feat.
@@ -52,8 +50,7 @@ function addFeat(i) {
     feat_ID.setAttribute("hidden", "hidden");
     feat_ID.name = "Feat_" + featInc + "_ID";
     feat_ID.id = "Feat_" + featInc + "_ID";
-    var value = (isNaN(i)) ? 0 : i; // 0 if brand new
-    feat_ID.setAttribute('value', value);
+    feat_ID.setAttribute('value', 0);
 
     //Feat Name
     var featNameLabel = document.createElement("label");
@@ -76,9 +73,9 @@ function addFeat(i) {
     deleteButton.addEventListener("click", function () {
         // If feat_ID > 0
         if (feat_ID.value > 0) {
-            // Mark for deletion
-        }
 
+        }
+        alert(feat_ID.value);
         featCount--;
         // remove the feats <div>
         var featDiv = deleteButton.parentElement;
@@ -118,8 +115,10 @@ Array.from($buttons).forEach($button => {
     $button.addEventListener("click", function (event) {
         // If feat_ID > 0
         if (event.currentTarget.value > 0) {
-            // Mark for deletion
+            // Confirm that the user wants to delete this feat.
         }
+
+
 
         featCount--;
         // remove the feats <div>
@@ -127,7 +126,6 @@ Array.from($buttons).forEach($button => {
         featDiv.remove();
     });
 });
-
 
 var button = document.getElementById('add-feat-button');
 button.addEventListener('click', addFeat);
