@@ -17,7 +17,8 @@ CBAC        2025-03-14      Completed version 1 of CRUD actions with system mess
 CBAC        2025-04-04      Refactored the `submit-character` and `save-changes` actions to
                             include skills.
 CBAC        2025-04-11      Renamed $user_message to $system_message
-CBAC        2025-04-14      Added PHP session functionality.
+CBAC        2025-04-18      Implemented functionality for Feat CRUD actions.
+CBAC        2025-04-19      Fixed numerous bugs with Feat CRUD implementation.
 -----------------------------------------------------------------------------------------------
 TODO:   Implement PHP Sessions for result messages after skills are implemented.
         Deprecate the 'old' value fields in table_add and table_update.

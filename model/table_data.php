@@ -23,6 +23,8 @@ CBAC        2025-03-25      Amended get_characters to include the characters rac
 CBAC        2025-04-02      Add, Update, and Delete methods now return the number of records
                             affected. Columns array added for reference and iteration.
 CBAC        2025-04-13      Added Last_Update column for get_characters().
+CBAC        2025-04-18      Implemented Feat CRUD functions.
+CBAC        2025-04-19      Fixed bugs with Feat CRUD functions. added `Notes` to data array.
 -----------------------------------------------------------------------------------------------
 */
 

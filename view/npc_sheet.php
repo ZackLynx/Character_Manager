@@ -22,6 +22,8 @@ CBAC        2025-04-04      Renamed fields to be consistent with `characters` ta
 CBAC        2025-04-08      Character_ID field is now always present and only used when
                             updating a character
 CBAC        2025-04-11      Beginning the <div> grouping of sheet elements.
+CBAC        2025-04-17      Added PHP auto-population of Feats from database.
+CBAC        2025-04-19      Fixed numerous bugs with Feats. added `Notes` functionality.
 -----------------------------------------------------------------------------------------------
 Still To Do:
 Dynamically assign this variable based on the characters ability scores.

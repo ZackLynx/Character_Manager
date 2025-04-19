@@ -19,6 +19,7 @@ CBAC        2025-03-31      Added HTML min and max values to ability score input
 CBAC        2025-04-04      `valMemory` expanded to include skills. Legacy code removed, see
                             `old_pages/table_add_old.php`
 CBAC        2025-04-11      Renamed $user_message to $system_message
+CBAC        2025-04-19      Added `Notes` to data array.
 -----------------------------------------------------------------------------------------------
 */
 
