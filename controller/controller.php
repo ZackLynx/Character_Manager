@@ -29,11 +29,6 @@ require './model/connors_utilities.php';
 require './model/dbconnect.php';
 require './model/table_data.php';
 
-if (session_status() == PHP_SESSION_NONE) {
-    $lifetime = 60 * 60 * 24 * 365;
-    session_set_cookie_params($lifetime, '/');
-    session_start();
-}
 
 /**
  * First searches `$_POST` then `$_GET` for a given array key and returns a value if that key
@@ -202,8 +197,6 @@ elseif ($action == 'edit-character') {
     $character_ID = get_val_from_postget('character_id', NULL);
     $old_record = get_character_by_id($character_ID); // used by table_update.php
     $skill_list = get_skills();
-    $_SESSION['character_data'] = $old_record;
-    $_SESSION['skill_list'] = $skill_list;
     //echo count($record);
     //echo $record['Class_ID'];
     $character_feats = get_feats($character_ID);

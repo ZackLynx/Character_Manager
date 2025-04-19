@@ -43,7 +43,7 @@ function addFeat() {
     // Div container for feat.
     featDiv = document.createElement("div");
     featDiv.setAttribute("id", featNum);
-    featDiv.setAttribute("Class", "feat-box");
+    featDiv.setAttribute("class", "feat-box");
 
     // Feat ID hidden field for PHP to use.
     var feat_ID = document.createElement("input");
@@ -56,14 +56,15 @@ function addFeat() {
     var featNameLabel = document.createElement("label");
     featNameLabel.setAttribute("for", featNum + "_name");
     featNameLabel.innerText = "Feat Name: ";
-    featNameLabel.setAttribute("Class", "feat-label");
+    featNameLabel.setAttribute("class", "feat-label");
 
     var featName = document.createElement("input");
     featName.type = "text";
     featName.name = featNum + "_name";
     // featName.placeholder = featInc;
     featName.id = featName.name;
-    featName.setAttribute("Class", "feat-field");
+    featName.setAttribute("class", "feat-field");
+    featName.setAttribute("hidden", "");
 
     // Delete button
     var deleteButton = document.createElement("button");
