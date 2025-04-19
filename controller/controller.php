@@ -99,7 +99,7 @@ elseif ($action == 'submit-character') {
     $values['Character_Name'] = trim($values['Character_Name']);
 
     // Process feats from POST and or GET.
-    $feats = [];
+    $character_feats = [];
     $total = get_val_from_postget('num-of-feats', 0);
     $i = 0;
     $j = 0;
@@ -107,7 +107,7 @@ elseif ($action == 'submit-character') {
         if (isset($_POST['feat_' . $j . '_name'])) {
             $feat_name = get_val_from_postget('feat_' . $j . '_name', '');
             $feat_desc = get_val_from_postget('feat_' . $j . '_desc', '');
-            array_push($feats, ['Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
+            array_push($character_feats, ['Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
             $i++;
             $j++;
         } else {
@@ -191,7 +191,7 @@ elseif ($action == 'submit-character') {
     }
 
     // Check feat names for blanks
-    foreach ($feats as $feat) {
+    foreach ($character_feats as $feat) {
         if (empty(trim($feat['Feat_Name']))) {
             $system_message .= '<p class="system-message error">One or more feats has a blank name. Please give these feats a name.</p>';
             $has_error = true;
@@ -203,7 +203,7 @@ elseif ($action == 'submit-character') {
         $character_ID = $db->lastInsertId();
 
         // Process feats
-        foreach ($feats as $feat) {
+        foreach ($character_feats as $feat) {
             add_feat($character_ID, trim($feat['Feat_Name']), trim($feat['Feat_Desc']));
         }
 
@@ -215,6 +215,7 @@ elseif ($action == 'submit-character') {
     // Report input errors
     elseif ($has_error) {
         $skill_list = get_skills();
+
         include './view/table_add.php';
     }
 

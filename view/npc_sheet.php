@@ -331,10 +331,10 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
             if (isset($character_feats)) {
                 foreach ($character_feats as $feat): ?>
                     <div id="feat_<?php echo $featNum; ?>" class="feat-box">
-                        <input hidden="hidden" name="feat_<?php echo $featNum; ?>_ID" id="feat_<?php echo $featNum; ?>_ID" value="<?php echo $feat['Feat_ID']; ?>">
+                        <input hidden="hidden" name="feat_<?php echo $featNum; ?>_ID" id="feat_<?php echo $featNum; ?>_ID" value="<?php echo $feat['Feat_ID'] ?? 0; ?>">
                         <label for="feat_<?php echo $featNum; ?>_name" class="feat-label">Feat Name: </label>
                         <input type="text" name="feat_<?php echo $featNum; ?>_name" id="feat_<?php echo $featNum; ?>_name" class="feat-field" value="<?php echo $feat['Feat_Name']; ?>" required>
-                        <button type="button" class="delete-button" value="<?php echo $feat['Feat_ID']; ?>">Delete Feat</button>
+                        <button type="button" class="delete-button" value="<?php echo $feat['Feat_ID'] ?? 0; ?>">Delete Feat</button>
                         <br>
                         <label for="feat_<?php echo $featNum; ?>_desc" class="feat-label">Description:</label>
                         <br>

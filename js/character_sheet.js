@@ -64,6 +64,7 @@ function addFeat() {
     // featName.placeholder = featInc;
     featName.id = featName.name;
     featName.setAttribute("class", "feat-field");
+    // featName.setAttribute("required", "");
 
     // Delete button
     var deleteButton = document.createElement("button");
