@@ -202,7 +202,10 @@ elseif ($action == 'submit-character') {
     if (!$has_error && (add_character($_POST) > 0)) {
         $character_ID = $db->lastInsertId();
 
-
+        // Process feats
+        foreach ($feats as $feat) {
+            add_feat($character_ID, trim($feat['Feat_Name']), trim($feat['Feat_Desc']));
+        }
 
         $system_message = '<p class="system-message">Character added!</p>';
         $records = get_characters();
