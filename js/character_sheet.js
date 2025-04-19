@@ -21,7 +21,7 @@ CBAC        2025-04-15      Renamed file from `skills_autocalc.js` to `character
 ///////////
 /* FEATS */
 ///////////
-var featCount = 0;
+var featCount = document.getElementById("num-of-feats").value ?? 0;
 
 /**
  * Used to uniquely identify each feat entry in the DOM. This value will increment up like an
@@ -30,8 +30,6 @@ var featCount = 0;
  * To avoid behavior anomalies, **DO NOT SUBTRACT IT!**
  */
 var featInc = document.getElementById("num-of-feats").value ?? 0;
-
-
 
 /**
  * Creates a block of HTML code that contains the fields for entering a feat into a
@@ -64,7 +62,7 @@ function addFeat() {
     // featName.placeholder = featInc;
     featName.id = featName.name;
     featName.setAttribute("class", "feat-field");
-    // featName.setAttribute("required", "");
+    featName.setAttribute("required", "");
 
     // Delete button
     var deleteButton = document.createElement("button");
@@ -122,7 +120,7 @@ Array.from($buttons).forEach($button => {
                 }
             }
 
-            featCount--;
+            document.getElementById("num-of-feats").setAttribute("value", --featCount);
             // remove the feats <div>
             var featDiv = event.currentTarget.parentElement;
             featDiv.remove();
