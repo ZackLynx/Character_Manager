@@ -391,6 +391,26 @@ function get_feats($character_id)
 }
 
 /**
+ * Summary of add_feat
+ * @param mixed $character_id
+ * @param mixed $name
+ * @param mixed $desc
+ * @return void
+ */
+function add_feat($character_id, $name, $desc)
+{
+    global $db;
+    $query = 'INSERT INTO feats (Character_ID, Feat_Name, Feat_Desc) VALUES (:ID, :feat_name, :feat_desc);';
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':ID', $character_id);
+    $statement->bindValue(':feat_name', $name);
+    $statement->bindValue('feat_desc', $desc);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+/**
  * Summary of delete_feats
  * @param mixed $feat_IDs
  * @return int

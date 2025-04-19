@@ -97,6 +97,26 @@ elseif ($action == 'submit-character') {
         'Cha_Base' => get_val_from_postget('Cha_Base', -1)
     ];
     $values['Character_Name'] = trim($values['Character_Name']);
+
+    // Process feats from POST and or GET.
+    $feats = [];
+    $total = get_val_from_postget('num-of-feats', 0);
+    $i = 0;
+    $j = 0;
+    while ($i < $total) {
+        if (isset($_POST['feat_' . $j . '_name'])) {
+            $feat_name = get_val_from_postget('feat_' . $j . '_name', '');
+            $feat_desc = get_val_from_postget('feat_' . $j . '_desc', '');
+            array_push($feats, ['Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
+            $i++;
+            $j++;
+        } else {
+            $j++;
+        }
+    }
+
+    // include './view/test.php';
+
     $system_message = '';
     $has_error = false;
 
@@ -170,8 +190,20 @@ elseif ($action == 'submit-character') {
         break;
     }
 
+    // Check feat names for blanks
+    foreach ($feats as $feat) {
+        if (empty(trim($feat['Feat_Name']))) {
+            $system_message .= '<p class="system-message error">One or more feats has a blank name. Please give these feats a name.</p>';
+            $has_error = true;
+        }
+    }
+
     // It works!
     if (!$has_error && (add_character($_POST) > 0)) {
+        $character_ID = $db->lastInsertId();
+
+
+
         $system_message = '<p class="system-message">Character added!</p>';
         $records = get_characters();
         header('Location: ./');

@@ -29,7 +29,7 @@ var featCount = 0;
  * 
  * To avoid behavior anomalies, **DO NOT SUBTRACT IT!**
  */
-var featInc = document.getElementById("feats_imported").value ?? 0;
+var featInc = document.getElementById("num-of-feats").value ?? 0;
 
 
 
@@ -48,8 +48,8 @@ function addFeat() {
     // Feat ID hidden field for PHP to use.
     var feat_ID = document.createElement("input");
     feat_ID.setAttribute("hidden", "hidden");
-    feat_ID.name = "Feat_" + featInc + "_ID";
-    feat_ID.id = "Feat_" + featInc + "_ID";
+    feat_ID.name = featNum + "_ID";
+    feat_ID.id = featNum + "_ID";
     feat_ID.setAttribute('value', 0);
 
     //Feat Name
@@ -64,7 +64,6 @@ function addFeat() {
     // featName.placeholder = featInc;
     featName.id = featName.name;
     featName.setAttribute("class", "feat-field");
-    featName.setAttribute("hidden", "");
 
     // Delete button
     var deleteButton = document.createElement("button");
@@ -73,7 +72,7 @@ function addFeat() {
     deleteButton.innerText = "Delete Feat";
     deleteButton.addEventListener("click", function () {
         if (confirm("Delete this feat? (This action cannot be undone)")) {
-            featCount--;
+            document.getElementById("num-of-feats").setAttribute("value", --featCount);
             // remove the feats <div>
             var featDiv = deleteButton.parentElement;
             featDiv.remove();
@@ -104,7 +103,7 @@ function addFeat() {
     newDiv.appendChild(featDesc);
 
     featInc++;
-    featCount++;
+    document.getElementById("num-of-feats").setAttribute("value", ++featCount);
 }
 
 // add "deleteButton" functionality to PHP generated delete feat buttons.

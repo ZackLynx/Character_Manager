@@ -328,26 +328,28 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
     <div id="feats-block">
         <div id="feat-list">
             <?php $featNum = 0;
-            foreach ($character_feats as $feat): ?>
-                <div id="feat_<?php echo $featNum; ?>" class="feat-box">
-                    <input hidden="hidden" name="Feat_<?php echo $featNum; ?>_ID" id="Feat_<?php echo $featNum; ?>_ID" value="<?php echo $feat['Feat_ID']; ?>">
-                    <label for="feat_<?php echo $featNum; ?>_name" class="feat-label">Feat Name: </label>
-                    <input type="text" name="feat_<?php echo $featNum; ?>_name" id="feat_<?php echo $featNum; ?>_name" class="feat-field" value="<?php echo $feat['Feat_Name']; ?>" required>
-                    <button type="button" class="delete-button" value="<?php echo $feat['Feat_ID']; ?>">Delete Feat</button>
-                    <br>
-                    <label for="feat_<?php echo $featNum; ?>_desc" class="feat-label">Description:</label>
-                    <br>
-                    <textarea name="feat_<?php echo $featNum; ?>_desc" id="feat_<?php echo $featNum; ?>_desc" class="feat-field feat_desc"><?php echo $feat['Feat_Desc']; ?></textarea>
-                </div>
-                <?php $featNum++;
-            endforeach; ?>
+            if (isset($character_feats)) {
+                foreach ($character_feats as $feat): ?>
+                    <div id="feat_<?php echo $featNum; ?>" class="feat-box">
+                        <input hidden="hidden" name="feat_<?php echo $featNum; ?>_ID" id="feat_<?php echo $featNum; ?>_ID" value="<?php echo $feat['Feat_ID']; ?>">
+                        <label for="feat_<?php echo $featNum; ?>_name" class="feat-label">Feat Name: </label>
+                        <input type="text" name="feat_<?php echo $featNum; ?>_name" id="feat_<?php echo $featNum; ?>_name" class="feat-field" value="<?php echo $feat['Feat_Name']; ?>" required>
+                        <button type="button" class="delete-button" value="<?php echo $feat['Feat_ID']; ?>">Delete Feat</button>
+                        <br>
+                        <label for="feat_<?php echo $featNum; ?>_desc" class="feat-label">Description:</label>
+                        <br>
+                        <textarea name="feat_<?php echo $featNum; ?>_desc" id="feat_<?php echo $featNum; ?>_desc" class="feat-field feat_desc"><?php echo $feat['Feat_Desc']; ?></textarea>
+                    </div>
+                    <?php $featNum++;
+                endforeach;
+            } ?>
 
         </div>
         <div class="center-button">
             <button type="button" id="add-feat-button">Add A Feat</button>
         </div>
-        <input type="text" id="feats_imported" value="<?php echo $featNum; ?>" hidden>
-        <input type="text" name="feats-to-delete" id="feats-to-delete" value="" hidden>
+        <input type="text" name="num-of-feats" id="num-of-feats" value="<?php echo $featNum; ?>" hidden>
+        <input type="text" name="feats-to-delete" id="feats-to-delete" value="0" hidden>
     </div>
 
     <div id="inventory">
