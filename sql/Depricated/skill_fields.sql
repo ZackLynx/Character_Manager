@@ -5,7 +5,7 @@ Author:     Connor Bryan Andrew Clawson
 Date:       2025-04-04
 Language:   SQL
 System:     MySQL 8.2.12
-Purpose:    This single querry adds the skill fields for the `characters` table.
+Purpose:    This single query adds the skill fields for the `characters` table.
 
 -----------------------------------------------------------------------------------------------
 ChangeLog:
