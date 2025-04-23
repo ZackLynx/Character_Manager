@@ -25,6 +25,7 @@ CBAC        2025-04-02      Add, Update, and Delete methods now return the numbe
 CBAC        2025-04-13      Added Last_Update column for get_characters().
 CBAC        2025-04-18      Implemented Feat CRUD functions.
 CBAC        2025-04-19      Fixed bugs with Feat CRUD functions. added `Notes` to data array.
+                            Add and Modify character queries now use bindValue().
 -----------------------------------------------------------------------------------------------
 */
 
