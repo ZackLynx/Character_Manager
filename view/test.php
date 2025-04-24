@@ -37,7 +37,7 @@ CBAC		2025-03-07		Original Version
                         <input hidden="hidden" name="feat_<?php echo $featNum; ?>_ID" id="feat_<?php echo $featNum; ?>_ID" value="<?php echo $feat['Feat_ID'] ?? 0; ?>">
                         <label for="feat_<?php echo $featNum; ?>_name" class="feat-label">Feat Name: </label>
                         <input type="text" name="feat_<?php echo $featNum; ?>_name" id="feat_<?php echo $featNum; ?>_name" class="feat-field" value="<?php echo $feat['Feat_Name']; ?>" required>
-                        <button type="button" class="delete-button" value="<?php echo $feat['Feat_ID'] ?? 0; ?>">Delete Feat</button>
+                        <button type="button" class="feat-delete-button" value="<?php echo $feat['Feat_ID'] ?? 0; ?>">Delete Feat</button>
                         <br>
                         <label for="feat_<?php echo $featNum; ?>_desc" class="feat-label">Description:</label>
                         <br>
@@ -61,11 +61,11 @@ CBAC		2025-03-07		Original Version
             <?php $ItemNum = 0;
             if (isset($inventory)) {
                 foreach ($inventory as $item): ?>
-                    <div id="item_<?php echo $ItemNum; ?>" class="inventory-box">
+                    <div id="item_<?php echo $ItemNum; ?>" class="item-box">
                         <input hidden="hidden" name="item_<?php echo $ItemNum; ?>_ID" id="item_<?php echo $ItemNum; ?>_ID" value="<?php echo $item['Inv_ID'] ?? 0; ?>">
                         <label for="item_<?php echo $ItemNum; ?>_name" class="item-label">Item Name: </label>
                         <input type="text" name="item_<?php echo $ItemNum; ?>_name" id="item_<?php echo $ItemNum; ?>_name" class="item-field" value="<?php echo $item['Inv_Name']; ?>" required>
-                        <button type="button" class="feat-delete-button" value="<?php echo $item['Inv_ID'] ?? 0; ?>">Delete item</button>
+                        <button type="button" class="item-delete-button" value="<?php echo $item['Inv_ID'] ?? 0; ?>">Delete item</button>
                         <br>
                         <label for="item_<?php echo $ItemNum; ?>_desc" class="item-label">Description:</label>
                         <br>

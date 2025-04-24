@@ -165,42 +165,49 @@ label {
 }
 
 /* Feats */
-#feats-block {
+#feats-block,
+#inventory {
   border: 1px solid black;
   width: 50rem;
   margin: 0 auto .5rem auto;
   padding-bottom: 1rem;
 }
 
-#feat-list {
+#feat-list,
+#inventory-list {
   margin: 1rem auto;
   padding: .5rem 0 0 0;
 
 }
 
-.feat-box {
+.feat-box,
+.item-box {
   border: 1px solid black;
   max-width: 40rem;
   margin: 0 auto .5rem auto;
   padding: .5rem;
 }
 
-.feat-label {
+.feat-label,
+.item-label {
   width: 5.5rem;
   height: 1rem;
   text-align: right;
 }
 
-.feat-field {}
+.feat-field,
+.item-field {}
 
 .feat_desc,
+.item-desc,
 #notes {
   min-height: 5rem;
   width: 32rem;
   resize: vertical;
 }
 
-.delete-button {
+.feat-delete-button,
+.item-delete-button {
   float: right;
 }
 
