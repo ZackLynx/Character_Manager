@@ -366,6 +366,8 @@ function delete_character($character_ID)
 /* UTILITY QUERIES */
 /////////////////////
 
+/* SKILLS */
+
 /**
  * supplies the list of skills used in the tabletop game.
  * @return array a list of skills from the `skills` table.
@@ -413,7 +415,15 @@ function get_feats($character_id)
     return $feats;
 }
 
+/* FEATS */
 
+/**
+ * Summary of add_feat
+ * @param mixed $character_id
+ * @param mixed $name
+ * @param mixed $desc
+ * @return int
+ */
 function add_feat($character_id, $name, $desc)
 {
     global $db;
@@ -430,7 +440,14 @@ function add_feat($character_id, $name, $desc)
     return $result;
 }
 
-
+/**
+ * Summary of modify_feat
+ * @param mixed $character_id
+ * @param mixed $feat_id
+ * @param mixed $name
+ * @param mixed $desc
+ * @return int
+ */
 function modify_feat($character_id, $feat_id, $name, $desc)
 {
     global $db;
@@ -447,7 +464,12 @@ function modify_feat($character_id, $feat_id, $name, $desc)
     return $result;
 }
 
-
+/**
+ * Summary of delete_feats
+ * @param mixed $character_id
+ * @param mixed $feat_IDs
+ * @return int
+ */
 function delete_feats($character_id, $feat_IDs)
 {
     global $db;
@@ -455,6 +477,84 @@ function delete_feats($character_id, $feat_IDs)
               UPDATE characters SET Last_Update = NOW() WHERE Character_ID = :id;';
     $statement = $db->prepare($query);
     $statement->bindValue(':id', $character_id);
+    $statement->execute();
+    $rows_affected = $statement->rowCount();
+    $statement->closeCursor();
+    return $rows_affected;
+}
+
+/* INVENTORY */
+
+/**
+ * Summary of get_inventory
+ * @param mixed $character_id
+ * @return array
+ */
+function get_inventory($character_id)
+{
+    global $db;
+    $query = 'SELECT * FROM `inventory` WHERE Character_ID = :id;';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $character_id);
+    $statement->execute();
+    $inventory = $statement->fetchAll();
+    $statement->closeCursor();
+    return $inventory;
+}
+
+/**
+ * Summary of add_inventory
+ * @param mixed $character_id
+ * @param mixed $item_name
+ * @param mixed $item_desc
+ * @return int
+ */
+function add_inventory($character_id, $item_name, $item_desc)
+{
+    global $db;
+    $query = 'INSERT INTO `inventory` (Character_ID, Inv_Name, Inv_Desc) VALUES (:id, :name, :desc);';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $character_id);
+    $statement->bindValue(':name', $item_name);
+    $statement->bindValue(':desc', $item_desc);
+    $statement->execute();
+    $rows_affected = $statement->rowCount();
+    $statement->closeCursor();
+    return $rows_affected;
+}
+
+/**
+ * Summary of modify_inventory
+ * @param mixed $item_id
+ * @param mixed $item_name
+ * @param mixed $item_desc
+ * @return int
+ */
+function modify_inventory($item_id, $item_name, $item_desc)
+{
+    global $db;
+    $query = 'UPDATE `inventory` SET Inv_Name = :name, Inv_Desc = :desc WHERE Inv_ID = :id;';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':name', $item_name);
+    $statement->bindValue(':desc', $item_desc);
+    $statement->bindValue(':id', $item_id);
+    $statement->execute();
+    $rows_affected = $statement->rowCount();
+    $statement->closeCursor();
+    return $rows_affected;
+}
+
+/**
+ * Summary of delete_inventory
+ * @param mixed $item_id
+ * @return int
+ */
+function delete_inventory($item_id)
+{
+    global $db;
+    $query = 'DELETE FROM `inventory` WHERE Inv_ID = :id;';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $item_id);
     $statement->execute();
     $rows_affected = $statement->rowCount();
     $statement->closeCursor();
