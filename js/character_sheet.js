@@ -68,7 +68,7 @@ function addFeat() {
     // Delete button
     var deleteButton = document.createElement("button");
     deleteButton.type = "button";
-    deleteButton.className = "delete-button";
+    deleteButton.className = "feat-delete-button";
     deleteButton.innerText = "Delete Feat";
     deleteButton.addEventListener("click", function () {
         if (confirm("Delete this feat? (This action cannot be undone)")) {

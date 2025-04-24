@@ -198,8 +198,8 @@ label {
 .feat-field,
 .item-field {}
 
+.item_desc,
 .feat_desc,
-.item-desc,
 #notes {
   min-height: 5rem;
   width: 32rem;

@@ -463,6 +463,10 @@ elseif ($action == 'confirm-deletion') {
     }
     $record = get_characters();
     header('Location: ./');
+} elseif ($action == 'test-input') {
+    foreach ($_POST as $key => $value) {
+        echo '' . $key . ' => ' . $value . '<br>';
+    }
 }
 ?>
 
