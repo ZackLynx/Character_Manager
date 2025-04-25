@@ -34,6 +34,10 @@ if (isset($system_message) && !empty($system_message)) {
 }
 
 ?>
+<form action="." method="post">
+    <input type="hidden" name="action" value="test">
+    <input type="submit" value="Test a new system">
+</form>
 
 <div class="add-button">
     <form action="." method="post">

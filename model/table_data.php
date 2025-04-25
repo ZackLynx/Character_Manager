@@ -503,16 +503,16 @@ function get_inventory($character_id)
 }
 
 /**
- * Summary of add_inventory
- * @param mixed $character_id
- * @param mixed $item_name
- * @param mixed $item_desc
- * @return int
+ * Adds a single item to a characters inventory.
+ * @param int $character_id The characters `Character_ID`.
+ * @param string $item_name The name of the item.
+ * @param string $item_desc A description of the item.
+ * @return int the number of rows effected. `0` if no records were entered.
  */
 function add_inventory($character_id, $item_name, $item_desc)
 {
     global $db;
-    $query = 'INSERT INTO `inventory` (Character_ID, Inv_Name, Inv_Desc) VALUES (:id, :name, :desc);';
+    $query = 'INSERT INTO `inventory` (Character_ID, Item_Name, Item_Desc) VALUES (:id, :name, :desc);';
     $statement = $db->prepare($query);
     $statement->bindValue(':id', $character_id);
     $statement->bindValue(':name', $item_name);
@@ -525,19 +525,19 @@ function add_inventory($character_id, $item_name, $item_desc)
 
 /**
  * Summary of modify_inventory
- * @param mixed $item_id
+ * @param mixed $inventory_id
  * @param mixed $item_name
  * @param mixed $item_desc
  * @return int
  */
-function modify_inventory($item_id, $item_name, $item_desc)
+function modify_inventory($inventory_id, $item_name, $item_desc)
 {
     global $db;
-    $query = 'UPDATE `inventory` SET Inv_Name = :name, Inv_Desc = :desc WHERE Inv_ID = :id;';
+    $query = 'UPDATE `inventory` SET Item_Name = :name, Item_Desc = :desc WHERE Inventory_ID = :id;';
     $statement = $db->prepare($query);
     $statement->bindValue(':name', $item_name);
     $statement->bindValue(':desc', $item_desc);
-    $statement->bindValue(':id', $item_id);
+    $statement->bindValue(':id', $inventory_id);
     $statement->execute();
     $rows_affected = $statement->rowCount();
     $statement->closeCursor();
@@ -546,15 +546,15 @@ function modify_inventory($item_id, $item_name, $item_desc)
 
 /**
  * Summary of delete_inventory
- * @param mixed $item_id
+ * @param mixed $inventory_id
  * @return int
  */
-function delete_inventory($item_id)
+function delete_inventory($inventory_id)
 {
     global $db;
     $query = 'DELETE FROM `inventory` WHERE Inv_ID = :id;';
     $statement = $db->prepare($query);
-    $statement->bindValue(':id', $item_id);
+    $statement->bindValue(':id', $inventory_id);
     $statement->execute();
     $rows_affected = $statement->rowCount();
     $statement->closeCursor();

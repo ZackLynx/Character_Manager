@@ -19,6 +19,7 @@ CBAC        2025-04-04      Refactored the `submit-character` and `save-changes`
 CBAC        2025-04-11      Renamed $user_message to $system_message
 CBAC        2025-04-18      Implemented functionality for Feat CRUD actions.
 CBAC        2025-04-19      Fixed numerous bugs with Feat CRUD implementation.
+CBAC        2025-04-24      Added a test-input action for analyzing POST data sent in test.php
 -----------------------------------------------------------------------------------------------
 TODO:   Implement PHP Sessions for result messages after skills are implemented.
         Deprecate the 'old' value fields in table_add and table_update.
@@ -463,10 +464,34 @@ elseif ($action == 'confirm-deletion') {
     }
     $record = get_characters();
     header('Location: ./');
+}
+
+// For debug purposes.
+elseif ($action == 'test') {
+    $inventory = get_inventory(1);
+    $character_feats = get_feats(1);
+    include './view/test.php';
 } elseif ($action == 'test-input') {
     foreach ($_POST as $key => $value) {
         echo '' . $key . ' => ' . $value . '<br>';
     }
+
+    try {
+        add_inventory(1, $_POST['item_0_name'], $_POST['item_0_desc']);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+
+    try {
+        // Deleted items
+        $deleted_items = [];
+        if (isset($_POST['items-to-delete']) && (!empty(trim($_POST['items-to-delete'])))) {
+            array_push($deleted_items, get_val_from_postget('feats-to-delete', 0));
+        }
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+
 }
 ?>
 

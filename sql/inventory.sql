@@ -17,8 +17,8 @@ CBAC        YYYY-MM-DD      Original Version
 
 DROP TABLE IF EXISTS `inventory`;
 CREATE TABLE `inventory` (
-    Inv_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Inventory_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Character_ID INT NOT NULL,
-    Inv_Name VARCHAR(11),
-    Inv_Desc TEXT
+    Item_Name VARCHAR(255) NOT NULL,
+    Item_Desc TEXT
 );

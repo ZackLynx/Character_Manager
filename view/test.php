@@ -3,7 +3,7 @@
 -----------------------------------------------------------------------------------------------
 Name:		test.php
 Author:		Connor Bryan Andrew Clawson
-Date:		2025-03-07
+Date:		2025-04-19
 Language:	PHP
 Purpose:	This is for testing new additions to the character sheet.
 
@@ -11,10 +11,10 @@ Purpose:	This is for testing new additions to the character sheet.
 ChangeLog:
 Who			When			What
 ----------- --------------- -------------------------------------------------------------------
-CBAC		2025-03-07		Original Version 
+CBAC		2025-04-19		Original Version, testing the implementation of feats.
+CBAC        2025-04-24      Now testing the addition of the Inventory system.
 -----------------------------------------------------------------------------------------------
 */
-
 ?>
 
 <!DOCTYPE html>
@@ -67,14 +67,14 @@ CBAC		2025-03-07		Original Version
                     if (isset($inventory)) {
                         foreach ($inventory as $item): ?>
                             <div id="item_<?php echo $ItemNum; ?>" class="item-box">
-                                <input hidden="hidden" name="item_<?php echo $ItemNum; ?>_ID" id="item_<?php echo $ItemNum; ?>_ID" value="<?php echo $item['Inv_ID'] ?? 0; ?>">
+                                <input hidden="hidden" name="item_<?php echo $ItemNum; ?>_ID" id="item_<?php echo $ItemNum; ?>_ID" value="<?php echo $item['Inventory_ID'] ?? 0; ?>">
                                 <label for="item_<?php echo $ItemNum; ?>_name" class="item-label">Item Name: </label>
-                                <input type="text" name="item_<?php echo $ItemNum; ?>_name" id="item_<?php echo $ItemNum; ?>_name" class="item-field" value="<?php echo $item['Inv_Name']; ?>" required>
-                                <button type="button" class="item-delete-button" value="<?php echo $item['Inv_ID'] ?? 0; ?>">Delete item</button>
+                                <input type="text" name="item_<?php echo $ItemNum; ?>_name" id="item_<?php echo $ItemNum; ?>_name" class="item-field" value="<?php echo $item['Item_Name']; ?>" required>
+                                <button type="button" class="item-delete-button" value="<?php echo $item['Inventory_ID'] ?? 0; ?>">Delete item</button>
                                 <br>
                                 <label for="item_<?php echo $ItemNum; ?>_desc" class="item-label">Description:</label>
                                 <br>
-                                <textarea name="item_<?php echo $ItemNum; ?>_desc" id="item_<?php echo $ItemNum; ?>_desc" class="item-field item_desc"><?php echo $item['Inv_Desc']; ?></textarea>
+                                <textarea name="item_<?php echo $ItemNum; ?>_desc" id="item_<?php echo $ItemNum; ?>_desc" class="item-field item_desc"><?php echo $item['Item_Desc']; ?></textarea>
                             </div>
                             <?php $ItemNum++;
                         endforeach;
@@ -88,9 +88,9 @@ CBAC		2025-03-07		Original Version
             </div>
 
             <input type="hidden" name="action" value="test-input">
-            <button type="submit" value="Submit for testing">Submit for testing</button>
+            <input type="submit" value="Submit for testing">
         </form>
     </body>
 
-    <script src="../js/character_sheet.js"></script>
+    <script src="./js/character_sheet.js"></script>
 </html>
