@@ -457,9 +457,8 @@ try {
 
             if (
                 (update_character($_POST, $changes['Character_ID']) > 0) ||
-                (!empty($new_feats)) ||
-                $feats_changed ||
-                (!empty($deleted_feats))
+                (!empty($new_feats)) || $feats_changed || (!empty($deleted_feats)) ||
+                (!empty($new_items)) || $items_changed || (!empty($deleted_items))
             ) { // record updated
 
                 // Process feats
