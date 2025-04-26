@@ -403,7 +403,7 @@ function get_class_skills()
 }
 
 /**
- * Summary of get_feats
+ * Gets all of the feats tied to a single character.
  * @param int $character_id The ID of the character whose feats are being pulled.
  * @return array All the feats posessed by the character.
  */
@@ -422,11 +422,11 @@ function get_feats($character_id)
 /* FEATS */
 
 /**
- * Summary of add_feat
- * @param mixed $character_id
- * @param mixed $name
- * @param mixed $desc
- * @return int
+ * Adds a single feat to a character.
+ * @param int $character_id The primary key of the character.
+ * @param string $name The name of the feat.
+ * @param string $desc The description of the feat.
+ * @return int the number of rows effected. `0` if no records were entered.
  */
 function add_feat($character_id, $name, $desc)
 {
@@ -445,12 +445,12 @@ function add_feat($character_id, $name, $desc)
 }
 
 /**
- * Summary of modify_feat
- * @param mixed $character_id
- * @param mixed $feat_id
- * @param mixed $name
- * @param mixed $desc
- * @return int
+ * Edits the info of a specific feat owned by a specific character.
+ * @param int $character_id The primary key of the character.
+ * @param int $feat_id The primary key of the feat.
+ * @param string $name The name of the feat.
+ * @param string $desc The description of the feat.
+ * @return int the number of rows effected. `0` if no records were entered.
  */
 function modify_feat($character_id, $feat_id, $name, $desc)
 {
@@ -469,10 +469,10 @@ function modify_feat($character_id, $feat_id, $name, $desc)
 }
 
 /**
- * Summary of delete_feats
- * @param mixed $character_id
- * @param mixed $feat_IDs
- * @return int
+ * Removes one or more feats from a character.
+ * @param int $character_id The primary key of the character.
+ * @param string $feat_IDs a string of numbers containing the `Feat_ID` of each feat, delimited by a `,` comma.
+ * @return int the number of rows effected. `0` if no records were entered.
  */
 function delete_feats($character_id, $feat_IDs)
 {
@@ -490,9 +490,9 @@ function delete_feats($character_id, $feat_IDs)
 /* INVENTORY */
 
 /**
- * Summary of get_inventory
- * @param mixed $character_id
- * @return array
+ * Gets the items owned by a character
+ * @param int $character_id The primary key of the character.
+ * @return array a key/value array of items owned by the character.
  */
 function get_inventory($character_id)
 {
@@ -508,7 +508,7 @@ function get_inventory($character_id)
 
 /**
  * Adds a single item to a characters inventory.
- * @param int $character_id The characters `Character_ID`.
+ * @param int $character_id TThe primary key of the character.
  * @param string $item_name The name of the item.
  * @param string $item_desc A description of the item.
  * @return int the number of rows effected. `0` if no records were entered.
@@ -529,12 +529,12 @@ function add_inventory($character_id, $item_name, $item_desc)
 }
 
 /**
- * Summary of modify_inventory
- * @param mixed $character_id
- * @param mixed $inventory_id
- * @param mixed $item_name
- * @param mixed $item_desc
- * @return int
+ * Alters the information of a single inventory item.
+ * @param int $character_id The primary key of the character.
+ * @param int $inventory_id The primary key of the item.
+ * @param string $item_name The name of the item.
+ * @param string $item_desc A description of the item.
+ * @return int the number of rows effected. `0` if no records were entered.
  */
 function modify_inventory($character_id, $inventory_id, $item_name, $item_desc)
 {
@@ -554,10 +554,10 @@ function modify_inventory($character_id, $inventory_id, $item_name, $item_desc)
 
 
 /**
- * Summary of delete_inventory
- * @param mixed $character_id
- * @param mixed $deleted_items
- * @return int
+ * Removes one or more items form a character.
+ * @param int $character_id The primary key of the character
+ * @param string $deleted_items a string of numbers containing the `Inventory_ID` of each item, delimited by a `,` comma.
+ * @return int the number of rows effected. `0` if no records were entered.
  */
 function delete_inventory($character_id, $deleted_items)
 {
