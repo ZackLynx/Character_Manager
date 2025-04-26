@@ -46,7 +46,7 @@ function addFeat() {
 
     // Feat ID hidden field for PHP to use.
     var feat_ID = document.createElement("input");
-    feat_ID.setAttribute("hidden", "hidden");
+    feat_ID.setAttribute("type", "hidden");
     feat_ID.name = featNum + "_ID";
     feat_ID.id = featNum + "_ID";
     feat_ID.setAttribute('value', 0);
@@ -133,7 +133,7 @@ function addItem() {
 
     // Item ID hidden field for PHP to use.
     var item_ID = document.createElement("input");
-    item_ID.setAttribute("hidden", "hidden");
+    item_ID.setAttribute("type", "hidden");
     item_ID.name = itemNum + "_ID";
     item_ID.id = itemNum + "_ID";
     item_ID.setAttribute('value', 0);
@@ -197,7 +197,6 @@ function addItem() {
 /* For Existing Feats and Items */
 //////////////////////////////////
 
-// add "deleteButton" functionality to PHP generated delete feat buttons.
 var feat_buttons = document.getElementsByClassName("feat-delete-button");
 Array.from(feat_buttons).forEach(button => {
     button.addEventListener("click", function (event) {

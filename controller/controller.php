@@ -239,6 +239,7 @@ try {
         //echo count($record);
         //echo $record['Class_ID'];
         $character_feats = get_feats($character_ID);
+        $character_items = get_inventory($character_ID);
         include './view/table_update.php';
     }
 
@@ -300,10 +301,8 @@ try {
         }
 
         // Deleted feats
-        $deleted_feats = [];
-        if (isset($_POST['feats-to-delete']) && (!empty(trim($_POST['feats-to-delete'])))) {
-            array_push($deleted_feats, get_val_from_postget('feats-to-delete', 0));
-        }
+        $deleted_feats = get_val_from_postget('feats-to-delete', 0);
+
 
         // Process items from POST and or GET.
         $character_items = [];
@@ -319,7 +318,7 @@ try {
                 $item_name = get_val_from_postget('item_' . $j . '_name', '');
                 $item_desc = get_val_from_postget('item_' . $j . '_desc', '');
 
-                array_push($character_items, ['Item_ID' => $item_id, 'Item_Name' => $item_name, 'Item_Desc' => $item_desc]);
+                array_push($character_items, ['Inventory_ID' => $item_id, 'Item_Name' => $item_name, 'Item_Desc' => $item_desc]);
 
                 // New items
                 if (intval($_POST['item_' . $j . '_ID']) === 0) {
@@ -327,7 +326,7 @@ try {
                 }
                 // Modified items
                 else {
-                    array_push($existing_items, ['Item_ID' => $item_id, 'Item_Name' => $item_name, 'Item_Desc' => $item_desc]);
+                    array_push($existing_items, ['Inventory_ID' => $item_id, 'Item_Name' => $item_name, 'Item_Desc' => $item_desc]);
                 }
                 $i++;
                 $j++;
@@ -338,10 +337,6 @@ try {
 
         // Deleted items
         $deleted_items = get_val_from_postget('items-to-delete', '');
-        if (isset($_POST['items-to-delete']) && (!empty(trim($deleted_items)))) {
-            delete_inventory($character_ID, $deleted_items);
-        }
-
 
         $system_message = '';
         $has_error = false;
@@ -448,7 +443,7 @@ try {
                 foreach ($existing_items as $item) {
                     $items_changed += modify_inventory(
                         $changes['Character_ID'],
-                        $item['Inventory_ID'],
+                        $item['Inventory_ID'], // Came up undefined
                         trim($item['Item_Name']),
                         trim($item['Item_Desc'])
                     );
@@ -470,23 +465,22 @@ try {
                 }
 
                 // Deleted Feats
-                if (sizeof($deleted_feats) > 0) {
+                if (!empty(trim($deleted_feats))) {
                     delete_feats($changes['Character_ID'], $deleted_feats);
                 }
 
                 //Process items
                 // New items
-                foreach ($character_items as $item) {
+                foreach ($new_items as $item) {
                     add_inventory(
-                        $character_ID,
+                        $changes['Character_ID'],
                         trim($item['Item_Name']),
                         trim($item['Item_Desc'])
                     );
                 }
 
                 // Deleted items
-                $deleted_items = get_val_from_postget('items-to-delete', '');
-                if (isset($_POST['items-to-delete']) && (!empty(trim($deleted_items)))) {
+                if (!empty(trim($deleted_items))) {
                     delete_inventory($character_ID, $deleted_items);
                 }
 
@@ -557,7 +551,7 @@ try {
 
     // For debug purposes.
     elseif ($action == 'test') {
-        $inventory = get_inventory(1);
+        $character_items = get_inventory(1);
         $character_feats = get_feats(1);
         include './view/test.php';
     } elseif ($action == 'test-input') {
@@ -597,54 +591,54 @@ try {
 
         // UPDATE ONLY
         // Process feats from POST and or GET.
-        $character_feats = [];
-        $existing_feats = [];   // Used if all entries
-        $new_feats = [];        // are valid.
+        // $character_feats = [];
+        // $existing_feats = [];   // Used if all entries
+        // $new_feats = [];        // are valid.
 
-        $total = get_val_from_postget('num-of-feats', 0);
-        $i = 0;
-        $j = 0;
-        while ($i < $total) {
-            if (isset($_POST['feat_' . $j . '_name'])) {
-                $feat_id = get_val_from_postget('feat_' . $j . '_ID', 0);
-                $feat_name = get_val_from_postget('feat_' . $j . '_name', '');
-                $feat_desc = get_val_from_postget('feat_' . $j . '_desc', '');
+        // $total = get_val_from_postget('num-of-feats', 0);
+        // $i = 0;
+        // $j = 0;
+        // while ($i < $total) {
+        //     if (isset($_POST['feat_' . $j . '_name'])) {
+        //         $feat_id = get_val_from_postget('feat_' . $j . '_ID', 0);
+        //         $feat_name = get_val_from_postget('feat_' . $j . '_name', '');
+        //         $feat_desc = get_val_from_postget('feat_' . $j . '_desc', '');
 
-                array_push($character_feats, ['Feat_ID' => $feat_id, 'Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
+        //         array_push($character_feats, ['Feat_ID' => $feat_id, 'Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
 
-                // New feats
-                if (intval($_POST['feat_' . $j . '_ID']) === 0) {
-                    array_push($new_feats, ['Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
-                }
-                // Modified feats
-                else {
-                    array_push($existing_feats, ['Feat_ID' => $feat_id, 'Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
-                }
-                $i++;
-                $j++;
-            } else {
-                $j++;
-            }
-        }
+        //         // New feats
+        //         if (intval($_POST['feat_' . $j . '_ID']) === 0) {
+        //             array_push($new_feats, ['Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
+        //         }
+        //         // Modified feats
+        //         else {
+        //             array_push($existing_feats, ['Feat_ID' => $feat_id, 'Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
+        //         }
+        //         $i++;
+        //         $j++;
+        //     } else {
+        //         $j++;
+        //     }
+        // }
 
-        // IF IT WORKS:
+        // // IF IT WORKS:
 
-        // ADD AND UPDATE
-        foreach ($character_items as $item) {
-            add_inventory(
-                $character_ID,
-                trim($item['Item_Name']),
-                trim($item['Item_Desc'])
-            );
-        }
+        // // ADD AND UPDATE
+        // foreach ($character_items as $item) {
+        //     add_inventory(
+        //         $character_ID,
+        //         trim($item['Item_Name']),
+        //         trim($item['Item_Desc'])
+        //     );
+        // }
 
-        // UPDATE ONLY
+        // // UPDATE ONLY
 
-        // Deleted items
-        $deleted_items = get_val_from_postget('items-to-delete', '');
-        if (isset($_POST['items-to-delete']) && (!empty(trim($deleted_items)))) {
-            delete_inventory($character_ID, $deleted_items);
-        }
+        // // Deleted items
+        // $deleted_items = get_val_from_postget('items-to-delete', '');
+        // if (isset($_POST['items-to-delete']) && (!empty(trim($deleted_items)))) {
+        //     delete_inventory($character_ID, $deleted_items);
+        // }
 
 
 

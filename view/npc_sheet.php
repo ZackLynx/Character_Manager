@@ -37,6 +37,19 @@ Make this field dynamic with the class selected via JavaScript.
  */
 
 $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
+
+foreach ($_POST as $key => $value) {
+    echo '' . $key . ' => ' . $value . '<br>';
+}
+
+if (isset($character_items)) {
+    foreach ($character_items as $item) {
+        foreach ($item as $key => $value) {
+            echo '' . $key . ' => ' . $value . '<br>';
+        }
+    }
+}
+
 ?>
 
 <input type="hidden" name="Character_ID" value="<?php echo $valMemory['Character_ID'] ?? 0; ?>" required>
@@ -328,15 +341,18 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
     </div>
 
     <div id="feats-block">
+        <p>
+            Feats
+        </p>
         <div id="feat-list">
             <?php $featNum = 0;
             if (isset($character_feats)) {
                 foreach ($character_feats as $feat): ?>
                     <div id="feat_<?php echo $featNum; ?>" class="feat-box">
-                        <input hidden="hidden" name="feat_<?php echo $featNum; ?>_ID" id="feat_<?php echo $featNum; ?>_ID" value="<?php echo $feat['Feat_ID'] ?? 0; ?>">
+                        <input type="hidden" name="feat_<?php echo $featNum; ?>_ID" id="feat_<?php echo $featNum; ?>_ID" value="<?php echo $feat['Feat_ID'] ?? 0; ?>">
                         <label for="feat_<?php echo $featNum; ?>_name" class="feat-label">Feat Name: </label>
                         <input type="text" name="feat_<?php echo $featNum; ?>_name" id="feat_<?php echo $featNum; ?>_name" class="feat-field" value="<?php echo $feat['Feat_Name']; ?>" required>
-                        <button type="button" class="delete-button" value="<?php echo $feat['Feat_ID'] ?? 0; ?>">Delete Feat</button>
+                        <button type="button" class="feat-delete-button" value="<?php echo $feat['Feat_ID'] ?? 0; ?>">Delete Feat</button>
                         <br>
                         <label for="feat_<?php echo $featNum; ?>_desc" class="feat-label">Description:</label>
                         <br>
@@ -345,7 +361,6 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                     <?php $featNum++;
                 endforeach;
             } ?>
-
         </div>
         <div class="center-button">
             <button type="button" id="add-feat-button">Add A Feat</button>
@@ -355,24 +370,28 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
     </div>
 
     <div id="inventory">
+        <p>
+            Inventory
+        </p>
         <div id="inventory-list">
             <?php $ItemNum = 0;
-            if (isset($inventory)) {
-                foreach ($inventory as $item): ?>
-                    <div id="inv_<?php echo $ItemNum; ?>" class="inventory-box">
-                        <input hidden="hidden" name="inv_<?php echo $ItemNum; ?>_ID" id="inv_<?php echo $ItemNum; ?>_ID" value="<?php echo $item['Inv_ID'] ?? 0; ?>">
-                        <label for="inv_<?php echo $ItemNum; ?>_name" class="inventory-label">Item Name: </label>
-                        <input type="text" name="inv_<?php echo $ItemNum; ?>_name" id="inv_<?php echo $ItemNum; ?>_name" class="inventory-field" value="<?php echo $item['Inv_Name']; ?>" required>
-                        <button type="button" class="feat-delete-button" value="<?php echo $item['Inv_ID'] ?? 0; ?>">Delete Feat</button>
+            if (isset($character_items)) {
+                foreach ($character_items as $item): ?>
+                    <div id="item_<?php echo $ItemNum; ?>" class="item-box">
+                        <input type="hidden" name="item_<?php echo $ItemNum; ?>_ID" id="item_<?php echo $ItemNum; ?>_ID" value="<?php echo $item['Inventory_ID'] ?? 0; ?>">
+
+                        <label for="item_<?php echo $ItemNum; ?>_name" class="item-label">Item Name: </label>
+                        <input type="text" name="item_<?php echo $ItemNum; ?>_name" id="item_<?php echo $ItemNum; ?>_name" class="item-field" value="<?php echo $item['Item_Name']; ?>" required>
+
+                        <button type="button" class="item-delete-button" value="<?php echo $item['Inventory_ID'] ?? 0; ?>">Delete item</button>
                         <br>
-                        <label for="inv_<?php echo $ItemNum; ?>_desc" class="inventory-label">Description:</label>
+                        <label for="item_<?php echo $ItemNum; ?>_desc" class="item-label">Description:</label>
                         <br>
-                        <textarea name="inv_<?php echo $ItemNum; ?>_desc" id="inv_<?php echo $ItemNum; ?>_desc" class="inventory-field inventory_desc"><?php echo $item['Inv_Desc']; ?></textarea>
+                        <textarea name="item_<?php echo $ItemNum; ?>_desc" id="item_<?php echo $ItemNum; ?>_desc" class="item-field item_desc"><?php echo $item['Item_Desc']; ?></textarea>
                     </div>
                     <?php $ItemNum++;
                 endforeach;
             } ?>
-
         </div>
         <div class="center-button">
             <button type="button" id="add-item-button">Add An Item</button>
@@ -380,6 +399,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         <input type="text" name="num-of-items" id="num-of-items" value="<?php echo $ItemNum; ?>" hidden>
         <input type="text" name="items-to-delete" id="items-to-delete" hidden>
     </div>
+
     <div id="notes-block">
         <label for="Notes">Notes</label>
         <br>
