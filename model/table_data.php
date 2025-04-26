@@ -473,7 +473,7 @@ function modify_feat($character_id, $feat_id, $name, $desc)
 function delete_feats($character_id, $feat_IDs)
 {
     global $db;
-    $query = 'DELETE FROM feats WHERE Feat_ID IN (' . implode($feat_IDs) . ');
+    $query = 'DELETE FROM feats WHERE Feat_ID IN (' . $feat_IDs . ');
               UPDATE characters SET Last_Update = NOW() WHERE Character_ID = :id;';
     $statement = $db->prepare($query);
     $statement->bindValue(':id', $character_id);
@@ -512,7 +512,8 @@ function get_inventory($character_id)
 function add_inventory($character_id, $item_name, $item_desc)
 {
     global $db;
-    $query = 'INSERT INTO `inventory` (Character_ID, Item_Name, Item_Desc) VALUES (:id, :name, :desc);';
+    $query = 'INSERT INTO `inventory` (Character_ID, Item_Name, Item_Desc) VALUES (:id, :name, :desc);
+              UPDATE characters SET Last_Update = NOW() WHERE Character_ID = :id;';
     $statement = $db->prepare($query);
     $statement->bindValue(':id', $character_id);
     $statement->bindValue(':name', $item_name);
@@ -544,17 +545,14 @@ function modify_inventory($inventory_id, $item_name, $item_desc)
     return $rows_affected;
 }
 
-/**
- * Summary of delete_inventory
- * @param mixed $inventory_id
- * @return int
- */
-function delete_inventory($inventory_id)
+
+function delete_inventory($character_id, $deleted_items)
 {
     global $db;
-    $query = 'DELETE FROM `inventory` WHERE Inv_ID = :id;';
+    $query = 'DELETE FROM `inventory` WHERE Inventory_ID IN (' . $deleted_items . ');
+              UPDATE characters SET Last_Update = NOW() WHERE Character_ID = :id;';
     $statement = $db->prepare($query);
-    $statement->bindValue(':id', $inventory_id);
+    $statement->bindValue(':id', $character_id);
     $statement->execute();
     $rows_affected = $statement->rowCount();
     $statement->closeCursor();
