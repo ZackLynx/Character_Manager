@@ -107,13 +107,38 @@ try {
             if (isset($_POST['feat_' . $j . '_name'])) {
                 $feat_name = get_val_from_postget('feat_' . $j . '_name', '');
                 $feat_desc = get_val_from_postget('feat_' . $j . '_desc', '');
-                array_push($character_feats, ['Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
+                array_push(
+                    $character_feats,
+                    ['Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]
+                );
                 $i++;
                 $j++;
             } else {
                 $j++;
             }
         }
+
+        // Process items from POST and or GET.
+        $character_items = [];
+        $total = get_val_from_postget('num-of-items', 0);
+        $i = 0;
+        $j = 0;
+        while ($i < $total) {
+            if (isset($_POST['item_' . $j . '_name'])) {
+                $item_name = get_val_from_postget('item_' . $j . '_name', '');
+                $item_desc = get_val_from_postget('item_' . $j . '_desc', '');
+                array_push(
+                    $character_items,
+                    ['Item_Name' => $item_name, 'Item_Desc' => $item_desc]
+                );
+                $i++;
+                $j++;
+            } else {
+                $j++;
+            }
+        }
+
+
 
         // include './view/test.php';
 
@@ -199,6 +224,15 @@ try {
             }
         }
 
+        // Check item names for blanks
+        foreach ($character_items as $item) {
+            if (empty(trim($item['Item_Name']))) {
+                $system_message .= '<p class="system-message error">One or more items has a blank name. Please give these items a name.</p>';
+                $has_error = true;
+                break;
+            }
+        }
+
         // It works!
         if (!$has_error && (add_character($_POST) > 0)) {
 
@@ -206,7 +240,20 @@ try {
 
             // Process feats
             foreach ($character_feats as $feat) {
-                add_feat($character_ID, trim($feat['Feat_Name']), trim($feat['Feat_Desc']));
+                add_feat(
+                    $character_ID,
+                    trim($feat['Feat_Name']),
+                    trim($feat['Feat_Desc'])
+                );
+            }
+
+            // Process items
+            foreach ($character_items as $item) {
+                add_inventory(
+                    $character_ID,
+                    trim($item['Item_Name']),
+                    trim($item['Item_Desc'])
+                );
             }
 
             $system_message = '<p class="system-message">Character added!</p>';
@@ -467,10 +514,9 @@ try {
 
                 // Process feats
                 // New feats
-                if (sizeof($new_feats) > 0) {
-                    foreach ($new_feats as $feat) {
-                        add_feat($changes['Character_ID'], trim($feat['Feat_Name']), trim($feat['Feat_Desc']));
-                    }
+
+                foreach ($new_feats as $feat) {
+                    add_feat($changes['Character_ID'], trim($feat['Feat_Name']), trim($feat['Feat_Desc']));
                 }
 
                 // Deleted Feats
