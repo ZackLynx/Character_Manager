@@ -475,42 +475,67 @@ elseif ($action == 'test') {
     foreach ($_POST as $key => $value) {
         echo '' . $key . ' => ' . $value . '<br>';
     }
+    $character_ID = 1;
 
-    try {
-        // Process items from POST and or GET.
-        $character_items = [];
-        $total = get_val_from_postget('num-of-items', 0);
-        $i = 0;
-        $j = 0;
-        while ($i < $total) {
-            if (isset($_POST['item_' . $j . '_name'])) {
-                $item_name = get_val_from_postget('item_' . $j . '_name', '');
-                $item_desc = get_val_from_postget('item_' . $j . '_desc', '');
-                array_push($character_items, ['Item_Name' => $item_name, 'Item_Desc' => $item_desc]);
-                $i++;
-                $j++;
-            } else {
-                $j++;
-            }
-        }
 
-        foreach ($character_items as $item) {
-            add_inventory(1, trim($item['Item_Name']), trim($item['Item_Desc']));
+    // PREPARATION:
+
+    // Process items from POST and or GET.
+    $character_items = [];
+    $existing_items = [];   // Used if all entries
+    $new_items = [];        // are valid.
+
+
+    // ADD AND UPDATE:
+    // Process items from POST and or GET.
+    $total = get_val_from_postget('num-of-items', 0);
+    $i = 0;
+    $j = 0;
+    while ($i < $total) {
+        if (isset($_POST['item_' . $j . '_name'])) {
+            $item_name = get_val_from_postget('item_' . $j . '_name', '');
+            $item_desc = get_val_from_postget('item_' . $j . '_desc', '');
+            array_push(
+                $character_items,
+                ['Item_Name' => $item_name, 'Item_Desc' => $item_desc]
+            );
+            $i++;
+            $j++;
+        } else {
+            $j++;
         }
-    } catch (Exception $e) {
-        echo 'Inventory add. <br>';
-        echo $e->getMessage();
     }
 
-    try {
-        // Deleted items
-        $deleted_items = get_val_from_postget('items-to-delete', 0);
-        if (isset($_POST['items-to-delete']) && (!empty(trim($deleted_items)))) {
-            delete_inventory(1, $deleted_items);
+    // IF IT WORKS:
+
+    // AND AND UPDATE
+    foreach ($character_items as $item) {
+        add_inventory(
+            $character_ID,
+            trim($item['Item_Name']),
+            trim($item['Item_Desc'])
+        );
+    }
+
+    // UPDATE ONLY
+
+    // Deleted items
+    $deleted_items = get_val_from_postget('items-to-delete', '');
+    if (isset($_POST['items-to-delete']) && (!empty(trim($deleted_items)))) {
+        delete_inventory($character_ID, $deleted_items);
+    }
+
+    // Update items
+    $items_changed = 0;
+    if (sizeof($existing_items) > 0) {
+        foreach ($existing_items as $item) {
+            $items_changed += modify_inventory(
+                $changes['Character_ID'],
+                $item['Inventory_ID'],
+                trim($item['Item_Name']),
+                trim($item['Item_Desc'])
+            );
         }
-    } catch (Exception $e) {
-        echo 'Inventory Delete. <br>';
-        echo $e->getMessage();
     }
 
 }
