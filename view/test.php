@@ -13,6 +13,7 @@ Who			When			What
 ----------- --------------- -------------------------------------------------------------------
 CBAC		2025-04-19		Original Version, testing the implementation of feats.
 CBAC        2025-04-24      Now testing the addition of the Inventory system.
+CBAC        2025-04-25      Beginning migration to npc_sheet.
 -----------------------------------------------------------------------------------------------
 */
 ?>

@@ -24,6 +24,7 @@ CBAC        2025-04-08      Character_ID field is now always present and only us
 CBAC        2025-04-11      Beginning the <div> grouping of sheet elements.
 CBAC        2025-04-17      Added PHP auto-population of Feats from database.
 CBAC        2025-04-19      Fixed numerous bugs with Feats. added `Notes` functionality.
+CBAC        2025-04-26      Item system implemented.
 -----------------------------------------------------------------------------------------------
 Still To Do:
 Dynamically assign this variable based on the characters ability scores.
@@ -38,17 +39,10 @@ Make this field dynamic with the class selected via JavaScript.
 
 $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 
-foreach ($_POST as $key => $value) {
-    echo '' . $key . ' => ' . $value . '<br>';
-}
+// foreach ($_POST as $key => $value) {
+//     echo '' . $key . ' => ' . $value . '<br>';
+// }
 
-if (isset($character_items)) {
-    foreach ($character_items as $item) {
-        foreach ($item as $key => $value) {
-            echo '' . $key . ' => ' . $value . '<br>';
-        }
-    }
-}
 
 ?>
 

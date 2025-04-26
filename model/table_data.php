@@ -26,6 +26,7 @@ CBAC        2025-04-13      Added Last_Update column for get_characters().
 CBAC        2025-04-18      Implemented Feat CRUD functions.
 CBAC        2025-04-19      Fixed bugs with Feat CRUD functions. added `Notes` to data array.
                             Add and Modify character queries now use bindValue().
+CBAC        2025-04-25      First run of CRUD functions for Inventory system. 
 CBAC        2025-04-26      Updated Delete_character to remove inventory attached to character.
                             Inventory CRUD functions completed and tested.
 -----------------------------------------------------------------------------------------------
@@ -438,9 +439,9 @@ function add_feat($character_id, $name, $desc)
     $statement->bindValue(':feat_name', $name);
     $statement->bindValue('feat_desc', $desc);
     $statement->execute();
-    $result = $statement->rowCount();
+    $rows_affected = $statement->rowCount();
     $statement->closeCursor();
-    return $result;
+    return $rows_affected;
 }
 
 /**
@@ -454,17 +455,17 @@ function add_feat($character_id, $name, $desc)
 function modify_feat($character_id, $feat_id, $name, $desc)
 {
     global $db;
-    $query = 'UPDATE feats SET Feat_Name = :feat_name, Feat_Desc = :feat_desc WHERE Feat_ID = :id;
+    $query = 'UPDATE feats SET Feat_Name = :feat_name, Feat_Desc = :feat_desc WHERE Feat_ID = :feat_id;
               UPDATE characters SET Last_Update = NOW() WHERE Character_ID = :character_id;';
     $statement = $db->prepare($query);
-    $statement->bindValue(':id', $feat_id);
+    $statement->bindValue(':character_id', $character_id);
+    $statement->bindValue(':feat_id', $feat_id);
     $statement->bindValue(':feat_name', $name);
     $statement->bindValue(':feat_desc', $desc);
-    $statement->bindValue(':character_id', $character_id);
     $statement->execute();
-    $result = $statement->rowCount();
+    $rows_affected = $statement->rowCount();
     $statement->closeCursor();
-    return $result;
+    return $rows_affected;
 }
 
 /**
@@ -538,18 +539,19 @@ function add_inventory($character_id, $item_name, $item_desc)
 function modify_inventory($character_id, $inventory_id, $item_name, $item_desc)
 {
     global $db;
-    $query = 'UPDATE `inventory` SET Item_Name = :name, Item_Desc = :desc WHERE Inventory_ID = :id;
-              UPDATE characters SET Last_Update = NOW() WHERE Character_ID = :id;';
+    $query = 'UPDATE `inventory` SET Item_Name = :item_name, Item_Desc = :item_desc WHERE Inventory_ID = :inventory_id;
+              UPDATE characters SET Last_Update = NOW() WHERE Character_ID = :character_id;';
     $statement = $db->prepare($query);
-    $statement->bindValue(':name', $item_name);
-    $statement->bindValue(':desc', $item_desc);
-    $statement->bindValue(':id', $inventory_id);
-    $statement->bindValue(':id', $character_id);
+    $statement->bindValue(':character_id', $character_id);
+    $statement->bindValue(':inventory_id', $inventory_id);
+    $statement->bindValue(':item_name', $item_name);
+    $statement->bindValue(':item_desc', $item_desc);
     $statement->execute();
     $rows_affected = $statement->rowCount();
     $statement->closeCursor();
     return $rows_affected;
 }
+
 
 /**
  * Summary of delete_inventory

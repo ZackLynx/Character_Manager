@@ -20,10 +20,8 @@ CBAC        2025-04-11      Renamed $user_message to $system_message
 CBAC        2025-04-18      Implemented functionality for Feat CRUD actions.
 CBAC        2025-04-19      Fixed numerous bugs with Feat CRUD implementation.
 CBAC        2025-04-24      Added a test-input action for analyzing POST data sent in test.php
------------------------------------------------------------------------------------------------
-TODO:   Implement PHP Sessions for result messages after skills are implemented.
-        Deprecate the 'old' value fields in table_add and table_update.
-        Add a "this site uses cookies" disclamer.
+CBAC        2025-04-25      Beginning implementation of Inventory system.
+CBAC        2025-04-26      Inventory implementation completed.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -286,6 +284,7 @@ try {
                         ['Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]
                     );
                 }
+
                 // Modified feats
                 else {
                     array_push(
@@ -301,7 +300,7 @@ try {
         }
 
         // Deleted feats
-        $deleted_feats = get_val_from_postget('feats-to-delete', 0);
+        $deleted_feats = get_val_from_postget('feats-to-delete', '');
 
 
         // Process items from POST and or GET.
@@ -318,15 +317,25 @@ try {
                 $item_name = get_val_from_postget('item_' . $j . '_name', '');
                 $item_desc = get_val_from_postget('item_' . $j . '_desc', '');
 
-                array_push($character_items, ['Inventory_ID' => $item_id, 'Item_Name' => $item_name, 'Item_Desc' => $item_desc]);
+                array_push(
+                    $character_items,
+                    ['Inventory_ID' => $item_id, 'Item_Name' => $item_name, 'Item_Desc' => $item_desc]
+                );
 
                 // New items
                 if (intval($_POST['item_' . $j . '_ID']) === 0) {
-                    array_push($new_items, ['Item_Name' => $item_name, 'Item_Desc' => $item_desc]);
+                    array_push(
+                        $new_items,
+                        ['Item_Name' => $item_name, 'Item_Desc' => $item_desc]
+                    );
                 }
+
                 // Modified items
                 else {
-                    array_push($existing_items, ['Inventory_ID' => $item_id, 'Item_Name' => $item_name, 'Item_Desc' => $item_desc]);
+                    array_push(
+                        $existing_items,
+                        ['Inventory_ID' => $item_id, 'Item_Name' => $item_name, 'Item_Desc' => $item_desc]
+                    );
                 }
                 $i++;
                 $j++;
@@ -559,88 +568,6 @@ try {
             echo '' . $key . ' => ' . $value . '<br>';
         }
         $character_ID = 1;
-
-
-        // PREPARATION:
-
-        // Process items from POST and or GET.
-        $character_items = [];
-        $existing_items = [];   // Used if all entries
-        $new_items = [];        // are valid.
-
-
-        // ADD ONLY
-        // Process items from POST and or GET.
-        // $total = get_val_from_postget('num-of-items', 0);
-        // $i = 0;
-        // $j = 0;
-        // while ($i < $total) {
-        //     if (isset($_POST['item_' . $j . '_name'])) {
-        //         $item_name = get_val_from_postget('item_' . $j . '_name', '');
-        //         $item_desc = get_val_from_postget('item_' . $j . '_desc', '');
-        //         array_push(
-        //             $character_items,
-        //             ['Item_Name' => $item_name, 'Item_Desc' => $item_desc]
-        //         );
-        //         $i++;
-        //         $j++;
-        //     } else {
-        //         $j++;
-        //     }
-        // }
-
-        // UPDATE ONLY
-        // Process feats from POST and or GET.
-        // $character_feats = [];
-        // $existing_feats = [];   // Used if all entries
-        // $new_feats = [];        // are valid.
-
-        // $total = get_val_from_postget('num-of-feats', 0);
-        // $i = 0;
-        // $j = 0;
-        // while ($i < $total) {
-        //     if (isset($_POST['feat_' . $j . '_name'])) {
-        //         $feat_id = get_val_from_postget('feat_' . $j . '_ID', 0);
-        //         $feat_name = get_val_from_postget('feat_' . $j . '_name', '');
-        //         $feat_desc = get_val_from_postget('feat_' . $j . '_desc', '');
-
-        //         array_push($character_feats, ['Feat_ID' => $feat_id, 'Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
-
-        //         // New feats
-        //         if (intval($_POST['feat_' . $j . '_ID']) === 0) {
-        //             array_push($new_feats, ['Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
-        //         }
-        //         // Modified feats
-        //         else {
-        //             array_push($existing_feats, ['Feat_ID' => $feat_id, 'Feat_Name' => $feat_name, 'Feat_Desc' => $feat_desc]);
-        //         }
-        //         $i++;
-        //         $j++;
-        //     } else {
-        //         $j++;
-        //     }
-        // }
-
-        // // IF IT WORKS:
-
-        // // ADD AND UPDATE
-        // foreach ($character_items as $item) {
-        //     add_inventory(
-        //         $character_ID,
-        //         trim($item['Item_Name']),
-        //         trim($item['Item_Desc'])
-        //     );
-        // }
-
-        // // UPDATE ONLY
-
-        // // Deleted items
-        // $deleted_items = get_val_from_postget('items-to-delete', '');
-        // if (isset($_POST['items-to-delete']) && (!empty(trim($deleted_items)))) {
-        //     delete_inventory($character_ID, $deleted_items);
-        // }
-
-
 
     }
 } catch (Exception $e) {
