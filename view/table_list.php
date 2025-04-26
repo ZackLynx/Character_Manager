@@ -19,13 +19,15 @@ CBAC        2025-03-25      Added another add-button to the bottom of the list. 
                             the list grows long.
 CBAC        2025-04-11      Renamed $user_message to $system_message.
 CBAC        2025-04-13      Added 'Last Modified' column to table view.
+CBAC        2025-04-25      Added button for going to the feature testing page.
 -----------------------------------------------------------------------------------------------
-TODO: Implement PHP Sessions for result messages after skills are implemented.
+TODO: Implement PHP Sessions for result messages.
 -----------------------------------------------------------------------------------------------
 */
-if (session_status() == PHP_SESSION_ACTIVE) {
-    echo "<p>Session ID: " . session_id() . "</p>";
-}
+
+// if (session_status() == PHP_SESSION_ACTIVE) {
+//     echo "<p>Session ID: " . session_id() . "</p>";
+// }
 
 if (isset($system_message) && !empty($system_message)) {
     echo $system_message;
@@ -34,10 +36,12 @@ if (isset($system_message) && !empty($system_message)) {
 }
 
 ?>
-<form action="." method="post">
-    <input type="hidden" name="action" value="test">
-    <input type="submit" value="Test a new system">
-</form>
+<div class="add-button">
+    <form action="." method="post">
+        <input type="hidden" name="action" value="test">
+        <input type="submit" value="Test a new system">
+    </form>
+</div>
 
 <div class="add-button">
     <form action="." method="post">
