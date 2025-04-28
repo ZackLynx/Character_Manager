@@ -14,6 +14,7 @@ Who			When			What
 CBAC		2025-04-19		Original Version, testing the implementation of feats.
 CBAC        2025-04-24      Now testing the addition of the Inventory system.
 CBAC        2025-04-25      Beginning migration to npc_sheet.
+CBAC        2025-04-26      Added button for refactoring skills.
 -----------------------------------------------------------------------------------------------
 */
 ?>
@@ -30,6 +31,13 @@ CBAC        2025-04-25      Beginning migration to npc_sheet.
     </head>
 
     <body>
+        <form action="." method="post">
+            <p>
+                Skill Refactor
+            </p>
+            <input type="hidden" name="action" value="migrate-skills">
+            <input type="submit" value="BEGIN SKILL REFACTOR">
+        </form>
         <form action="." method="post">
             <div id="feats-block">
                 <p>
@@ -91,6 +99,7 @@ CBAC        2025-04-25      Beginning migration to npc_sheet.
             <input type="hidden" name="action" value="test-input">
             <input type="submit" value="Submit for testing">
         </form>
+
     </body>
 
     <script src="./js/character_sheet.js"></script>

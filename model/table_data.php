@@ -29,6 +29,8 @@ CBAC        2025-04-19      Fixed bugs with Feat CRUD functions. added `Notes` t
 CBAC        2025-04-25      First run of CRUD functions for Inventory system. 
 CBAC        2025-04-26      Updated Delete_character to remove inventory attached to character.
                             Inventory CRUD functions completed and tested.
+CBAC        2025-04-27      First CRUD functions for Skills rework.
+CBAC        2025-04-28      Exploring new CRUD approach with `REPLACE INTO` keywords.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -210,6 +212,17 @@ function get_characters()
     return $records;
 }
 
+function get_characters_all_data()
+{
+    global $db;
+    $query = 'SELECT * FROM `characters`;';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $records = $statement->fetchAll();
+    $statement->closeCursor();
+    return $records;
+}
+
 /**
  * Gets the full character data of a single character from the `characters` table.
  * @param int $id the `Character_ID` of the character.
@@ -350,9 +363,9 @@ function delete_character($character_ID)
     try {
         global $db;
         // Feats
-        $query = 'DELETE FROM feats WHERE Character_ID = :id;
-                  DELETE FROM inventory WHERE Character_ID = :id;
-                  DELETE FROM characters WHERE Character_ID = :id;';
+        $query = 'DELETE FROM `feats` WHERE Character_ID = :id;
+                  DELETE FROM `inventory` WHERE Character_ID = :id;
+                  DELETE FROM `characters` WHERE Character_ID = :id;';
         $statement = $db->prepare($query);
         $statement->bindValue(':id', $character_ID);
         $statement->execute();
@@ -394,7 +407,7 @@ function get_skills()
 function get_class_skills()
 {
     global $db;
-    $query = 'SELECT * FROM classes_skills;';
+    $query = 'SELECT * FROM `classes_skills`;';
     $statement = $db->prepare($query);
     $statement->execute();
     $class_skills = $statement->fetchAll();
@@ -410,7 +423,7 @@ function get_class_skills()
 function get_feats($character_id)
 {
     global $db;
-    $query = 'SELECT * FROM feats WHERE Character_ID = :id;';
+    $query = 'SELECT * FROM `feats` WHERE Character_ID = :id;';
     $statement = $db->prepare($query);
     $statement->bindValue(':id', $character_id);
     $statement->execute();
@@ -431,7 +444,7 @@ function get_feats($character_id)
 function add_feat($character_id, $name, $desc)
 {
     global $db;
-    $query = 'INSERT INTO feats (Character_ID, Feat_Name, Feat_Desc) VALUES (:id, :feat_name, :feat_desc);
+    $query = 'INSERT INTO `feats` (Character_ID, Feat_Name, Feat_Desc) VALUES (:id, :feat_name, :feat_desc);
               UPDATE characters SET Last_Update = NOW() WHERE Character_ID = :id;';
 
     $statement = $db->prepare($query);
@@ -455,7 +468,7 @@ function add_feat($character_id, $name, $desc)
 function modify_feat($character_id, $feat_id, $name, $desc)
 {
     global $db;
-    $query = 'UPDATE feats SET Feat_Name = :feat_name, Feat_Desc = :feat_desc WHERE Feat_ID = :feat_id;
+    $query = 'UPDATE `feats` SET Feat_Name = :feat_name, Feat_Desc = :feat_desc WHERE Feat_ID = :feat_id;
               UPDATE characters SET Last_Update = NOW() WHERE Character_ID = :character_id;';
     $statement = $db->prepare($query);
     $statement->bindValue(':character_id', $character_id);
@@ -477,7 +490,7 @@ function modify_feat($character_id, $feat_id, $name, $desc)
 function delete_feats($character_id, $feat_IDs)
 {
     global $db;
-    $query = 'DELETE FROM feats WHERE Feat_ID IN (' . $feat_IDs . ');
+    $query = 'DELETE FROM `feats` WHERE Feat_ID IN (' . $feat_IDs . ');
               UPDATE characters SET Last_Update = NOW() WHERE Character_ID = :id;';
     $statement = $db->prepare($query);
     $statement->bindValue(':id', $character_id);
@@ -572,5 +585,58 @@ function delete_inventory($character_id, $deleted_items)
     return $rows_affected;
 }
 
+/////////////////////////////////
+/* REFACTORED SKILLS FUNCTIONS */
+/////////////////////////////////
+
+function get_character_skills($character_id)
+{
+    global $db;
+    $query = 'SELECT * FROM `character_skills` WHERE Character_ID = :character_id;';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':character_id', $character_id);
+    $statement->execute();
+    $rows_affected = $statement->rowCount();
+    $statement->closeCursor();
+    return $rows_affected;
+}
+
+function get_skill_modifiers()
+{
+    global $db;
+    $query = 'SELECT * FROM `skill_modifiers`;';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $table = $statement->fetchAll();
+    $statement->closeCursor();
+    return $table;
+}
+
+/**
+ * Summary of enter_skill_value
+ * @param mixed $character_id
+ * @param mixed $skill_id
+ * @param mixed $modifier_id
+ * @param mixed $field_value
+ * @return int
+ */
+function enter_skill_value($character_id, $skill_id, $modifier_id, $field_value)
+{
+    global $db;
+
+    // `REPLACE INTO` will `UPDATE` if a record exists or `INSERT INTO` if one does not 
+    $query = 'REPLACE INTO `character_skills` 
+              (Character_ID, Skill_ID, Modifier_ID, Field_Value) 
+              VALUES (:character_id, :skill_id, :modifier_id, :field_value);';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':character_id', $character_id);
+    $statement->bindValue(':skill_id', $skill_id);
+    $statement->bindValue(':modifier_id', $modifier_id);
+    $statement->bindValue(':field_value', $field_value);
+    $statement->execute();
+    $rows_affected = $statement->rowCount();
+    $statement->closeCursor();
+    return $rows_affected;
+}
 ?>
 

@@ -22,6 +22,8 @@ CBAC        2025-04-19      Fixed numerous bugs with Feat CRUD implementation.
 CBAC        2025-04-24      Added a test-input action for analyzing POST data sent in test.php
 CBAC        2025-04-25      Beginning implementation of Inventory system.
 CBAC        2025-04-26      Inventory implementation completed.
+CBAC        2025-04-27      added migrate-skills action for Skills rework
+CBAC        2025-04-28      First successful test of skill values migration.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -613,8 +615,35 @@ try {
         foreach ($_POST as $key => $value) {
             echo '' . $key . ' => ' . $value . '<br>';
         }
-        $character_ID = 1;
+    } elseif ($action == 'migrate-skills') {
+        $skill_names = ["Acrob_Ranks", "Acrob_Racial", "Acrob_Feats", "Acrob_Misc", "Appra_Ranks", "Appra_Racial", "Appra_Feats", "Appra_Misc", "Bluff_Ranks", "Bluff_Racial", "Bluff_Feats", "Bluff_Misc", "Climb_Ranks", "Climb_Racial", "Climb_Feats", "Climb_Misc", "Craft_Ranks", "Craft_Racial", "Craft_Feats", "Craft_Misc", "Diplo_Ranks", "Diplo_Racial", "Diplo_Feats", "Diplo_Misc", "DsDev_Ranks", "DsDev_Racial", "DsDev_Feats", "DsDev_Misc", "Disgu_Ranks", "Disgu_Racial", "Disgu_Feats", "Disgu_Misc", "Escar_Ranks", "Escar_Racial", "Escar_Feats", "Escar_Misc", "Fly_Ranks", "Fly_Racial", "Fly_Feats", "Fly_Misc", "Hanim_Ranks", "Hanim_Racial", "Hanim_Feats", "Hanim_Misc", "Heal_Ranks", "Heal_Racial", "Heal_Feats", "Heal_Misc", "Intim_Ranks", "Intim_Racial", "Intim_Feats", "Intim_Misc", "Karca_Ranks", "Karca_Racial", "Karca_Feats", "Karca_Misc", "Kdung_Ranks", "Kdung_Racial", "Kdung_Feats", "Kdung_Misc", "Kengi_Ranks", "Kengi_Racial", "Kengi_Feats", "Kengi_Misc", "Kgeog_Ranks", "Kgeog_Racial", "Kgeog_Feats", "Kgeog_Misc", "Khist_Ranks", "Khist_Racial", "Khist_Feats", "Khist_Misc", "Kloca_Ranks", "Kloca_Racial", "Kloca_Feats", "Kloca_Misc", "Knatu_Ranks", "Knatu_Racial", "Knatu_Feats", "Knatu_Misc", "Knobi_Ranks", "Knobi_Racial", "Knobi_Feats", "Knobi_Misc", "Kplan_Ranks", "Kplan_Racial", "Kplan_Feats", "Kplan_Misc", "Kreli_Ranks", "Kreli_Racial", "Kreli_Feats", "Kreli_Misc", "Lingu_Ranks", "Lingu_Racial", "Lingu_Feats", "Lingu_Misc", "Perce_Ranks", "Perce_Racial", "Perce_Feats", "Perce_Misc", "Perfo_Ranks", "Perfo_Racial", "Perfo_Feats", "Perfo_Misc", "Profe_Ranks", "Profe_Racial", "Profe_Feats", "Profe_Misc", "Ride_Ranks", "Ride_Racial", "Ride_Feats", "Ride_Misc", "Senmo_Ranks", "Senmo_Racial", "Senmo_Feats", "Senmo_Misc", "SOH_Ranks", "SOH_Racial", "SOH_Feats", "SOH_Misc", "Spcft_Ranks", "Spcft_Racial", "Spcft_Feats", "Spcft_Misc", "Stlth_Ranks", "Stlth_Racial", "Stlth_Feats", "Stlth_Misc", "Survi_Ranks", "Survi_Racial", "Survi_Feats", "Survi_Misc", "Swim_Ranks", "Swim_Racial", "Swim_Feats", "Swim_Misc", "Umdev_Ranks", "Umdev_Racial", "Umdev_Feats", "Umdev_Misc"];
 
+        // grab ALL the characters.
+        $characters = get_characters_all_data();
+        $game_skills = get_skills();
+        $skill_fields = get_skill_modifiers();
+
+        // There are 35 skills and 4 text entry fields, 140 fields per character.
+        // character skills record: (character ID, Skill ID (row), Bonus Type (column), bonus value)
+        foreach ($characters as $character_sheet) {
+            $i = 0;
+            foreach ($game_skills as $skill_id) {
+                foreach ($skill_fields as $modifier_id) {
+                    echo "" . $character_sheet['Character_ID'] . ", "
+                        . $skill_id['Skill_ID'] . ", "
+                        . $modifier_id['Modifier_ID'] . ", "
+                        . $character_sheet[$skill_names[$i]] . ", "
+                        . $skill_names[$i] . "<br>";
+                    enter_skill_value(
+                        $character_sheet['Character_ID'],
+                        $skill_id['Skill_ID'],
+                        $modifier_id['Modifier_ID'],
+                        $character_sheet[$skill_names[$i++]]
+                    );
+                }
+            }
+        }
+        echo 'Process Complete!';
     }
 } catch (Exception $e) {
     $error_message = $e->getMessage();
