@@ -189,7 +189,7 @@ if (isset($system_message)) {
 ?>
 
 <form action="." method="post">
-    <?php include './view/npc_sheet.php'; ?>
+    <?php include './view/character_sheet.php'; ?>
     <input type="hidden" name="last-action" value="add-character">
     <input type="hidden" name="action" value="submit-character">
     <input type="submit" value="SAVE NEW CHARACTER">

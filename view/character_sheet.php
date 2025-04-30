@@ -34,7 +34,8 @@ Make this field dynamic with the class selected via JavaScript.
 /**
  * The following variables MUST be initiallized before this page is included:
  * @param array $valMemory A full record from the `characters` table
- * @param array $skill_list A 2-dimensional array containing the data from the `skills` table.
+ * @param array $skill_list A table containing the data from the `skills` table.
+ * @param array $character_skills A table containing all skills with non-zero values.
  */
 
 $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];

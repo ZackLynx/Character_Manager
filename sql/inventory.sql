@@ -25,5 +25,6 @@ CREATE TABLE `inventory` (
     Item_Desc TEXT
 );
 
+
 ALTER TABLE `inventory` ADD CONSTRAINT `FK_Inv_Character` 
 FOREIGN KEY (`Character_ID`) REFERENCES `characters` (`Character_ID`);
