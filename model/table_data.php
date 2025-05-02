@@ -681,21 +681,26 @@ function get_skill_modifiers()
 }
 
 /**
- * Summary of enter_skill_value
- * @param int $character_id
- * @param int $skill_id
- * @param int $modifier_id
- * @param int $field_value
- * @return int
+ * This function performs Create, Update, and Delete actions based on existing records and their values.
+ * 
+ * If the value provided is `0` then the record will be removed from the table.
+ * 
+ * Otherwise, the value will insert a new recoprd or modify an existing one in the table using the 
+ * composite keys for `Character_ID`, `Skill_ID`, and `Modifier_ID`. 
+ * @param int $character_id The primary key from the `characters` table.
+ * @param int $skill_id The primary key from the `skills` table to denote which skill is represented
+ * @param int $modifier_id The primary key from the `skill_modifiers` table to denote the column in the skills character sheet.
+ * @param int $field_value The integer value recorded into the field of the character sheet.
+ * @return int the number of records affected in the `characters_skills` table. `1` if the query executed successfully, `0` otherwise.
  */
 function enter_skill_value($character_id, $skill_id, $modifier_id, $field_value)
 {
     global $db;
     if ($field_value == 0) {
         $query = 'DELETE FROM `character_skills` 
-        WHERE Character_ID = :character_id 
-        AND Skill_ID = :skill_id 
-        AND Modifier_ID = :modifier_id;';
+                  WHERE Character_ID = :character_id 
+                  AND Skill_ID = :skill_id 
+                  AND Modifier_ID = :modifier_id;';
         $statement = $db->prepare($query);
         $statement->bindValue(':character_id', $character_id);
         $statement->bindValue(':skill_id', $skill_id);
@@ -707,8 +712,8 @@ function enter_skill_value($character_id, $skill_id, $modifier_id, $field_value)
     } else {
         // `REPLACE INTO` will `UPDATE` if a record exists or `INSERT INTO` if one does not 
         $query = 'REPLACE INTO `character_skills` 
-              (Character_ID, Skill_ID, Modifier_ID, Field_Value) 
-              VALUES (:character_id, :skill_id, :modifier_id, :field_value);';
+                  (Character_ID, Skill_ID, Modifier_ID, Field_Value) 
+                  VALUES (:character_id, :skill_id, :modifier_id, :field_value);';
         $statement = $db->prepare($query);
         $statement->bindValue(':character_id', $character_id);
         $statement->bindValue(':skill_id', $skill_id);
