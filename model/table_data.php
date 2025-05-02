@@ -33,6 +33,7 @@ CBAC        2025-04-27      First CRUD functions for Skills rework.
 CBAC        2025-04-28      Exploring new CRUD approach with `REPLACE INTO` keywords.
                             Added prune_characters_columns() for later use, DO NOT EXECUTE THIS
                             FUNCTION YET!
+CBAC        2025-05-02      Skills now delete when a character is deleted.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -43,7 +44,7 @@ CBAC        2025-04-28      Exploring new CRUD approach with `REPLACE INTO` keyw
 /**
  * An array of all the columns in the `characters` table.
  */
-$columns = [
+$old_columns = [
     'Character_Name',
     'Class_ID',
     'Race_ID',
@@ -196,7 +197,7 @@ $columns = [
     'Notes'
 ];
 
-$new_columns = [
+$columns = [
     'Character_Name',
     'Class_ID',
     'Race_ID',
@@ -206,7 +207,8 @@ $new_columns = [
     'Int_Base',
     'Wis_Base',
     'Cha_Base',
-    'Notes'
+    'Notes',
+    'Character_Level'
 ];
 
 /**
@@ -380,7 +382,8 @@ function delete_character($character_ID)
         // Feats
         $query = 'DELETE FROM `feats` WHERE Character_ID = :id;
                   DELETE FROM `inventory` WHERE Character_ID = :id;
-                  DELETE FROM `characters` WHERE Character_ID = :id;';
+                  DELETE FROM `characters` WHERE Character_ID = :id;
+                  DELETE FROM `character_skills` WHERE Character_ID = :id;';
         $statement = $db->prepare($query);
         $statement->bindValue(':id', $character_ID);
         $statement->execute();
@@ -700,7 +703,8 @@ function enter_skill_value($character_id, $skill_id, $modifier_id, $field_value)
         $query = 'DELETE FROM `character_skills` 
                   WHERE Character_ID = :character_id 
                   AND Skill_ID = :skill_id 
-                  AND Modifier_ID = :modifier_id;';
+                  AND Modifier_ID = :modifier_id;
+                  UPDATE characters SET Last_Update = NOW() WHERE Character_ID = :character_id;';
         $statement = $db->prepare($query);
         $statement->bindValue(':character_id', $character_id);
         $statement->bindValue(':skill_id', $skill_id);
@@ -713,7 +717,8 @@ function enter_skill_value($character_id, $skill_id, $modifier_id, $field_value)
         // `REPLACE INTO` will `UPDATE` if a record exists or `INSERT INTO` if one does not 
         $query = 'REPLACE INTO `character_skills` 
                   (Character_ID, Skill_ID, Modifier_ID, Field_Value) 
-                  VALUES (:character_id, :skill_id, :modifier_id, :field_value);';
+                  VALUES (:character_id, :skill_id, :modifier_id, :field_value);
+                  UPDATE characters SET Last_Update = NOW() WHERE Character_ID = :character_id;';
         $statement = $db->prepare($query);
         $statement->bindValue(':character_id', $character_id);
         $statement->bindValue(':skill_id', $skill_id);

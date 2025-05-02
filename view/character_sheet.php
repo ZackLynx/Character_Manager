@@ -25,7 +25,8 @@ CBAC        2025-04-11      Beginning the <div> grouping of sheet elements.
 CBAC        2025-04-17      Added PHP auto-population of Feats from database.
 CBAC        2025-04-19      Fixed numerous bugs with Feats. added `Notes` functionality.
 CBAC        2025-04-26      Item system implemented.
-CBAC        2025-04-30      Implementing remaining fields.
+CBAC        2025-04-30      Added Character level field
+CBAC        2025-05-02      New skills system fully implemented on this page.
 -----------------------------------------------------------------------------------------------
 Still To Do:
 Dynamically assign this variable based on the characters ability scores.
@@ -52,12 +53,12 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 
 <div id="primary-info">
     <div class="box">
-        <div>
+        <div id="name">
             <label for="Character_Name">Character Name</label>
             <input type="text" name="Character_Name" id="Character_Name" placeholder="<?php
             echo $valMemory['Character_Name']; ?>" value="<?php echo $valMemory['Character_Name']; ?>" required>
         </div>
-        <div>
+        <div id="class">
             <label for="Class_ID">Class</label>
             <select name="Class_ID" id="Class_ID">
                 <?php if (
@@ -79,31 +80,32 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 <option value="11" <?php echo ($valMemory['Class_ID'] == 11) ? 'selected' : ''; ?>>Wizard</option>
             </select>
         </div>
-    </div>
-    <input type="number" name="Character_Level" id="Character_Level" min="1" max="20" value="<?php echo $valMemory['Character_Level'] ?? 0; ?>" required>
-</div>
-<div class="two-column">
-    <div id="secondary-info">
-        <label for="Race_ID">Race</label>
-        <select name="Race_ID" id="Race_ID">
-            <?php if (
-                get_val_from_postget('action', NULL) === 'add-character' ||
-                get_val_from_postget('action', NULL) === 'submit-character'
-            ) { ?>
-                <option value="0" <?php echo ($valMemory['Class_ID'] == 0) ? 'selected' : ''; ?>>Select a Race</option>
-            <?php } ?>
-            <option value="1" <?php echo ($valMemory['Race_ID'] == 1) ? 'selected' : ''; ?>>Dwarf</option>
-            <option value="2" <?php echo ($valMemory['Race_ID'] == 2) ? 'selected' : ''; ?>>Elf</option>
-            <option value="3" <?php echo ($valMemory['Race_ID'] == 3) ? 'selected' : ''; ?>>Gnome</option>
-            <option value="4" <?php echo ($valMemory['Race_ID'] == 4) ? 'selected' : ''; ?>>Half-Elf</option>
-            <option value="5" <?php echo ($valMemory['Race_ID'] == 5) ? 'selected' : ''; ?>>Halfling</option>
-            <option value="6" <?php echo ($valMemory['Race_ID'] == 6) ? 'selected' : ''; ?>>Half-orc</option>
-            <option value="7" <?php echo ($valMemory['Race_ID'] == 7) ? 'selected' : ''; ?>>Human</option>
-        </select>
-        <!-- allignment -->
+        <div id="race">
+            <label for="Race_ID">Race</label>
+            <select name="Race_ID" id="Race_ID">
+                <?php if (
+                    get_val_from_postget('action', NULL) === 'add-character' ||
+                    get_val_from_postget('action', NULL) === 'submit-character'
+                ) { ?>
+                    <option value="0" <?php echo ($valMemory['Class_ID'] == 0) ? 'selected' : ''; ?>>Select a Race</option>
+                <?php } ?>
+                <option value="1" <?php echo ($valMemory['Race_ID'] == 1) ? 'selected' : ''; ?>>Dwarf</option>
+                <option value="2" <?php echo ($valMemory['Race_ID'] == 2) ? 'selected' : ''; ?>>Elf</option>
+                <option value="3" <?php echo ($valMemory['Race_ID'] == 3) ? 'selected' : ''; ?>>Gnome</option>
+                <option value="4" <?php echo ($valMemory['Race_ID'] == 4) ? 'selected' : ''; ?>>Half-Elf</option>
+                <option value="5" <?php echo ($valMemory['Race_ID'] == 5) ? 'selected' : ''; ?>>Halfling</option>
+                <option value="6" <?php echo ($valMemory['Race_ID'] == 6) ? 'selected' : ''; ?>>Half-orc</option>
+                <option value="7" <?php echo ($valMemory['Race_ID'] == 7) ? 'selected' : ''; ?>>Human</option>
+            </select>
+        </div>
+        <!-- alignment -->
         <!-- size -->
         <!-- gender -->
     </div>
+    <label for="Character_Level">Level</label>
+    <input type="number" name="Character_Level" id="Character_Level" min="1" max="20" value="<?php echo $valMemory['Character_Level'] ?? 1; ?>" required>
+</div>
+<div class="two-column">
     <div id="ability-scores">
         <table class="ability-scores">
             <tr>
@@ -252,10 +254,10 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                     <td class="skill-total">&pm;##</td>
                     <td class="ability-mod"><?php echo $abilities[$skill['Ability_ID'] - 1]; ?></td><!-- TODO: Dynamically assign this variable based on the characters ability scores. -->
                     <td class="is-class-skill">bool</td><!-- TODO: Make this field dynamic with the class selected via JavaScript. -->
-                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Ranks" value="<?php echo $character_skills[$i][0]; ?>" required></td>
-                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Racial" value="<?php echo $character_skills[$i][1]; ?>" required></td>
-                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Feats" value="<?php echo $character_skills[$i][2]; ?>" required></td>
-                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Misc" value="<?php echo $character_skills[$i][3]; ?>" required></td>
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Ranks" value="<?php echo $character_skills[$i][0] ?? 0; ?>" required></td>
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Racial" value="<?php echo $character_skills[$i][1] ?? 0; ?>" required></td>
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Feats" value="<?php echo $character_skills[$i][2] ?? 0; ?>" required></td>
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Misc" value="<?php echo $character_skills[$i][3] ?? 0; ?>" required></td>
 
                     <?php
                     /* OLD VERSION

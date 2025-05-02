@@ -159,4 +159,37 @@ DROP COLUMN `Umdev_Racial`,
 DROP COLUMN `Umdev_Feats`,
 DROP COLUMN `Umdev_Misc`;
 
-ALTER TABLE `characters` ADD COLUMN `Character_Level` INT NOT NULL DEFAULT 1;
+ALTER TABLE `characters` 
+ADD COLUMN IF NOT EXISTS `Character_Level` INT NOT NULL DEFAULT 1,
+ADD COLUMN IF NOT EXISTS `Size_ID` INT NOT NULL DEFAULT 5, -- Medium
+ADD COLUMN IF NOT EXISTS `Gender` VARCHAR(16);
+
+DROP TABLE `sizes`;
+CREATE TABLE `sizes` (
+    `Size_ID` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `Size_Name` VARCHAR(20) NOT NULL,
+    `Size_Modifier` INT NOT NULL,
+    `Special_Size_Mod` INT NOT NULL,
+    `Fly_Modifier` INT NOT NULL,
+    `Stealth_Modifier` INT NOT NULL,
+    `Space` FLOAT NOT NULL,
+    `Natural_Reach` INT NOT NULL,
+    `Typical_height_Length` VARCHAR(16) NOT NULL,
+    `Typical_Weight` VARCHAR(16) NOT NULL
+);
+
+INSERT INTO `sizes` (`Size_Name`, `Size_Modifier`, `Special_Size_Mod`, `Fly_Modifier`, `Stealth_Modifier`, `Space`, `Natural_Reach`, `Typical_height_Length`, `Typical_Weight`)
+VALUES 
+    ('Fine',                8,      -8,     8,      16,     .5,          0,      '6\" or less',      '1/8lb. or less'),
+    ('Diminutive',          4,      -4,     6,      12,     1,           0,      '6\" to 1 ft.',     '1/8 lb. - 1 lb.'),
+    ('Tiny',                2,      -2,     4,      8,      2.5,         0,      '1\' to 2 ft.',     '1-8 lbs.'),
+    ('Small',               1,      -1,     2,      4,      5,           5,      '2\' to 4 ft.',     '8-60 lbs.'),
+    ('Medium',              0,      0,      0,      0,      5,           5,      '4\' to 8 ft.',     '60-500 lbs.'),
+    ('Large (tall)',        -1,     1,      -2,     -4,     10,          10,     '8\' to 16 ft.',    '500-4000 lbs.'),
+    ('Large (long)',        -1,     1,      -2,     -4,     10,          5,      '8\' to 16 ft.',    '500-4000 lbs.'),
+    ('Huge (tall)',         -2,     2,      -4,     -8,     15,          15,     '16\' to 32 ft.',   '2-16 tons'),
+    ('Huge (long)',         -2,     2,      -4,     -8,     15,          10,     '16\' to 32 ft.',   '2-16 tons'),
+    ('Gargantuan (tall)',   -4,     4,      -6,     -12,    20,          20,     '32\' to 64 ft.',   '16-125 tons'),
+    ('Gargantuan (long)',   -4,     4,      -6,     -12,    20,          15,     '32\' to 64 ft.',   '16-125 tons'),
+    ('Colossal (tall)',     -8,     8,      -8,     -16,    30,          30,     '64 ft. or more',   '125 tons or more'),
+    ('Colossal (long)',     -8,     8,      -8,     -16,    30,          20,     '64 ft. or more',   '125 tons or more');
