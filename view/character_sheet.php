@@ -25,6 +25,7 @@ CBAC        2025-04-11      Beginning the <div> grouping of sheet elements.
 CBAC        2025-04-17      Added PHP auto-population of Feats from database.
 CBAC        2025-04-19      Fixed numerous bugs with Feats. added `Notes` functionality.
 CBAC        2025-04-26      Item system implemented.
+CBAC        2025-04-30      Implementing remaining fields.
 -----------------------------------------------------------------------------------------------
 Still To Do:
 Dynamically assign this variable based on the characters ability scores.
@@ -79,7 +80,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
             </select>
         </div>
     </div>
-    <!-- level -->
+    <input type="number" name="Character_Level" id="Character_Level" min="1" max="20" value="<?php echo $valMemory['Character_Level'] ?? 0; ?>" required>
 </div>
 <div class="two-column">
     <div id="secondary-info">
@@ -104,81 +105,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         <!-- gender -->
     </div>
     <div id="ability-scores">
-        <!-- in row major order, display total, modifier, temp score, and temp modifier fields -->
-        <!-- Replace with table -->
-        <div id="strength-scores">
-            <div class="total">
-                <label for="Str_Base">STR</label>
-                <input type="number" name="Str_Base" id="Str_Base" value="<?php echo $valMemory['Str_Base']; ?>" min="0" max="99">
-            </div>
-            <div class="modifier">
-            </div>
-            <div class="temp-score">
-            </div>
-            <div class="temp-modifier">
-            </div>
-        </div>
-        <div id="dexterity-scores">
-            <div class="total">
-                <label for="Dex_Base">DEX</label>
-                <input type="number" name="Dex_Base" id="Dex_Base" value="<?php echo $valMemory['Dex_Base']; ?>" min="0" max="99">
-            </div>
-            <div class="modifier">
-            </div>
-            <div class="temp-score">
-            </div>
-            <div class="temp-modifier">
-            </div>
-        </div>
-        <div id="constitution-scores">
-            <div class="total">
-                <label for="Con_Base">CON</label>
-                <input type="number" name="Con_Base" id="Con_Base" value="<?php echo $valMemory['Con_Base']; ?>" min="0" max="99">
-            </div>
-            <div class="modifier">
-            </div>
-            <div class="temp-score">
-            </div>
-            <div class="temp-modifier">
-            </div>
-        </div>
-        <div id="intelligence-scores">
-            <div class="total">
-                <label for="Int_Base">INT</label>
-                <input type="number" name="Int_Base" id="Int_Base" value="<?php echo $valMemory['Int_Base']; ?>" min="0" max="99">
-            </div>
-            <div class="modifier">
-            </div>
-            <div class="temp-score">
-            </div>
-            <div class="temp-modifier">
-            </div>
-        </div>
-        <div id="wisdom-scores">
-            <div class="total">
-                <label for="Wis_Base">WIS</label>
-                <input type="number" name="Wis_Base" id="Wis_Base" value="<?php echo $valMemory['Wis_Base']; ?>" min="0" max="99">
-            </div>
-            <div class="modifier">
-            </div>
-            <div class="temp-score">
-            </div>
-            <div class="temp-modifier">
-            </div>
-        </div>
-        <div id="charisma-scores">
-            <div class="total">
-                <label for="Cha_Base">CHA</label>
-                <input type="number" name="Cha_Base" id="Cha_Base" value="<?php echo $valMemory['Cha_Base']; ?>" min="0" max="99">
-            </div>
-            <div class="modifier">
-            </div>
-            <div class="temp-score">
-            </div>
-            <div class="temp-modifier">
-            </div>
-        </div>
-        <table hidden>
+        <table class="ability-scores">
             <tr>
                 <th>
                     <!-- This space intentionally left blank -->
@@ -197,104 +124,104 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 </th>
             </tr>
             <tr>
-                <td class="ablity-label">
+                <td class="ability-label">
                     STR
                 </td>
-                <td>
+                <td class="total">
+                    <input type="number" name="Str_Base" id="Str_Base" value="<?php echo $valMemory['Str_Base']; ?>" min="0" max="99" required>
+                </td>
+                <td class="modifier">
 
                 </td>
-                <td>
-
+                <td class="temp-score">
+                    <input type="number" name="Str_Temp" id="Str_Temp" min="0" max="99">
                 </td>
-                <td>
-
-                </td>
-                <td>
+                <td class="temp-modifier">
 
                 </td>
             </tr>
             <tr>
-                <td class="ablity-label">
+                <td class="ability-label">
                     DEX
                 </td>
                 <td>
+                    <input type="number" name="Dex_Base" id="Dex_Base" value="<?php echo $valMemory['Dex_Base']; ?>" min="0" max="99" required>
+                </td>
+                <td class="modifier">
 
                 </td>
-                <td>
-
+                <td class="temp-score">
+                    <input type="number" name="Dex_Temp" id="Dex_Temp" min="0" max="99">
                 </td>
-                <td>
-
-                </td>
-                <td>
+                <td class="temp-modifier">
 
                 </td>
             </tr>
             <tr>
-                <td class="ablity-label">
+                <td class="ability-label">
                     CON
                 </td>
                 <td>
+                    <input type="number" name="Con_Base" id="Con_Base" value="<?php echo $valMemory['Con_Base']; ?>" min="0" max="99" required>
+                </td>
+                <td class="modifier">
 
                 </td>
-                <td>
-
+                <td class="temp-score">
+                    <input type="number" name="Con_Temp" id="Con_Temp" min="0" max="99">
                 </td>
-                <td>
-
-                </td>
-                <td>
+                <td class="temp-modifier">
 
                 </td>
             </tr>
             <tr>
-                <td class="ablity-label">
+                <td class="ability-label">
                     INT
                 </td>
                 <td>
+                    <input type="number" name="Int_Base" id="Int_Base" value="<?php echo $valMemory['Int_Base']; ?>" min="0" max="99" required>
+                </td>
+                <td class="modifier">
 
                 </td>
-                <td>
-
+                <td class="temp-score">
+                    <input type="number" name="Int_Temp" id="Int_Temp" min="0" max="99">
                 </td>
-                <td>
-
-                </td>
-                <td>
+                <td class="temp-modifier">
 
                 </td>
             </tr>
             <tr>
-                <td class="ablity-label">
+                <td class="ability-label">
                     WIS
                 </td>
                 <td>
+                    <input type="number" name="Wis_Base" id="Wis_Base" value="<?php echo $valMemory['Wis_Base']; ?>" min="0" max="99" required>
+                </td>
+                <td class="modifier">
 
                 </td>
-                <td>
-
+                <td class="temp-score">
+                    <input type="number" name="Wis_Temp" id="Wis_Temp" min="0" max="99">
                 </td>
-                <td>
-
-                </td>
-                <td>
+                <td class="temp-modifier">
 
                 </td>
             </tr>
             <tr>
-                <td class="ablity-label">
+                <td class="ability-label">
                     CHA
                 </td>
                 <td>
+                    <input type="number" name="Cha_Base" id="Cha_Base" value="<?php echo $valMemory['Cha_Base']; ?>" min="0" max="99" required>
+                </td>
+                <td class="modifier">
 
                 </td>
-                <td>
-
+                <td class="temp-score">
+                    <input type="number" name="Cha_Temp" id="Cha_Temp" min="0" max="99">
                 </td>
-                <td>
-
-                </td>
-                <td>
+                <td class="temp-modifier">
 
                 </td>
             </tr>
@@ -302,8 +229,6 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
     </div>
     <div id="equipment">
     </div>
-
-    <!-- Skills -->
     <div id="skills">
         <table class="skills-list">
             <tr>
@@ -318,23 +243,35 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 <th class="skill-header">Misc</th>
                 <th class="skill-header">ACP</th>
             </tr>
-            <?php foreach ($skill_list as $skill): ?>
+            <?php
+            $i = 0;
+            foreach ($skill_list as $skill): ?>
                 <tr>
                     <td class="skill-name"><?php echo $skill['Skill_Name']; ?></td>
                     <td class="is-untrained"><?php echo $skill['Is_Untrained'] === 1 ? '&FilledSmallSquare;' : '' ?></td>
                     <td class="skill-total">&pm;##</td>
                     <td class="ability-mod"><?php echo $abilities[$skill['Ability_ID'] - 1]; ?></td><!-- TODO: Dynamically assign this variable based on the characters ability scores. -->
                     <td class="is-class-skill">bool</td><!-- TODO: Make this field dynamic with the class selected via JavaScript. -->
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Ranks" value="<?php echo $character_skills[$i][0]; ?>" required></td>
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Racial" value="<?php echo $character_skills[$i][1]; ?>" required></td>
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Feats" value="<?php echo $character_skills[$i][2]; ?>" required></td>
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Misc" value="<?php echo $character_skills[$i][3]; ?>" required></td>
+
+                    <?php
+                    /* OLD VERSION
                     <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Ranks" value="<?php echo $valMemory[$skill['Short_Name'] . '_Ranks']; ?>" required></td>
                     <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Racial" value="<?php echo $valMemory[$skill['Short_Name'] . '_Racial']; ?>" required></td>
                     <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Feats" value="<?php echo $valMemory[$skill['Short_Name'] . '_Feats']; ?>" required></td>
-                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Misc" value="<?php echo $valMemory[$skill['Short_Name'] . '_Misc']; ?>" required></td>
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Misc" value="<?php echo $valMemory[$skill['Short_Name'] . '_Misc']; ?>" required></td> 
+                    */
+                    ?>
                     <td class="skill-acp"></td><!-- To Be Implemented -->
                 </tr>
-            <?php endforeach; ?>
+                <?php
+                $i++;
+            endforeach; ?>
         </table>
     </div>
-
     <div id="feats-block">
         <p>
             Feats
@@ -363,7 +300,6 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         <input type="text" name="num-of-feats" id="num-of-feats" value="<?php echo $featNum; ?>" hidden>
         <input type="text" name="feats-to-delete" id="feats-to-delete" hidden>
     </div>
-
     <div id="inventory">
         <p>
             Inventory
@@ -394,7 +330,6 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         <input type="text" name="num-of-items" id="num-of-items" value="<?php echo $ItemNum; ?>" hidden>
         <input type="text" name="items-to-delete" id="items-to-delete" hidden>
     </div>
-
     <div id="notes-block">
         <label for="Notes">Notes</label>
         <br>

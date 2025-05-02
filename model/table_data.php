@@ -682,29 +682,43 @@ function get_skill_modifiers()
 
 /**
  * Summary of enter_skill_value
- * @param mixed $character_id
- * @param mixed $skill_id
- * @param mixed $modifier_id
- * @param mixed $field_value
+ * @param int $character_id
+ * @param int $skill_id
+ * @param int $modifier_id
+ * @param int $field_value
  * @return int
  */
 function enter_skill_value($character_id, $skill_id, $modifier_id, $field_value)
 {
     global $db;
-
-    // `REPLACE INTO` will `UPDATE` if a record exists or `INSERT INTO` if one does not 
-    $query = 'REPLACE INTO `character_skills` 
+    if ($field_value == 0) {
+        $query = 'DELETE FROM `character_skills` 
+        WHERE Character_ID = :character_id 
+        AND Skill_ID = :skill_id 
+        AND Modifier_ID = :modifier_id;';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':character_id', $character_id);
+        $statement->bindValue(':skill_id', $skill_id);
+        $statement->bindValue(':modifier_id', $modifier_id);
+        $statement->execute();
+        $rows_affected = $statement->rowCount();
+        $statement->closeCursor();
+        return $rows_affected;
+    } else {
+        // `REPLACE INTO` will `UPDATE` if a record exists or `INSERT INTO` if one does not 
+        $query = 'REPLACE INTO `character_skills` 
               (Character_ID, Skill_ID, Modifier_ID, Field_Value) 
               VALUES (:character_id, :skill_id, :modifier_id, :field_value);';
-    $statement = $db->prepare($query);
-    $statement->bindValue(':character_id', $character_id);
-    $statement->bindValue(':skill_id', $skill_id);
-    $statement->bindValue(':modifier_id', $modifier_id);
-    $statement->bindValue(':field_value', $field_value);
-    $statement->execute();
-    $rows_affected = $statement->rowCount();
-    $statement->closeCursor();
-    return $rows_affected;
+        $statement = $db->prepare($query);
+        $statement->bindValue(':character_id', $character_id);
+        $statement->bindValue(':skill_id', $skill_id);
+        $statement->bindValue(':modifier_id', $modifier_id);
+        $statement->bindValue(':field_value', $field_value);
+        $statement->execute();
+        $rows_affected = $statement->rowCount();
+        $statement->closeCursor();
+        return $rows_affected;
+    }
 }
 
 /**

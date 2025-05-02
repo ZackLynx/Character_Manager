@@ -20,6 +20,8 @@ CBAC        2025-03-25      Added another add-button to the bottom of the list. 
 CBAC        2025-04-11      Renamed $user_message to $system_message.
 CBAC        2025-04-13      Added 'Last Modified' column to table view.
 CBAC        2025-04-25      Added button for going to the feature testing page.
+CBAC        2025-04-30      Changed skill auto-population over to new system.
+CBAC        2025-05-01      
 -----------------------------------------------------------------------------------------------
 TODO: Implement PHP Sessions for result messages.
 -----------------------------------------------------------------------------------------------
@@ -50,7 +52,7 @@ if (isset($system_message) && !empty($system_message)) {
     </form>
 </div>
 
-<table>
+<table class="character-table">
     <tr id="table-header">
         <th>
             Name

@@ -30,6 +30,10 @@ body {
   /* vh = viewport height */
 }
 
+h1 {
+  text-align: center;
+}
+
 header {
   text-align: center;
   background-color: lightgray;
@@ -71,16 +75,23 @@ footer {
   margin: 1rem;
 }
 
+.two-column {}
+
 /* Table */
 
-h1 {
-  text-align: center;
-}
-
-table {
+.skills-list,
+.character-table {
   margin: auto;
   margin-bottom: 1rem;
   border-spacing: 0;
+
+  tr:nth-child(even) {
+    background-color: #c0c0c0;
+  }
+
+  tr:nth-child(odd) {
+    background-color: #d8d8d8;
+  }
 }
 
 /* WEEK 10 ADDITION */
@@ -89,12 +100,24 @@ td {
   padding: .1rem .25rem;
 }
 
-tr:nth-child(even) {
-  background-color: #c0c0c0;
-}
 
-tr:nth-child(odd) {
-  background-color: #d8d8d8;
+/* Ability scores section */
+.ability-scores {
+  margin: auto;
+  margin-bottom: 1rem;
+  border-spacing: 0;
+
+  td:nth-child(even) {
+    background-color: #c0c0c0;
+  }
+
+  td:nth-child(odd) {
+    background-color: #d8d8d8;
+  }
+
+  td:nth-child(1) {
+    background-color: white;
+  }
 }
 
 /* WEEK 10 ADDITION */

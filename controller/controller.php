@@ -97,7 +97,8 @@ try {
                 'Con_Base' => get_val_from_postget('Con_Base', -1),
                 'Int_Base' => get_val_from_postget('Int_Base', -1),
                 'Wis_Base' => get_val_from_postget('Wis_Base', -1),
-                'Cha_Base' => get_val_from_postget('Cha_Base', -1)
+                'Cha_Base' => get_val_from_postget('Cha_Base', -1),
+                'Character_Level' => get_val_from_postget('Character_Level', -1)
             ];
             $values['Character_Name'] = trim($values['Character_Name']);
 
@@ -300,7 +301,8 @@ try {
                 'Con_Base' => get_val_from_postget('Con_Base', -1),
                 'Int_Base' => get_val_from_postget('Int_Base', -1),
                 'Wis_Base' => get_val_from_postget('Wis_Base', -1),
-                'Cha_Base' => get_val_from_postget('Cha_Base', -1)
+                'Cha_Base' => get_val_from_postget('Cha_Base', -1),
+                'Character_Level' => get_val_from_postget('Character_Level', -1)
             ];
             $changes['Character_Name'] = trim($changes['Character_Name']);
 
@@ -480,10 +482,10 @@ try {
                 // include './view/test.php';
 
                 // Update feats
-                $feats_changed = 0;
+                $feats_updated = 0;
                 if (sizeof($existing_feats) > 0) {
                     foreach ($existing_feats as $feat) {
-                        $feats_changed += modify_feat(
+                        $feats_updated += modify_feat(
                             $changes['Character_ID'],
                             $feat['Feat_ID'],
                             trim($feat['Feat_Name']),
@@ -493,10 +495,10 @@ try {
                 }
 
                 // Update items
-                $items_changed = 0;
+                $items_updated = 0;
                 if (sizeof($existing_items) > 0) {
                     foreach ($existing_items as $item) {
-                        $items_changed += modify_inventory(
+                        $items_updated += modify_inventory(
                             $changes['Character_ID'],
                             $item['Inventory_ID'], // Came up undefined
                             trim($item['Item_Name']),
@@ -505,10 +507,22 @@ try {
                     }
                 }
 
+                // Update Skills
+                $skills_updated = 0;
+                $skill_names = ["Acrob_Ranks", "Acrob_Racial", "Acrob_Feats", "Acrob_Misc", "Appra_Ranks", "Appra_Racial", "Appra_Feats", "Appra_Misc", "Bluff_Ranks", "Bluff_Racial", "Bluff_Feats", "Bluff_Misc", "Climb_Ranks", "Climb_Racial", "Climb_Feats", "Climb_Misc", "Craft_Ranks", "Craft_Racial", "Craft_Feats", "Craft_Misc", "Diplo_Ranks", "Diplo_Racial", "Diplo_Feats", "Diplo_Misc", "DsDev_Ranks", "DsDev_Racial", "DsDev_Feats", "DsDev_Misc", "Disgu_Ranks", "Disgu_Racial", "Disgu_Feats", "Disgu_Misc", "Escar_Ranks", "Escar_Racial", "Escar_Feats", "Escar_Misc", "Fly_Ranks", "Fly_Racial", "Fly_Feats", "Fly_Misc", "Hanim_Ranks", "Hanim_Racial", "Hanim_Feats", "Hanim_Misc", "Heal_Ranks", "Heal_Racial", "Heal_Feats", "Heal_Misc", "Intim_Ranks", "Intim_Racial", "Intim_Feats", "Intim_Misc", "Karca_Ranks", "Karca_Racial", "Karca_Feats", "Karca_Misc", "Kdung_Ranks", "Kdung_Racial", "Kdung_Feats", "Kdung_Misc", "Kengi_Ranks", "Kengi_Racial", "Kengi_Feats", "Kengi_Misc", "Kgeog_Ranks", "Kgeog_Racial", "Kgeog_Feats", "Kgeog_Misc", "Khist_Ranks", "Khist_Racial", "Khist_Feats", "Khist_Misc", "Kloca_Ranks", "Kloca_Racial", "Kloca_Feats", "Kloca_Misc", "Knatu_Ranks", "Knatu_Racial", "Knatu_Feats", "Knatu_Misc", "Knobi_Ranks", "Knobi_Racial", "Knobi_Feats", "Knobi_Misc", "Kplan_Ranks", "Kplan_Racial", "Kplan_Feats", "Kplan_Misc", "Kreli_Ranks", "Kreli_Racial", "Kreli_Feats", "Kreli_Misc", "Lingu_Ranks", "Lingu_Racial", "Lingu_Feats", "Lingu_Misc", "Perce_Ranks", "Perce_Racial", "Perce_Feats", "Perce_Misc", "Perfo_Ranks", "Perfo_Racial", "Perfo_Feats", "Perfo_Misc", "Profe_Ranks", "Profe_Racial", "Profe_Feats", "Profe_Misc", "Ride_Ranks", "Ride_Racial", "Ride_Feats", "Ride_Misc", "Senmo_Ranks", "Senmo_Racial", "Senmo_Feats", "Senmo_Misc", "SOH_Ranks", "SOH_Racial", "SOH_Feats", "SOH_Misc", "Spcft_Ranks", "Spcft_Racial", "Spcft_Feats", "Spcft_Misc", "Stlth_Ranks", "Stlth_Racial", "Stlth_Feats", "Stlth_Misc", "Survi_Ranks", "Survi_Racial", "Survi_Feats", "Survi_Misc", "Swim_Ranks", "Swim_Racial", "Swim_Feats", "Swim_Misc", "Umdev_Ranks", "Umdev_Racial", "Umdev_Feats", "Umdev_Misc"];
+
+                $k = 0;
+                for ($i = 1; $i <= 35; $i++) {
+                    for ($j = 1; $j <= 4; $j++) {
+                        $skills_updated += enter_skill_value($_POST['Character_ID'], $i, $j, $_POST[$skill_names[$k++]]);
+                    }
+                }
+
                 if (
                     (update_character($_POST, $changes['Character_ID']) > 0) ||
-                    (!empty($new_feats)) || $feats_changed || (!empty($deleted_feats)) ||
-                    (!empty($new_items)) || $items_changed || (!empty($deleted_items))
+                    (!empty($new_feats)) || $feats_updated || (!empty($deleted_feats)) ||
+                    (!empty($new_items)) || $items_updated || (!empty($deleted_items)) ||
+                    $skills_updated
                 ) { // record updated
 
                     // Process feats
