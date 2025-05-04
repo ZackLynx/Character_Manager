@@ -25,6 +25,7 @@ CBAC        2025-04-26      Inventory implementation completed.
 CBAC        2025-04-27      added migrate-skills action for Skills rework
 CBAC        2025-04-28      First successful test of skill values migration. Moved from if-else
                             branches to switch-case blocks for actions
+CBAC        2025-05-02      Finished skills rework implementation
 -----------------------------------------------------------------------------------------------
 */
 

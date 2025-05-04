@@ -27,6 +27,8 @@ CBAC        2025-04-19      Fixed numerous bugs with Feats. added `Notes` functi
 CBAC        2025-04-26      Item system implemented.
 CBAC        2025-04-30      Added Character level field
 CBAC        2025-05-02      New skills system fully implemented on this page.
+CBAC        2025-05-03      placeholder fields for armor and weapons added, php and JavaScript
+                            not yet implemented.
 -----------------------------------------------------------------------------------------------
 Still To Do:
 Dynamically assign this variable based on the characters ability scores.
@@ -52,11 +54,30 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 <input type="hidden" name="Character_ID" value="<?php echo $valMemory['Character_ID'] ?? 0; ?>" required>
 
 <div id="primary-info">
-    <div class="box">
+    <!-- Content in primary info is always visible. -->
+    <div>
         <div id="name">
             <label for="Character_Name">Character Name</label>
             <input type="text" name="Character_Name" id="Character_Name" placeholder="<?php
             echo $valMemory['Character_Name']; ?>" value="<?php echo $valMemory['Character_Name']; ?>" required>
+        </div>
+        <div id="race">
+            <label for="Race_ID">Race</label>
+            <select name="Race_ID" id="Race_ID">
+                <?php if (
+                    get_val_from_postget('action', NULL) === 'add-character' ||
+                    get_val_from_postget('action', NULL) === 'submit-character'
+                ) { ?>
+                    <option value="0" <?php echo ($valMemory['Class_ID'] == 0) ? 'selected' : ''; ?>>Select a Race</option>
+                <?php } ?>
+                <option value="1" <?php echo ($valMemory['Race_ID'] == 1) ? 'selected' : ''; ?>>Dwarf</option>
+                <option value="2" <?php echo ($valMemory['Race_ID'] == 2) ? 'selected' : ''; ?>>Elf</option>
+                <option value="3" <?php echo ($valMemory['Race_ID'] == 3) ? 'selected' : ''; ?>>Gnome</option>
+                <option value="4" <?php echo ($valMemory['Race_ID'] == 4) ? 'selected' : ''; ?>>Half-Elf</option>
+                <option value="5" <?php echo ($valMemory['Race_ID'] == 5) ? 'selected' : ''; ?>>Halfling</option>
+                <option value="6" <?php echo ($valMemory['Race_ID'] == 6) ? 'selected' : ''; ?>>Half-orc</option>
+                <option value="7" <?php echo ($valMemory['Race_ID'] == 7) ? 'selected' : ''; ?>>Human</option>
+            </select>
         </div>
         <div id="class">
             <label for="Class_ID">Class</label>
@@ -80,30 +101,46 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 <option value="11" <?php echo ($valMemory['Class_ID'] == 11) ? 'selected' : ''; ?>>Wizard</option>
             </select>
         </div>
-        <div id="race">
-            <label for="Race_ID">Race</label>
-            <select name="Race_ID" id="Race_ID">
-                <?php if (
-                    get_val_from_postget('action', NULL) === 'add-character' ||
-                    get_val_from_postget('action', NULL) === 'submit-character'
-                ) { ?>
-                    <option value="0" <?php echo ($valMemory['Class_ID'] == 0) ? 'selected' : ''; ?>>Select a Race</option>
-                <?php } ?>
-                <option value="1" <?php echo ($valMemory['Race_ID'] == 1) ? 'selected' : ''; ?>>Dwarf</option>
-                <option value="2" <?php echo ($valMemory['Race_ID'] == 2) ? 'selected' : ''; ?>>Elf</option>
-                <option value="3" <?php echo ($valMemory['Race_ID'] == 3) ? 'selected' : ''; ?>>Gnome</option>
-                <option value="4" <?php echo ($valMemory['Race_ID'] == 4) ? 'selected' : ''; ?>>Half-Elf</option>
-                <option value="5" <?php echo ($valMemory['Race_ID'] == 5) ? 'selected' : ''; ?>>Halfling</option>
-                <option value="6" <?php echo ($valMemory['Race_ID'] == 6) ? 'selected' : ''; ?>>Half-orc</option>
-                <option value="7" <?php echo ($valMemory['Race_ID'] == 7) ? 'selected' : ''; ?>>Human</option>
+        <div id="level">
+            <label for="Character_Level">Level</label>
+            <input type="number" name="Character_Level" id="Character_Level" min="1" max="20" value="<?php echo $valMemory['Character_Level'] ?? 1; ?>" required>
+        </div>
+        <br>
+        <fieldset>
+            <div class="alignment-box">
+                <input type="radio" name="alignment" id="lawful-good">
+                <input type="radio" name="alignment" id="neutral-good">
+                <input type="radio" name="alignment" id="chaotic-good">
+                <br>
+                <input type="radio" name="alignment" id="lawful-neutral">
+                <input type="radio" name="alignment" id="true-neutral">
+                <input type="radio" name="alignment" id="chaotic-neutral">
+                <br>
+                <input type="radio" name="alignment" id="lawful-evil">
+                <input type="radio" name="alignment" id="neutral-evil">
+                <input type="radio" name="alignment" id="chaotic-evil">
+            </div>
+        </fieldset>
+        <!-- size -->
+        <div>
+            <select name="size" id="size">
+                <option value="1">Fine</option>
+                <option value="2">Diminutive</option>
+                <option value="3">Tiny</option>
+                <option value="4">Small</option>
+                <option value="5">Medium</option>
+                <option value="6">Large</option>
+                <option value="8">Huge</option>
+                <option value="10">Gargantuan</option>
+                <option value="12">Colossal</option>
             </select>
         </div>
-        <!-- alignment -->
-        <!-- size -->
         <!-- gender -->
+        <div>
+            <label for="gender">Gender</label>
+            <input type="text" name="gender" id="gender">
+        </div>
     </div>
-    <label for="Character_Level">Level</label>
-    <input type="number" name="Character_Level" id="Character_Level" min="1" max="20" value="<?php echo $valMemory['Character_Level'] ?? 1; ?>" required>
 </div>
 <div class="two-column">
     <div id="ability-scores">
@@ -332,11 +369,6 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         <input type="text" name="num-of-items" id="num-of-items" value="<?php echo $ItemNum; ?>" hidden>
         <input type="text" name="items-to-delete" id="items-to-delete" hidden>
     </div>
-    <div id="notes-block">
-        <label for="Notes">Notes</label>
-        <br>
-        <textarea name="Notes" id="Notes"><?php echo $valMemory['Notes']; ?></textarea>
-    </div>
 </div>
 <div id="health">
 </div>
@@ -345,15 +377,99 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
     </div>
     <div id="combat-maneuvers">
     </div>
+
+    <p>TO BE IMPLEMENTED</p>
     <div id="attacks">
+        <div id="weapon-primary">
+            <label for="weapon-primary-name">Weapon Name</label>
+            <input type="text" name="weapon-primary-name" id="weapon-primary-name" value="">
+            <br>
+            <label for="weapon-primary-type">Type</label>
+            <input type="text" name="weapon-primary-type" id="weapon-primary-type" value="">
+            <br>
+            <label for="weapon-primary-range">Range</label>
+            <input type="number" name="weapon-primary-range" id="weapon-primary-range" value="" min="0">
+            <br>
+            <label for="weapon-primary-attack-bonus">Attack Bonus</label>
+            <input type="number" name="weapon-primary-attack-bonus" id="weapon-primary-attack-bonus" value="">
+            <br>
+            <label for="weapon-primary-damage">Damage</label>
+            <input type="number" name="weapon-primary-damage" id="weapon-primary-damage" value="" min="1">
+            <select name="weapon-primary-dice" id="weapon-primary-dice">
+                <option value="1">d4</option>
+                <option value="2">d6</option>
+                <option value="3">d8</option>
+                <option value="4">d10</option>
+                <option value="5">d12</option>
+                <option value="6">d20</option>
+            </select>
+            <br>
+            <label for="weapon-primary-crit-range">Critical</label>
+            <input type="number" name="weapon-primary-crit-range" id="weapon-primary-crit-range">
+            x
+            <input type="number" name="weapon-primary-crit-multiplier" id="weapon-primary-crit-multiplier" min="2">
+        </div>
     </div>
+
     <div id="defense">
+        <!-- Armor -->
+        <p>
+            Armor
+        </p>
+        <div id="armor">
+            <label for="armor-name">Name</label>
+            <input type="text" name="armor-name" id="armor-name">
+            <br>
+            <label for="armor-type">Type</label>
+            <select name="armor-type" id="armor-type">
+                <option value="1">Light</option>
+                <option value="2">Medium</option>
+                <option value="3">Heavy</option>
+            </select>
+            <br>
+            <label for="max-speed">Max Speed</label>
+            <input type="number" name="max-speed" id="max-speed">
+            <br>
+            <label for="max-dex">Max AC Dex</label>
+            <input type="number" name="max-dex" id="max-dex">
+            <br>
+            <label for="check-penalty">Check Penalty</label>
+            <input type="number" name="check-penalty" id="check-penalty">
+            <br>
+            <label for="armor-weight">Weight</label>
+            <input type="number" name="armor-weight" id="armor-weight"> lb
+            <br>
+            <label for="armor-ac">Armor AC</label>
+            <input type="number" name="armor-ac" id="armor-ac">
+        </div>
+        <!-- Shield -->
+        <p>
+            Shield
+        </p>
+        <div id="shield">
+            <label for="shield-name">Name</label>
+            <input type="text" name="shield-name" id="shield-name">
+            <br>
+            <label for="check-penalty">Check Penalty</label>
+            <input type="number" name="check-penalty" id="check-penalty">
+            <br>
+            <label for="shield-weight">Weight</label>
+            <input type="number" name="shield-weight" id="shield-weight"> lb
+            <br>
+            <label for="shield-ac">Shield AC</label>
+            <input type="number" name="shield-ac" id="shield-ac">
+        </div>
     </div>
     <div id="saving-throws">
     </div>
     <div id="combat-abilities">
     </div>
     <div id="effects">
+    </div>
+    <div id="notes-block">
+        <label for="Notes">Notes</label>
+        <br>
+        <textarea name="Notes" id="Notes"><?php echo $valMemory['Notes']; ?></textarea>
     </div>
 </div>
 

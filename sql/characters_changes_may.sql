@@ -14,6 +14,7 @@ Who         When            What
 ----------- --------------- -------------------------------------------------------------------
 CBAC        2025-05-01      Original Version with dropped skills columns and added a character
                             level value
+CBAC        2025-05-04      adding Size_ID to Races.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -193,3 +194,13 @@ VALUES
     ('Gargantuan (long)',   -4,     4,      -6,     -12,    20,          15,     '32\' to 64 ft.',   '16-125 tons'),
     ('Colossal (tall)',     -8,     8,      -8,     -16,    30,          30,     '64 ft. or more',   '125 tons or more'),
     ('Colossal (long)',     -8,     8,      -8,     -16,    30,          20,     '64 ft. or more',   '125 tons or more');
+
+ALTER TABLE `races` ADD COLUMN Size_ID INT NOT NULL DEFAULT 5;
+
+ALTER TABLE `races`
+ADD CONSTRAINT `FK_Race_Size` FOREIGN KEY (Size_ID) REFERENCES `sizes` (Size_ID);
+
+-- Set Dwarves, Gnomes, and Halflings to small (4)
+UPDATE `races`
+SET Size_ID = 4
+WHERE Race_ID = 1 OR Race_ID = 3 OR Race_ID = 5;
