@@ -177,19 +177,21 @@ SKILL_FIELDS.forEach(skill_name => {
     // console.log(skill_name);
     SUB_FIELDS.forEach(field => {
         // Set initial value
+        var modifier = parseInt(document.getElementById(skill_name + "_Mod").innerHTML);
         var ranks = parseInt(document.getElementById(skill_name + SUB_FIELDS[0]).value);
         var racial = parseInt(document.getElementById(skill_name + SUB_FIELDS[1]).value);
         var feats = parseInt(document.getElementById(skill_name + SUB_FIELDS[2]).value);
         var misc = parseInt(document.getElementById(skill_name + SUB_FIELDS[3]).value);
-        document.getElementById(skill_name + '_Total').innerText = ranks + racial + feats + misc;
+        document.getElementById(skill_name + '_Total').innerText = ranks + racial + feats + misc + modifier;
 
         // do it again on input
         document.getElementById(skill_name + field).addEventListener('input', function (event) {
+            var modifier = parseInt(document.getElementById(skill_name + "_Mod").innerHTML);
             var ranks = parseInt(document.getElementById(skill_name + SUB_FIELDS[0]).value);
             var racial = parseInt(document.getElementById(skill_name + SUB_FIELDS[1]).value);
             var feats = parseInt(document.getElementById(skill_name + SUB_FIELDS[2]).value);
             var misc = parseInt(document.getElementById(skill_name + SUB_FIELDS[3]).value);
-            document.getElementById(skill_name + '_Total').innerText = ranks + racial + feats + misc;
+            document.getElementById(skill_name + '_Total').innerText = ranks + racial + feats + misc + modifier;
         });
     });
 });
