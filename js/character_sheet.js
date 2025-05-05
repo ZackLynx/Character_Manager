@@ -26,24 +26,113 @@ CBAC        2025-05-04      Skill Bonus now shows the calculation of the skill f
 // On start
 
 // STRENGTH
-strBase = document.getElementById('Str_Base');
-document.getElementById('str-mod').innerHTML = Math.floor((strBase.value - 10) / 2);
+var strBase = document.getElementById('Str_Base');
+var strMod = document.getElementById('str-mod')
+strMod.innerHTML = Math.floor((strBase.value - 10) / 2);
 
 strBase.addEventListener('input', function (event) {
-    document.getElementById('str-mod').innerHTML = Math.floor((event.target.value - 10) / 2);
+    strMod.innerHTML = Math.floor((event.target.value - 10) / 2);
+    var modifiers = document.getElementsByClassName('STR');
+    for (i = 0; i < modifiers.length; i++) {
+        modifiers[i].innerText = strMod.innerText;
+    }
 });
 
 // DEXTERITY
-dexBase = document.getElementById('Dex_Base');
-document.getElementById('dex-mod').innerHTML = Math.floor((dexBase.value - 10) / 2);
+var dexBase = document.getElementById('Dex_Base');
+var dexMod = document.getElementById('dex-mod');
+dexMod.innerHTML = Math.floor((dexBase.value - 10) / 2);
 
 dexBase.addEventListener('input', function (event) {
-    document.getElementById('dex-mod').innerHTML = Math.floor((event.target.value - 10) / 2);
+    dexMod.innerHTML = Math.floor((event.target.value - 10) / 2);
+    var modifiers = document.getElementsByClassName('DEX');
+    for (i = 0; i < modifiers.length; i++) {
+        modifiers[i].innerText = dexMod.innerText;
+    }
+});
+
+// CONSTITUTION
+var conBase = document.getElementById('Con_Base');
+var conMod = document.getElementById('con-mod');
+conMod.innerHTML = Math.floor((conBase.value - 10) / 2);
+
+conBase.addEventListener('input', function (event) {
+    conMod.innerHTML = Math.floor((event.target.value - 10) / 2);
+    var modifiers = document.getElementsByClassName('CON');
+    for (i = 0; i < modifiers.length; i++) {
+        modifiers[i].innerText = conMod.innerText;
+    }
+});
+
+// INTELIGENCE
+var intBase = document.getElementById('Int_Base');
+var intMod = document.getElementById('int-mod');
+intMod.innerHTML = Math.floor((intBase.value - 10) / 2);
+
+intBase.addEventListener('input', function (event) {
+    intMod.innerHTML = Math.floor((event.target.value - 10) / 2);
+    var modifiers = document.getElementsByClassName('INT');
+    for (i = 0; i < modifiers.length; i++) {
+        modifiers[i].innerText = intMod.innerText;
+    }
+});
+
+// WISDOM
+var wisBase = document.getElementById('Wis_Base');
+var wisMod = document.getElementById('wis-mod');
+wisMod.innerHTML = Math.floor((wisBase.value - 10) / 2);
+
+wisBase.addEventListener('input', function (event) {
+    wisMod.innerHTML = Math.floor((event.target.value - 10) / 2);
+    var modifiers = document.getElementsByClassName('WIS');
+    for (i = 0; i < modifiers.length; i++) {
+        modifiers[i].innerText = wisMod.innerText;
+    }
+});
+
+// CHARISMA
+var chaBase = document.getElementById('Cha_Base');
+var chaMod = document.getElementById('cha-mod');
+chaMod.innerHTML = Math.floor((chaBase.value - 10) / 2);
+
+chaBase.addEventListener('input', function (event) {
+    chaMod.innerHTML = Math.floor((event.target.value - 10) / 2);
+    var modifiers = document.getElementsByClassName('CHA');
+    for (i = 0; i < modifiers.length; i++) {
+        modifiers[i].innerText = chaMod.innerText;
+    }
 });
 
 ////////////
 /* SKILLS */
 ////////////
+var modifiers = document.getElementsByClassName('ability-mod');
+for (i = 0; i < modifiers.length; i++) {
+    if (modifiers[i].classList.contains('STR')) {
+        modifiers[i].innerText = strMod.innerText;
+        continue;
+    }
+    else if (modifiers[i].classList.contains('DEX')) {
+        modifiers[i].innerText = dexMod.innerText;
+        continue;
+    }
+    else if (modifiers[i].classList.contains('CON')) {
+        modifiers[i].innerText = conMod.innerText;
+        continue;
+    }
+    else if (modifiers[i].classList.contains('INT')) {
+        modifiers[i].innerText = intMod.innerText;
+        continue;
+    }
+    else if (modifiers[i].classList.contains('WIS')) {
+        modifiers[i].innerText = wisMod.innerText;
+        continue;
+    }
+    else {
+        modifiers[i].innerText = chaMod.innerText;
+    }
+}
+
 const SKILL_FIELDS = [
     "Acrob",
     "Appra",
@@ -85,7 +174,7 @@ const SKILL_FIELDS = [
 const SUB_FIELDS = ['_Ranks', '_Racial', '_Feats', '_Misc'];
 
 SKILL_FIELDS.forEach(skill_name => {
-    console.log(skill_name);
+    // console.log(skill_name);
     SUB_FIELDS.forEach(field => {
         // Set initial value
         var ranks = parseInt(document.getElementById(skill_name + SUB_FIELDS[0]).value);

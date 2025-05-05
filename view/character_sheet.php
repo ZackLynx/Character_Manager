@@ -203,8 +203,8 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 <td>
                     <input type="number" name="Con_Base" id="Con_Base" value="<?php echo $valMemory['Con_Base']; ?>" min="0" max="99" required>
                 </td>
-                <td class="modifier">
-
+                <td class="modifier" id="con-mod">
+                    ##
                 </td>
                 <td class="temp-score">
                     <input type="number" name="Con_Temp" id="Con_Temp" min="0" max="99">
@@ -220,8 +220,8 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 <td>
                     <input type="number" name="Int_Base" id="Int_Base" value="<?php echo $valMemory['Int_Base']; ?>" min="0" max="99" required>
                 </td>
-                <td class="modifier">
-
+                <td class="modifier" id="int-mod">
+                    ##
                 </td>
                 <td class="temp-score">
                     <input type="number" name="Int_Temp" id="Int_Temp" min="0" max="99">
@@ -237,8 +237,8 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 <td>
                     <input type="number" name="Wis_Base" id="Wis_Base" value="<?php echo $valMemory['Wis_Base']; ?>" min="0" max="99" required>
                 </td>
-                <td class="modifier">
-
+                <td class="modifier" id="wis-mod">
+                    ##
                 </td>
                 <td class="temp-score">
                     <input type="number" name="Wis_Temp" id="Wis_Temp" min="0" max="99">
@@ -254,8 +254,8 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 <td>
                     <input type="number" name="Cha_Base" id="Cha_Base" value="<?php echo $valMemory['Cha_Base']; ?>" min="0" max="99" required>
                 </td>
-                <td class="modifier">
-
+                <td class="modifier" id="cha-mod">
+                    ##
                 </td>
                 <td class="temp-score">
                     <input type="number" name="Cha_Temp" id="Cha_Temp" min="0" max="99">
@@ -289,7 +289,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                     <td class="skill-name"><?php echo $skill['Skill_Name']; ?></td>
                     <td class="is-untrained"><?php echo $skill['Is_Untrained'] === 1 ? '&FilledSmallSquare;' : '' ?></td>
                     <td class="skill-total" id="<?php echo $skill['Short_Name']; ?>_Total">&pm;##</td>
-                    <td class="ability-mod"><?php echo $abilities[$skill['Ability_ID'] - 1]; ?></td><!-- TODO: Dynamically assign this variable based on the characters ability scores. -->
+                    <td class="ability-mod <?php echo $abilities[$skill['Ability_ID'] - 1]; ?>" id="<?php echo $skill['Short_Name']; ?>_Mod"><?php echo $abilities[$skill['Ability_ID'] - 1]; ?></td><!-- TODO: Dynamically assign this variable based on the characters ability scores. -->
                     <td class="is-class-skill">bool</td><!-- TODO: Make this field dynamic with the class selected via JavaScript. -->
                     <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Ranks" id="<?php echo $skill['Short_Name']; ?>_Ranks" value="<?php echo $character_skills[$i][0] ?? 0; ?>" required></td>
                     <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Racial" id="<?php echo $skill['Short_Name']; ?>_Racial" value="<?php echo $character_skills[$i][1] ?? 0; ?>" required></td>
