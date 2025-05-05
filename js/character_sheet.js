@@ -19,6 +19,28 @@ CBAC        2025-05-04      Skill Bonus now shows the calculation of the skill f
 -----------------------------------------------------------------------------------------------
 */
 
+///////////////
+/* ABILITIES */
+///////////////
+
+// On start
+
+// STRENGTH
+strBase = document.getElementById('Str_Base');
+document.getElementById('str-mod').innerHTML = Math.floor((strBase.value - 10) / 2);
+
+strBase.addEventListener('input', function (event) {
+    document.getElementById('str-mod').innerHTML = Math.floor((event.target.value - 10) / 2);
+});
+
+// DEXTERITY
+dexBase = document.getElementById('Dex_Base');
+document.getElementById('dex-mod').innerHTML = Math.floor((dexBase.value - 10) / 2);
+
+dexBase.addEventListener('input', function (event) {
+    document.getElementById('dex-mod').innerHTML = Math.floor((event.target.value - 10) / 2);
+});
+
 ////////////
 /* SKILLS */
 ////////////

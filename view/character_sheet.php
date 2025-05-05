@@ -169,8 +169,8 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 <td class="total">
                     <input type="number" name="Str_Base" id="Str_Base" value="<?php echo $valMemory['Str_Base']; ?>" min="0" max="99" required>
                 </td>
-                <td class="modifier">
-
+                <td class="modifier" id="str-mod">
+                    ##
                 </td>
                 <td class="temp-score">
                     <input type="number" name="Str_Temp" id="Str_Temp" min="0" max="99">
@@ -186,8 +186,8 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 <td>
                     <input type="number" name="Dex_Base" id="Dex_Base" value="<?php echo $valMemory['Dex_Base']; ?>" min="0" max="99" required>
                 </td>
-                <td class="modifier">
-
+                <td class="modifier" id="dex-mod">
+                    ##
                 </td>
                 <td class="temp-score">
                     <input type="number" name="Dex_Temp" id="Dex_Temp" min="0" max="99">
