@@ -15,8 +15,73 @@ CBAC		2025-03-30		Original Version
 CBAC        2025-04-15      Renamed file from `skills_autocalc.js` to `character_sheet.js`,
                             Added first pass of functions for Feats.
 CBAC        2025-04-24      Added function for adding new items.
+CBAC        2025-05-04      Skill Bonus now shows the calculation of the skill fields.
 -----------------------------------------------------------------------------------------------
 */
+
+////////////
+/* SKILLS */
+////////////
+const SKILL_FIELDS = [
+    "Acrob",
+    "Appra",
+    "Bluff",
+    "Climb",
+    "Craft",
+    "Diplo",
+    "DsDev",
+    "Disgu",
+    "Escar",
+    "Fly",
+    "Hanim",
+    "Heal",
+    "Intim",
+    "Karca",
+    "Kdung",
+    "Kengi",
+    "Kgeog",
+    "Khist",
+    "Kloca",
+    "Knatu",
+    "Knobi",
+    "Kplan",
+    "Kreli",
+    "Lingu",
+    "Perce",
+    "Perfo",
+    "Profe",
+    "Ride",
+    "Senmo",
+    "SOH",
+    "Spcft",
+    "Stlth",
+    "Survi",
+    "Swim",
+    "Umdev"
+];
+
+const SUB_FIELDS = ['_Ranks', '_Racial', '_Feats', '_Misc'];
+
+SKILL_FIELDS.forEach(skill_name => {
+    console.log(skill_name);
+    SUB_FIELDS.forEach(field => {
+        // Set initial value
+        var ranks = parseInt(document.getElementById(skill_name + SUB_FIELDS[0]).value);
+        var racial = parseInt(document.getElementById(skill_name + SUB_FIELDS[1]).value);
+        var feats = parseInt(document.getElementById(skill_name + SUB_FIELDS[2]).value);
+        var misc = parseInt(document.getElementById(skill_name + SUB_FIELDS[3]).value);
+        document.getElementById(skill_name + '_Total').innerText = ranks + racial + feats + misc;
+
+        // do it again on input
+        document.getElementById(skill_name + field).addEventListener('input', function (event) {
+            var ranks = parseInt(document.getElementById(skill_name + SUB_FIELDS[0]).value);
+            var racial = parseInt(document.getElementById(skill_name + SUB_FIELDS[1]).value);
+            var feats = parseInt(document.getElementById(skill_name + SUB_FIELDS[2]).value);
+            var misc = parseInt(document.getElementById(skill_name + SUB_FIELDS[3]).value);
+            document.getElementById(skill_name + '_Total').innerText = ranks + racial + feats + misc;
+        });
+    });
+});
 
 
 ///////////
@@ -236,7 +301,7 @@ Array.from(item_buttons).forEach(button => {
             var itemDiv = event.currentTarget.parentElement;
             itemDiv.remove();
         }
-    })
+    });
 });
 
 var featButton = document.getElementById('add-feat-button');

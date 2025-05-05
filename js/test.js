@@ -77,6 +77,12 @@ function addFeat(i) {
     featInc++;
 }
 
+var microphone = document.getElementById('wurds');
+microphone.addEventListener('input', function (event) {
+    var output = document.getElementById('echo');
+    output.innerHTML = event.target.value * 2;
+})
+
 var button = document.getElementById('add-feat-button');
 button.addEventListener('click', addFeat);
 

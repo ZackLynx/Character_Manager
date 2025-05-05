@@ -288,13 +288,13 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 <tr>
                     <td class="skill-name"><?php echo $skill['Skill_Name']; ?></td>
                     <td class="is-untrained"><?php echo $skill['Is_Untrained'] === 1 ? '&FilledSmallSquare;' : '' ?></td>
-                    <td class="skill-total">&pm;##</td>
+                    <td class="skill-total" id="<?php echo $skill['Short_Name']; ?>_Total">&pm;##</td>
                     <td class="ability-mod"><?php echo $abilities[$skill['Ability_ID'] - 1]; ?></td><!-- TODO: Dynamically assign this variable based on the characters ability scores. -->
                     <td class="is-class-skill">bool</td><!-- TODO: Make this field dynamic with the class selected via JavaScript. -->
-                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Ranks" value="<?php echo $character_skills[$i][0] ?? 0; ?>" required></td>
-                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Racial" value="<?php echo $character_skills[$i][1] ?? 0; ?>" required></td>
-                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Feats" value="<?php echo $character_skills[$i][2] ?? 0; ?>" required></td>
-                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Misc" value="<?php echo $character_skills[$i][3] ?? 0; ?>" required></td>
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Ranks" id="<?php echo $skill['Short_Name']; ?>_Ranks" value="<?php echo $character_skills[$i][0] ?? 0; ?>" required></td>
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Racial" id="<?php echo $skill['Short_Name']; ?>_Racial" value="<?php echo $character_skills[$i][1] ?? 0; ?>" required></td>
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Feats" id="<?php echo $skill['Short_Name']; ?>_Feats" value="<?php echo $character_skills[$i][2] ?? 0; ?>" required></td>
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Misc" id="<?php echo $skill['Short_Name']; ?>_Misc" value="<?php echo $character_skills[$i][3] ?? 0; ?>" required></td>
 
                     <?php
                     /* OLD VERSION
@@ -307,6 +307,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                     <td class="skill-acp"></td><!-- To Be Implemented -->
                 </tr>
                 <?php
+
                 $i++;
             endforeach; ?>
         </table>

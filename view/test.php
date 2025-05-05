@@ -39,6 +39,14 @@ CBAC        2025-04-26      Added button for refactoring skills.
             <input type="submit" value="BEGIN SKILL REFACTOR">
         </form>
         <form action="." method="post">
+
+            <div id="keystroke-test">
+                <p id="echo">
+
+                </p>
+                <input type="number" name="wurds" id="wurds">
+            </div>
+
             <div id="feats-block">
                 <p>
                     Feats
@@ -102,5 +110,5 @@ CBAC        2025-04-26      Added button for refactoring skills.
 
     </body>
 
-    <script src="./js/character_sheet.js"></script>
+    <script src="./js/test.js"></script>
 </html>
