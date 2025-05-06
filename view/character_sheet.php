@@ -121,20 +121,6 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 <input type="radio" name="alignment" id="chaotic-evil">
             </div>
         </fieldset>
-        <!-- size -->
-        <div>
-            <select name="size" id="size">
-                <option value="1">Fine</option>
-                <option value="2">Diminutive</option>
-                <option value="3">Tiny</option>
-                <option value="4">Small</option>
-                <option value="5">Medium</option>
-                <option value="6">Large</option>
-                <option value="8">Huge</option>
-                <option value="10">Gargantuan</option>
-                <option value="12">Colossal</option>
-            </select>
-        </div>
         <!-- gender -->
         <div>
             <label for="gender">Gender</label>
