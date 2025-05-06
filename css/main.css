@@ -70,7 +70,9 @@ footer {
   color: #d00;
 }
 
+/* doesn't work on firefox */
 .add-button {
+  display: grid;
   justify-items: center;
   margin: 1rem;
 }
