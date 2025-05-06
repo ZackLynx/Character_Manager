@@ -290,7 +290,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                     <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Misc" value="<?php echo $valMemory[$skill['Short_Name'] . '_Misc']; ?>" required></td> 
                     */
                     ?>
-                    <td class="skill-acp"></td><!-- To Be Implemented -->
+                    <td class="skill-acp"><?php echo ($skill['Armored_Penalty'] == 1) ? "-##" : '' ?></td>
                 </tr>
                 <?php
 
