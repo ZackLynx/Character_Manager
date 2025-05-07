@@ -425,7 +425,10 @@ function get_skills()
 function get_class_skills()
 {
     global $db;
-    $query = 'SELECT * FROM `classes_skills`;';
+    $query = 'SELECT classes_skills.`Class_ID`, GROUP_CONCAT(skills.`Short_Name` ORDER BY skills.`Skill_ID` SEPARATOR \', \') AS Skill_IDs
+              FROM classes_skills, skills
+              WHERE classes_skills.`Skill_ID` = skills.`Skill_ID`
+              GROUP BY `Class_ID`;';
     $statement = $db->prepare($query);
     $statement->execute();
     $class_skills = $statement->fetchAll();

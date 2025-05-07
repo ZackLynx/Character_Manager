@@ -78,15 +78,17 @@ function addFeat(i) {
 }
 
 var cookies = document.cookie.split(';');
-document.writeln(document.cookie);
+document.writeln('<p>');
+document.writeln(decodeURIComponent(cookies));
+document.writeln('</p>');
 
+
+
+// Real time repeat with math
 var microphone = document.getElementById('wurds');
 microphone.addEventListener('input', function (event) {
     var output = document.getElementById('echo');
     output.innerHTML = event.target.value * 2;
 })
-
-var button = document.getElementById('add-feat-button');
-button.addEventListener('click', addFeat);
 
 addFeat(2);

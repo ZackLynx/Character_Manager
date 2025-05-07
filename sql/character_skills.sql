@@ -231,3 +231,8 @@ VALUES
     (11, 24),
     (11, 27),
     (11, 31);
+
+SELECT classes_skills.`Class_ID`, GROUP_CONCAT(skills.`Short_Name` ORDER BY skills.`Skill_ID` SEPARATOR ', ') AS Skill_IDs
+FROM classes_skills, skills
+WHERE classes_skills.`Skill_ID` = skills.`Skill_ID`
+GROUP BY `Class_ID`;

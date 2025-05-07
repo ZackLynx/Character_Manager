@@ -298,6 +298,7 @@ try {
             $character_skills = get_character_skills($character_ID);
             $character_feats = get_feats($character_ID);
             $character_items = get_inventory($character_ID);
+
             include './view/table_update.php';
             break;
 
@@ -635,11 +636,16 @@ try {
             // foreach ($_POST as $key => $value) {
             //     echo '' . $key . ' => ' . $value . '<br>';
             // }
-            setcookie("class_skills", "BITCHES");
-            foreach ($_COOKIE as $key => $value) {
-                echo '' . $key . ' => ' . $value . ';<br>';
-
+            $class_skills = get_class_skills();
+            $csCookie = [];
+            foreach ($class_skills as $skill) {
+                array_push($csCookie, '[' . $skill['Skill_IDs'] . ']');
             }
+
+            // Allow the cookie time to exist.
+            setcookie('CLASS_SKILLS', implode($csCookie), time() + 60, '/');
+            echo '<script src="./js/test.js"></script>';
+
 
 
             break;
