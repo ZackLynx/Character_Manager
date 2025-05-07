@@ -77,6 +77,9 @@ function addFeat(i) {
     featInc++;
 }
 
+var cookies = document.cookie.split(';');
+document.writeln(document.cookie);
+
 var microphone = document.getElementById('wurds');
 microphone.addEventListener('input', function (event) {
     var output = document.getElementById('echo');

@@ -47,7 +47,9 @@ CBAC        2025-04-26      Added button for refactoring skills.
                 <input type="number" name="wurds" id="wurds">
             </div>
 
-            <div id="feats-block">
+
+
+            <!-- <div id="feats-block">
                 <p>
                     Feats
                 </p>
@@ -102,7 +104,7 @@ CBAC        2025-04-26      Added button for refactoring skills.
                 </div>
                 <input type="text" name="num-of-items" id="num-of-items" value="<?php echo $ItemNum; ?>" hidden>
                 <input type="text" name="items-to-delete" id="items-to-delete" hidden>
-            </div>
+            </div> -->
 
             <input type="hidden" name="action" value="test-input">
             <input type="submit" value="Submit for testing">

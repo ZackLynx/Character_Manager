@@ -632,9 +632,16 @@ try {
             break;
 
         case 'test-input':
-            foreach ($_POST as $key => $value) {
-                echo '' . $key . ' => ' . $value . '<br>';
+            // foreach ($_POST as $key => $value) {
+            //     echo '' . $key . ' => ' . $value . '<br>';
+            // }
+            setcookie("class_skills", "BITCHES");
+            foreach ($_COOKIE as $key => $value) {
+                echo '' . $key . ' => ' . $value . ';<br>';
+
             }
+
+
             break;
 
         case 'migrate-skills':
