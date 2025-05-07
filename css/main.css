@@ -107,6 +107,10 @@ td {
   margin-bottom: 1rem;
   border-spacing: 0;
 
+  td {
+    width: 4rem;
+  }
+
   td:nth-child(even) {
     background-color: #c0c0c0;
   }
@@ -118,6 +122,46 @@ td {
   td:nth-child(1) {
     background-color: white;
   }
+
+  input[type="number"] {
+    width: 3rem;
+
+    font-size: x-large;
+  }
+
+  .modifier,
+  .temp-modifier {
+    font-size: x-large;
+  }
+}
+
+.ability-label {
+  text-align: right;
+}
+
+#Alignment {
+  display: flex;
+  flex-direction: row;
+}
+
+.lawful-chaotic {
+  writing-mode: vertical-lr;
+  margin: .1rem;
+  text-align: center;
+}
+
+.good-evil {
+  margin: .1rem;
+  text-align: center;
+}
+
+.alignment-button {
+  margin: 0;
+}
+
+#health {
+  display: flex;
+  flex-direction: row;
 }
 
 /* WEEK 10 ADDITION */

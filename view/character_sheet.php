@@ -106,29 +106,44 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
             <input type="number" name="Character_Level" id="Character_Level" min="1" max="20" value="<?php echo $valMemory['Character_Level'] ?? 1; ?>" required>
         </div>
         <br>
-        <fieldset>
-            <div class="alignment-box">
-                <input type="radio" name="alignment" id="lawful-good">
-                <input type="radio" name="alignment" id="neutral-good">
-                <input type="radio" name="alignment" id="chaotic-good">
-                <br>
-                <input type="radio" name="alignment" id="lawful-neutral">
-                <input type="radio" name="alignment" id="true-neutral">
-                <input type="radio" name="alignment" id="chaotic-neutral">
-                <br>
-                <input type="radio" name="alignment" id="lawful-evil">
-                <input type="radio" name="alignment" id="neutral-evil">
-                <input type="radio" name="alignment" id="chaotic-evil">
-            </div>
-        </fieldset>
-        <!-- gender -->
+        <div class="alignment-box">
+            <fieldset name="Alignment" id="Alignment">
+                <legend>Alignment</legend>
+                <p class="lawful-chaotic">
+                    Lawful
+                </p>
+                <div>
+                    <p class="good-evil">Good</p>
+                    <input type="radio" class="alignment-button" name="alignment" id="lawful-good">
+                    <input type="radio" class="alignment-button" name="alignment" id="neutral-good">
+                    <input type="radio" class="alignment-button" name="alignment" id="chaotic-good">
+                    <br>
+                    <input type="radio" class="alignment-button" name="alignment" id="lawful-neutral">
+                    <input type="radio" class="alignment-button" name="alignment" id="true-neutral">
+                    <input type="radio" class="alignment-button" name="alignment" id="chaotic-neutral">
+                    <br>
+                    <input type="radio" class="alignment-button" name="alignment" id="lawful-evil">
+                    <input type="radio" class="alignment-button" name="alignment" id="neutral-evil">
+                    <input type="radio" class="alignment-button" name="alignment" id="chaotic-evil">
+                    <p class="good-evil">Evil</p>
+                </div>
+                <p class="lawful-chaotic">
+                    Chaotic
+                </p>
+            </fieldset>
+        </div>
         <div>
             <label for="gender">Gender</label>
             <input type="text" name="gender" id="gender">
         </div>
+        <div id="health">
+            <label for="Current_HP" class="hp-left">Current HP</label>
+            <input type="text" class="large-number" name="Current_HP" id="Current_HP">
+            /
+            <input type="text" class="large-number" name="Max_HP" id="Max_HP">
+            <label for="Max_HP" class="hp-right">Max HP</label>
+        </div>
     </div>
-</div>
-<div class="two-column">
     <div id="ability-scores">
         <table class="ability-scores">
             <tr>
@@ -252,7 +267,15 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
             </tr>
         </table>
     </div>
-    <div id="equipment">
+</div>
+
+<div id="tab-view">
+    <div id="tabs">
+    </div>
+    <div id="equipment" hidden="true">
+        <p>
+            COMING SOON!
+        </p>
     </div>
     <div id="skills">
         <table class="skills-list">
@@ -287,13 +310,16 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                     <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Ranks" value="<?php echo $valMemory[$skill['Short_Name'] . '_Ranks']; ?>" required></td>
                     <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Racial" value="<?php echo $valMemory[$skill['Short_Name'] . '_Racial']; ?>" required></td>
                     <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Feats" value="<?php echo $valMemory[$skill['Short_Name'] . '_Feats']; ?>" required></td>
-                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Misc" value="<?php echo $valMemory[$skill['Short_Name'] . '_Misc']; ?>" required></td> 
+                    <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Misc" value="<?php echo $valMemory[$skill['Short_Name'] . '_Misc']; ?>" required></td>
                     */
-                    ?>
-                    <td class="skill-acp"><?php echo ($skill['Armored_Penalty'] == 1) ? "-##" : '' ?></td>
+                    if ($skill['Armored_Penalty'] == 1):
+                        ?>
+                        <td class="skill-acp" id="<?php echo $skill['Short_Name']; ?>_ACP">-##</td>
+                    <?php else: ?>
+                        <td class="no-acp"></td>
+                    <?php endif; ?>
                 </tr>
                 <?php
-
                 $i++;
             endforeach; ?>
         </table>
@@ -356,102 +382,107 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         <input type="text" name="num-of-items" id="num-of-items" value="<?php echo $ItemNum; ?>" hidden>
         <input type="text" name="items-to-delete" id="items-to-delete" hidden>
     </div>
-</div>
-<div id="health">
-</div>
-<div class="two-column">
     <div id="combat">
-    </div>
-    <div id="combat-maneuvers">
-    </div>
+        <p>TO BE IMPLEMENTED</p>
+        <div id="attacks">
+            <div id="weapon-primary">
+                <label for="weapon-primary-name">Weapon Name</label>
+                <input type="text" name="weapon-primary-name" id="weapon-primary-name" value="">
+                <br>
+                <label for="weapon-primary-type">Type</label>
+                <input type="text" name="weapon-primary-type" id="weapon-primary-type" value="">
+                <br>
+                <label for="weapon-primary-range">Range</label>
+                <input type="number" name="weapon-primary-range" id="weapon-primary-range" value="" min="0">
+                <br>
+                <label for="weapon-primary-attack-bonus">Attack Bonus</label>
+                <input type="number" name="weapon-primary-attack-bonus" id="weapon-primary-attack-bonus" value="">
+                <br>
+                <label for="weapon-primary-damage">Damage</label>
+                <input type="number" name="weapon-primary-damage" id="weapon-primary-damage" value="" min="1">
+                <select name="weapon-primary-dice" id="weapon-primary-dice">
+                    <option value="1">d4</option>
+                    <option value="2">d6</option>
+                    <option value="3">d8</option>
+                    <option value="4">d10</option>
+                    <option value="5">d12</option>
+                    <option value="6">d20</option>
+                </select>
+                <br>
+                <label for="weapon-primary-crit-range">Critical</label>
+                <input type="number" name="weapon-primary-crit-range" id="weapon-primary-crit-range">
+                x
+                <input type="number" name="weapon-primary-crit-multiplier" id="weapon-primary-crit-multiplier" min="2">
+            </div>
+        </div>
+        <div id="defense">
+            <p>
+                Armor
+            </p>
+            <div id="armor">
+                <label for="armor-name">Name</label>
+                <input type="text" name="armor-name" id="armor-name">
+                <br>
+                <label for="armor-type">Type</label>
+                <select name="armor-type" id="armor-type">
+                    <option value="1">Light</option>
+                    <option value="2">Medium</option>
+                    <option value="3">Heavy</option>
+                </select>
+                <br>
+                <label for="max-speed">Max Speed</label>
+                <input type="number" name="max-speed" id="max-speed">
+                <br>
+                <label for="max-dex">Max AC Dex</label>
+                <input type="number" name="max-dex" id="max-dex">
+                <br>
+                <label for="armor-acp">Check Penalty</label>
+                <input type="number" name="armor-acp" id="armor-acp">
+                <br>
+                <label for="armor-weight">Weight</label>
+                <input type="number" name="armor-weight" id="armor-weight"> lb
+                <br>
+                <label for="armor-ac">Armor AC</label>
+                <input type="number" name="armor-ac" id="armor-ac">
+            </div>
+            <p>
+                Shield
+            </p>
+            <div id="shield">
+                <label for="shield-name">Name</label>
+                <input type="text" name="shield-name" id="shield-name">
+                <br>
+                <label for="shield-acp">Check Penalty</label>
+                <input type="number" name="shield-acp" id="shield-acp">
+                <br>
+                <label for="shield-weight">Weight</label>
+                <input type="number" name="shield-weight" id="shield-weight"> lb
+                <br>
+                <label for="shield-ac">Shield AC</label>
+                <input type="number" name="shield-ac" id="shield-ac">
+            </div>
+        </div>
 
-    <p>TO BE IMPLEMENTED</p>
-    <div id="attacks">
-        <div id="weapon-primary">
-            <label for="weapon-primary-name">Weapon Name</label>
-            <input type="text" name="weapon-primary-name" id="weapon-primary-name" value="">
-            <br>
-            <label for="weapon-primary-type">Type</label>
-            <input type="text" name="weapon-primary-type" id="weapon-primary-type" value="">
-            <br>
-            <label for="weapon-primary-range">Range</label>
-            <input type="number" name="weapon-primary-range" id="weapon-primary-range" value="" min="0">
-            <br>
-            <label for="weapon-primary-attack-bonus">Attack Bonus</label>
-            <input type="number" name="weapon-primary-attack-bonus" id="weapon-primary-attack-bonus" value="">
-            <br>
-            <label for="weapon-primary-damage">Damage</label>
-            <input type="number" name="weapon-primary-damage" id="weapon-primary-damage" value="" min="1">
-            <select name="weapon-primary-dice" id="weapon-primary-dice">
-                <option value="1">d4</option>
-                <option value="2">d6</option>
-                <option value="3">d8</option>
-                <option value="4">d10</option>
-                <option value="5">d12</option>
-                <option value="6">d20</option>
-            </select>
-            <br>
-            <label for="weapon-primary-crit-range">Critical</label>
-            <input type="number" name="weapon-primary-crit-range" id="weapon-primary-crit-range">
-            x
-            <input type="number" name="weapon-primary-crit-multiplier" id="weapon-primary-crit-multiplier" min="2">
-        </div>
     </div>
-
-    <div id="defense">
-        <!-- Armor -->
+    <div id="combat-maneuvers" hidden>
         <p>
-            Armor
+            COMING SOON!
         </p>
-        <div id="armor">
-            <label for="armor-name">Name</label>
-            <input type="text" name="armor-name" id="armor-name">
-            <br>
-            <label for="armor-type">Type</label>
-            <select name="armor-type" id="armor-type">
-                <option value="1">Light</option>
-                <option value="2">Medium</option>
-                <option value="3">Heavy</option>
-            </select>
-            <br>
-            <label for="max-speed">Max Speed</label>
-            <input type="number" name="max-speed" id="max-speed">
-            <br>
-            <label for="max-dex">Max AC Dex</label>
-            <input type="number" name="max-dex" id="max-dex">
-            <br>
-            <label for="check-penalty">Check Penalty</label>
-            <input type="number" name="check-penalty" id="check-penalty">
-            <br>
-            <label for="armor-weight">Weight</label>
-            <input type="number" name="armor-weight" id="armor-weight"> lb
-            <br>
-            <label for="armor-ac">Armor AC</label>
-            <input type="number" name="armor-ac" id="armor-ac">
-        </div>
-        <!-- Shield -->
+    </div>
+    <div id="saving-throws" hidden>
         <p>
-            Shield
+            COMING SOON!
         </p>
-        <div id="shield">
-            <label for="shield-name">Name</label>
-            <input type="text" name="shield-name" id="shield-name">
-            <br>
-            <label for="check-penalty">Check Penalty</label>
-            <input type="number" name="check-penalty" id="check-penalty">
-            <br>
-            <label for="shield-weight">Weight</label>
-            <input type="number" name="shield-weight" id="shield-weight"> lb
-            <br>
-            <label for="shield-ac">Shield AC</label>
-            <input type="number" name="shield-ac" id="shield-ac">
-        </div>
     </div>
-    <div id="saving-throws">
+    <div id="combat-abilities" hidden>
+        <p>
+            COMING SOON!
+        </p>
     </div>
-    <div id="combat-abilities">
-    </div>
-    <div id="effects">
+    <div id="effects" hidden>
+        <p>
+            COMING SOON!
+        </p>
     </div>
     <div id="notes-block">
         <label for="Notes">Notes</label>
@@ -459,6 +490,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         <textarea name="Notes" id="Notes"><?php echo $valMemory['Notes']; ?></textarea>
     </div>
 </div>
+
 
 <script src="./js/character_sheet.js">
 
