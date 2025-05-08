@@ -16,6 +16,7 @@ CBAC        2025-04-15      Renamed file from `skills_autocalc.js` to `character
                             Added first pass of functions for Feats.
 CBAC        2025-04-24      Added function for adding new items.
 CBAC        2025-05-04      Skill Bonus now shows the calculation of the skill fields.
+CBAC        2025-05-08      Tabs tested and implemented.
 -----------------------------------------------------------------------------------------------
 */
 

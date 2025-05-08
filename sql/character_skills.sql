@@ -15,6 +15,8 @@ Who         When            What
 CBAC        2025-04-22      Original Version
 CBAC        2025-04-26      Added Foreign Key constraints.
 CBAC        2025-04-27      `character_skills` now uses a 3 key composite key.
+CBAC        2025-05-06      Completed inclusion of all 11 core classes class skills
+CBAC        2025-05-07      Successful draft of new query for getting class skills
 -----------------------------------------------------------------------------------------------
 */
 

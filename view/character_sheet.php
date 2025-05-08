@@ -29,6 +29,8 @@ CBAC        2025-04-30      Added Character level field
 CBAC        2025-05-02      New skills system fully implemented on this page.
 CBAC        2025-05-03      placeholder fields for armor and weapons added, php and JavaScript
                             not yet implemented.
+CBAC        2025-05-04      Small chances to skill fields for new real-time calculation script.
+CBAC        2025-05-08      Tabs fully implemented. Skills are the default view
 -----------------------------------------------------------------------------------------------
 Still To Do:
 Dynamically assign this variable based on the characters ability scores.
@@ -271,7 +273,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 
 <div id="tab-view">
     <div id="tabs">
-        <button type="button" id="button-skills">Skills</button>
+        <button type="button" class="selected-tab" id="button-skills">Skills</button>
         <button type="button" id="button-feats">Feats</button>
         <button type="button" id="button-inventory">Inventory</button>
         <button type="button" id="button-combat">Combat</button>
@@ -327,7 +329,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
             endforeach; ?>
         </table>
     </div>
-    <div id="feats">
+    <div id="feats" hidden>
         <p>
             Feats
         </p>
@@ -355,7 +357,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         <input type="text" name="num-of-feats" id="num-of-feats" value="<?php echo $featNum; ?>" hidden>
         <input type="text" name="feats-to-delete" id="feats-to-delete" hidden>
     </div>
-    <div id="inventory">
+    <div id="inventory" hidden>
         <p>
             Inventory
         </p>
@@ -385,7 +387,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         <input type="text" name="num-of-items" id="num-of-items" value="<?php echo $ItemNum; ?>" hidden>
         <input type="text" name="items-to-delete" id="items-to-delete" hidden>
     </div>
-    <div id="combat">
+    <div id="combat" hidden>
         <p>TO BE IMPLEMENTED</p>
         <div id="attacks">
             <div id="weapon-primary">
@@ -467,17 +469,17 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         </div>
 
     </div>
-    <div id="saving-throws">
+    <div id="saving-throws" hidden>
         <p>
             COMING SOON!
         </p>
     </div>
-    <div id="effects">
+    <div id="effects" hidden>
         <p>
             COMING SOON!
         </p>
     </div>
-    <div id="notes-block">
+    <div id="notes-block" hidden>
         <label for="Notes">Notes</label>
         <br>
         <textarea name="Notes" id="Notes"><?php echo $valMemory['Notes']; ?></textarea>

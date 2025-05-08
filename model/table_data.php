@@ -34,6 +34,7 @@ CBAC        2025-04-28      Exploring new CRUD approach with `REPLACE INTO` keyw
                             Added prune_characters_columns() for later use, DO NOT EXECUTE THIS
                             FUNCTION YET!
 CBAC        2025-05-02      Skills now delete when a character is deleted.
+CBAC        2025-05-07      Skills
 -----------------------------------------------------------------------------------------------
 */
 
