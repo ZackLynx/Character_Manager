@@ -31,7 +31,9 @@ CBAC        2025-04-26      Added button for refactoring skills.
     </head>
 
     <body>
-        <form action="." method="post">
+
+
+        <form action="." method="post" hidden>
             <p>
                 Skill Refactor
             </p>
@@ -40,16 +42,13 @@ CBAC        2025-04-26      Added button for refactoring skills.
         </form>
         <form action="." method="post">
 
-            <div id="keystroke-test">
+            <div id="keystroke-test" hidden>
                 <p id="echo">
 
                 </p>
                 <input type="number" name="wurds" id="wurds">
             </div>
-
-
-
-            <!-- <div id="feats-block">
+            <div id="feats-block" hidden>
                 <p>
                     Feats
                 </p>
@@ -77,7 +76,7 @@ CBAC        2025-04-26      Added button for refactoring skills.
                 <input type="text" name="num-of-feats" id="num-of-feats" value="<?php echo $featNum; ?>" hidden>
                 <input type="text" name="feats-to-delete" id="feats-to-delete" hidden>
             </div>
-            <div id="inventory">
+            <div id="inventory" hidden>
                 <p>
                     Inventory
                 </p>
@@ -104,8 +103,25 @@ CBAC        2025-04-26      Added button for refactoring skills.
                 </div>
                 <input type="text" name="num-of-items" id="num-of-items" value="<?php echo $ItemNum; ?>" hidden>
                 <input type="text" name="items-to-delete" id="items-to-delete" hidden>
-            </div> -->
+            </div>
 
+            <div id="tabs">
+                <button type="button" id="button-tab-1">Tab 1</button>
+                <button type="button" id="button-tab-2">Tab 2</button>
+                <button type="button" id="button-tab-3">Tab 3</button>
+            </div>
+
+            <div>
+                <div id="tab1">
+                    <p>This is Tab 1</p>
+                </div>
+                <div id="tab2" hidden>
+                    <p>This is Tab 2</p>
+                </div>
+                <div id="tab3" hidden>
+                    <p>This is Tab 3</p>
+                </div>
+            </div>
             <input type="hidden" name="action" value="test-input">
             <input type="submit" value="Submit for testing">
         </form>

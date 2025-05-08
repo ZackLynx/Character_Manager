@@ -82,7 +82,23 @@ document.writeln('<p>');
 document.writeln(decodeURIComponent(cookies));
 document.writeln('</p>');
 
+document.getElementById('button-tab-1').addEventListener('click', function () {
+    document.getElementById('tab1').removeAttribute('hidden');
+    document.getElementById('tab2').setAttribute('hidden', '');
+    document.getElementById('tab3').setAttribute('hidden', '');
+});
 
+document.getElementById('button-tab-2').addEventListener('click', function () {
+    document.getElementById('tab1').setAttribute('hidden', '');
+    document.getElementById('tab2').removeAttribute('hidden');
+    document.getElementById('tab3').setAttribute('hidden', '');
+});
+
+document.getElementById('button-tab-3').addEventListener('click', function () {
+    document.getElementById('tab1').setAttribute('hidden', '');
+    document.getElementById('tab2').setAttribute('hidden', '');
+    document.getElementById('tab3').removeAttribute('hidden');
+});
 
 // Real time repeat with math
 var microphone = document.getElementById('wurds');
@@ -90,5 +106,3 @@ microphone.addEventListener('input', function (event) {
     var output = document.getElementById('echo');
     output.innerHTML = event.target.value * 2;
 })
-
-addFeat(2);

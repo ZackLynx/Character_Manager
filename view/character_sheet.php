@@ -271,12 +271,15 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 
 <div id="tab-view">
     <div id="tabs">
+        <button type="button" id="button-skills">Skills</button>
+        <button type="button" id="button-feats">Feats</button>
+        <button type="button" id="button-inventory">Inventory</button>
+        <button type="button" id="button-combat">Combat</button>
+        <button type="button" id="button-saving-throws">Saving Throws</button>
+        <button type="button" id="button-">Status Effects</button>
+        <button type="button" id="button-notes-block">Notes</button>
     </div>
-    <div id="equipment" hidden="true">
-        <p>
-            COMING SOON!
-        </p>
-    </div>
+
     <div id="skills">
         <table class="skills-list">
             <tr>
@@ -324,7 +327,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
             endforeach; ?>
         </table>
     </div>
-    <div id="feats-block">
+    <div id="feats">
         <p>
             Feats
         </p>
@@ -464,22 +467,12 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         </div>
 
     </div>
-    <div id="combat-maneuvers" hidden>
+    <div id="saving-throws">
         <p>
             COMING SOON!
         </p>
     </div>
-    <div id="saving-throws" hidden>
-        <p>
-            COMING SOON!
-        </p>
-    </div>
-    <div id="combat-abilities" hidden>
-        <p>
-            COMING SOON!
-        </p>
-    </div>
-    <div id="effects" hidden>
+    <div id="effects">
         <p>
             COMING SOON!
         </p>
@@ -491,7 +484,4 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
     </div>
 </div>
 
-
-<script src="./js/character_sheet.js">
-
-</script>
+<script src="./js/character_sheet.js"></script>
