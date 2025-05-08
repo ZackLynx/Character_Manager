@@ -109,6 +109,92 @@ chaBase.addEventListener('input', function (event) {
     updateSkillMods();
 });
 
+//////////////////
+/* Section Tabs */
+//////////////////
+
+var tabs = {
+    'skills': document.getElementById('skills'),
+    'feats': document.getElementById('feats'),
+    'inventory': document.getElementById('inventory'),
+    'combat': document.getElementById('combat'),
+    'saving-throws': document.getElementById('saving-throws'),
+    'effects': document.getElementById('effects'),
+    'notes-block': document.getElementById('notes-block')
+};
+
+document.getElementById('button-skills').addEventListener('click', function () {
+    Object.entries(tabs).forEach(([key, value]) => {
+        if (key === 'skills') {
+            value.removeAttribute('hidden', '');
+        } else {
+            value.setAttribute('hidden', '');
+        }
+    });
+});
+
+document.getElementById('button-feats').addEventListener('click', function () {
+    Object.entries(tabs).forEach(([key, value]) => {
+        if (key === 'feats') {
+            value.removeAttribute('hidden', '');
+        } else {
+            value.setAttribute('hidden', '');
+        }
+    });
+});
+
+document.getElementById('button-inventory').addEventListener('click', function () {
+    Object.entries(tabs).forEach(([key, value]) => {
+        if (key === 'inventory') {
+            value.removeAttribute('hidden', '');
+        } else {
+            value.setAttribute('hidden', '');
+        }
+    });
+});
+
+document.getElementById('button-combat').addEventListener('click', function () {
+    Object.entries(tabs).forEach(([key, value]) => {
+        if (key === 'combat') {
+            value.removeAttribute('hidden', '');
+        } else {
+            value.setAttribute('hidden', '');
+        }
+    });
+});
+
+document.getElementById('button-saving-throws').addEventListener('click', function () {
+    Object.entries(tabs).forEach(([key, value]) => {
+        if (key === 'saving-throws') {
+            value.removeAttribute('hidden', '');
+        } else {
+            value.setAttribute('hidden', '');
+        }
+    });
+});
+
+document.getElementById('button-effects').addEventListener('click', function () {
+    Object.entries(tabs).forEach(([key, value]) => {
+        if (key === 'effects') {
+            value.removeAttribute('hidden', '');
+        } else {
+            value.setAttribute('hidden', '');
+        }
+    });
+});
+
+document.getElementById('button-notes-block').addEventListener('click', function () {
+    Object.entries(tabs).forEach(([key, value]) => {
+        if (key === 'notes-block') {
+            value.removeAttribute('hidden', '');
+        } else {
+            value.setAttribute('hidden', '');
+        }
+    });
+});
+
+
+
 ////////////
 /* SKILLS */
 ////////////

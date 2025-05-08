@@ -276,7 +276,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         <button type="button" id="button-inventory">Inventory</button>
         <button type="button" id="button-combat">Combat</button>
         <button type="button" id="button-saving-throws">Saving Throws</button>
-        <button type="button" id="button-">Status Effects</button>
+        <button type="button" id="button-effects">Status Effects</button>
         <button type="button" id="button-notes-block">Notes</button>
     </div>
 
