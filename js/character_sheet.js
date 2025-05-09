@@ -17,6 +17,7 @@ CBAC        2025-04-15      Renamed file from `skills_autocalc.js` to `character
 CBAC        2025-04-24      Added function for adding new items.
 CBAC        2025-05-04      Skill Bonus now shows the calculation of the skill fields.
 CBAC        2025-05-08      Tabs tested and implemented.
+CBAC        2025-05-09      Selected tab is now indicated by a class for that button.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -123,8 +124,26 @@ var tabs = {
     'effects': document.getElementById('effects'),
     'notes-block': document.getElementById('notes-block')
 };
+var tabButtons = {
+    'skills': document.getElementById('button-skills'),
+    'feats': document.getElementById('button-feats'),
+    'inventory': document.getElementById('button-inventory'),
+    'combat': document.getElementById('button-combat'),
+    'saving-throws': document.getElementById('button-saving-throws'),
+    'effects': document.getElementById('button-effects'),
+    'notes-block': document.getElementById('button-notes-block')
 
-document.getElementById('button-skills').addEventListener('click', function () {
+}
+
+document.getElementById('button-skills').addEventListener('click', function (event) {
+    Object.entries(tabButtons).forEach(([key, value]) => {
+        if (value === event.target) {
+            value.setAttribute('class', 'selected-tab');
+        } else {
+            value.removeAttribute('class');
+        }
+    });
+
     Object.entries(tabs).forEach(([key, value]) => {
         if (key === 'skills') {
             value.removeAttribute('hidden', '');
@@ -134,7 +153,15 @@ document.getElementById('button-skills').addEventListener('click', function () {
     });
 });
 
-document.getElementById('button-feats').addEventListener('click', function () {
+document.getElementById('button-feats').addEventListener('click', function (event) {
+    Object.entries(tabButtons).forEach(([key, value]) => {
+        if (value === event.target) {
+            value.setAttribute('class', 'selected-tab');
+        } else {
+            value.removeAttribute('class');
+        }
+    });
+
     Object.entries(tabs).forEach(([key, value]) => {
         if (key === 'feats') {
             value.removeAttribute('hidden', '');
@@ -144,7 +171,15 @@ document.getElementById('button-feats').addEventListener('click', function () {
     });
 });
 
-document.getElementById('button-inventory').addEventListener('click', function () {
+document.getElementById('button-inventory').addEventListener('click', function (event) {
+    Object.entries(tabButtons).forEach(([key, value]) => {
+        if (value === event.target) {
+            value.setAttribute('class', 'selected-tab');
+        } else {
+            value.removeAttribute('class');
+        }
+    });
+
     Object.entries(tabs).forEach(([key, value]) => {
         if (key === 'inventory') {
             value.removeAttribute('hidden', '');
@@ -154,7 +189,15 @@ document.getElementById('button-inventory').addEventListener('click', function (
     });
 });
 
-document.getElementById('button-combat').addEventListener('click', function () {
+document.getElementById('button-combat').addEventListener('click', function (event) {
+    Object.entries(tabButtons).forEach(([key, value]) => {
+        if (value === event.target) {
+            value.setAttribute('class', 'selected-tab');
+        } else {
+            value.removeAttribute('class');
+        }
+    });
+
     Object.entries(tabs).forEach(([key, value]) => {
         if (key === 'combat') {
             value.removeAttribute('hidden', '');
@@ -164,7 +207,15 @@ document.getElementById('button-combat').addEventListener('click', function () {
     });
 });
 
-document.getElementById('button-saving-throws').addEventListener('click', function () {
+document.getElementById('button-saving-throws').addEventListener('click', function (event) {
+    Object.entries(tabButtons).forEach(([key, value]) => {
+        if (value === event.target) {
+            value.setAttribute('class', 'selected-tab');
+        } else {
+            value.removeAttribute('class');
+        }
+    });
+
     Object.entries(tabs).forEach(([key, value]) => {
         if (key === 'saving-throws') {
             value.removeAttribute('hidden', '');
@@ -174,7 +225,15 @@ document.getElementById('button-saving-throws').addEventListener('click', functi
     });
 });
 
-document.getElementById('button-effects').addEventListener('click', function () {
+document.getElementById('button-effects').addEventListener('click', function (event) {
+    Object.entries(tabButtons).forEach(([key, value]) => {
+        if (value === event.target) {
+            value.setAttribute('class', 'selected-tab');
+        } else {
+            value.removeAttribute('class');
+        }
+    });
+
     Object.entries(tabs).forEach(([key, value]) => {
         if (key === 'effects') {
             value.removeAttribute('hidden', '');
@@ -184,7 +243,15 @@ document.getElementById('button-effects').addEventListener('click', function () 
     });
 });
 
-document.getElementById('button-notes-block').addEventListener('click', function () {
+document.getElementById('button-notes-block').addEventListener('click', function (event) {
+    Object.entries(tabButtons).forEach(([key, value]) => {
+        if (value === event.target) {
+            value.setAttribute('class', 'selected-tab');
+        } else {
+            value.removeAttribute('class');
+        }
+    });
+
     Object.entries(tabs).forEach(([key, value]) => {
         if (key === 'notes-block') {
             value.removeAttribute('hidden', '');

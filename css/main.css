@@ -19,6 +19,7 @@ CBAC        2025-04-11      Beginning refactor of skill list table and character
                             and class with their own grouped sections. 
 CBAC        2025-04-18      first pass of styling for feats.
 CBAC        2025-04-24      Added inventory system styling.
+CBAC        2025-05-09      Added CSS for button representing a selected character sheet tab.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -213,6 +214,17 @@ label {
   margin-top: 1rem;
 }
 
+/********/
+/* Tabs */
+/********/
+
+.selected-tab {
+  background-color: skyblue;
+  border: 1px solid #28e;
+  border-radius: 3px;
+  padding: 2px 7px;
+}
+
 /* Skills Table */
 .skill-header {
   height: 2rem;
@@ -233,7 +245,7 @@ label {
 }
 
 /* Feats */
-#feats-block,
+#feats,
 #inventory {
   border: 1px solid black;
   width: 50rem;
