@@ -31,6 +31,7 @@ CBAC        2025-05-03      placeholder fields for armor and weapons added, php 
                             not yet implemented.
 CBAC        2025-05-04      Small chances to skill fields for new real-time calculation script.
 CBAC        2025-05-08      Tabs fully implemented. Skills are the default view
+CBAC        2025-05-10      Class Skill column areas now have ID's for Javascript to work with.
 -----------------------------------------------------------------------------------------------
 Still To Do:
 Dynamically assign this variable based on the characters ability scores.
@@ -304,7 +305,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                     <td class="is-untrained"><?php echo $skill['Is_Untrained'] === 1 ? '&FilledSmallSquare;' : '' ?></td>
                     <td class="skill-total" id="<?php echo $skill['Short_Name']; ?>_Total">&pm;##</td>
                     <td class="ability-mod <?php echo $abilities[$skill['Ability_ID'] - 1]; ?>" id="<?php echo $skill['Short_Name']; ?>_Mod"><?php echo $abilities[$skill['Ability_ID'] - 1]; ?></td><!-- TODO: Dynamically assign this variable based on the characters ability scores. -->
-                    <td class="is-class-skill">bool</td><!-- TODO: Make this field dynamic with the class selected via JavaScript. -->
+                    <td class="is-class-skill" id="<?php echo $skill['Short_Name']; ?>_Class">bool</td><!-- TODO: Make this field dynamic with the class selected via JavaScript. -->
                     <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Ranks" id="<?php echo $skill['Short_Name']; ?>_Ranks" value="<?php echo $character_skills[$i][0] ?? 0; ?>" required></td>
                     <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Racial" id="<?php echo $skill['Short_Name']; ?>_Racial" value="<?php echo $character_skills[$i][1] ?? 0; ?>" required></td>
                     <td class="skill-input"><input type="number" class="skill-fields" name="<?php echo $skill['Short_Name']; ?>_Feats" id="<?php echo $skill['Short_Name']; ?>_Feats" value="<?php echo $character_skills[$i][2] ?? 0; ?>" required></td>

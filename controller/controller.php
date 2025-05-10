@@ -27,6 +27,8 @@ CBAC        2025-04-28      First successful test of skill values migration. Mov
                             branches to switch-case blocks for actions
 CBAC        2025-05-02      Finished skills rework implementation
 CBAC        2025-05-06      Tests begin for evaluating cookies as alternative to hidden fields.
+CBAC        2025-05-09      Cookie testing completed.
+CBAC        2025-05-10      Cookies implemented for Character add and edit pages.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -81,6 +83,21 @@ try {
 
         case 'add-character':
             $skill_list = get_skills();
+            // Convert a 2 dimensional array with key=>value pairs to a JSON object.
+            $class_skills = get_class_skills();
+            $cs_arr = [];
+            foreach ($class_skills as $record) {
+                $cs_arr[$record['Class_ID']] = $record['Skill_IDs'];
+            }
+            // Encode the array to JSON
+            $cs_JSON = json_encode($cs_arr);
+
+            // Send as a cookie. Let the cookie exist for one hour.
+            setcookie(
+                'CLASS_SKILLS',
+                $cs_JSON,
+                time() + 60 * 60
+            );
             include './view/table_add.php';
             break;
 
@@ -296,6 +313,22 @@ try {
             $character_skills = get_character_skills($character_ID);
             $character_feats = get_feats($character_ID);
             $character_items = get_inventory($character_ID);
+
+            // Convert a 2 dimensional array with key=>value pairs to a JSON object.
+            $class_skills = get_class_skills();
+            $cs_arr = [];
+            foreach ($class_skills as $record) {
+                $cs_arr[$record['Class_ID']] = $record['Skill_IDs'];
+            }
+            // Encode the array to JSON
+            $cs_JSON = json_encode($cs_arr);
+
+            // Send as a cookie. Let the cookie exist for one hour.
+            setcookie(
+                'CLASS_SKILLS',
+                $cs_JSON,
+                time() + 60 * 60
+            );
 
             include './view/table_update.php';
             break;
@@ -639,18 +672,16 @@ try {
             $class_skills = get_class_skills();
             $cs_arr = [];
             foreach ($class_skills as $record) {
-                array_push($cs_arr, $record['Skill_IDs']);
+                $cs_arr[$record['Class_ID']] = $record['Skill_IDs'];
             }
-            //echo implode($cs_arr) . "<br>JSON: ";
-
+            // Encode the array to JSON
             $cs_JSON = json_encode($cs_arr);
 
-            //echo $cs_JSON . "<br>js: ";
-            // Allow the cookie time to exist.
+            // Send as a cookie. Let the cookie exist for one hour.
             setcookie(
                 'CLASS_SKILLS',
                 $cs_JSON,
-                time() + 60
+                time() + 60 * 60
             );
             echo '<script src="./js/test.js"></script>';
             break;

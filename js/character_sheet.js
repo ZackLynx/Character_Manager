@@ -1,11 +1,11 @@
 /*
 -----------------------------------------------------------------------------------------------
-Name:		skills_autocalc.js
+Name:		character_sheet.js
 Author:		Connor Bryan Andrew Clawson
 Date:		2025-03-30
 Language:	JavaScript
 Purpose:	This script handles the automatic calculation for skill bonus totals, as well as
-            all interactable behavior for adding feats and items.
+            all intractable behavior for adding feats and items.
 
 -----------------------------------------------------------------------------------------------
 ChangeLog:
@@ -18,14 +18,54 @@ CBAC        2025-04-24      Added function for adding new items.
 CBAC        2025-05-04      Skill Bonus now shows the calculation of the skill fields.
 CBAC        2025-05-08      Tabs tested and implemented.
 CBAC        2025-05-09      Selected tab is now indicated by a class for that button.
+CBAC        2025-05-10      getCookiePairs function tested and brought over to handle data
+                            passed through cookies. Class Skill bonus now applies if the skill
+                            has at least one rank and is a class skill.
 -----------------------------------------------------------------------------------------------
 */
+
+/* Cookie Data */
+const ALL_CLASS_SKILLS = JSON.parse(decodeURIComponent(getCookiePairs()['CLASS_SKILLS']));
+
+/**
+ * Takes the PHP session cookie string and splits the data into key-value pairs.
+ * @returns {Object} a key-value data object of all cookies in the session.
+ */
+function getCookiePairs() {
+    var cookieArray = document.cookie.split('; ');
+    var cookieObject = {};
+    for (const element of cookieArray) {
+        var row = element.split('=');
+        var key = row[0];
+        var value = row[1];
+        cookieObject[key] = value;
+    }
+    return cookieObject;
+}
+
+
+/////////////////////
+/* CLASS SELECTION */
+/////////////////////
+
+var classSelect = document.getElementById('Class_ID');
+
+// initialize classID with the current value
+var classID = classSelect.value;
+
+var classSkills = ALL_CLASS_SKILLS[classID].split(', ');
+
+// we want change for this event listener
+classSelect.addEventListener('change', function (event) {
+    classID = event.target.value;
+    classSkills = ALL_CLASS_SKILLS[classID].split(', ');
+    updateSkillValues();
+    // console.log(classID);
+});
 
 ///////////////
 /* ABILITIES */
 ///////////////
-
-// On start
 
 // STRENGTH
 var strBase = document.getElementById('Str_Base');
@@ -38,7 +78,7 @@ strBase.addEventListener('input', function (event) {
     for (i = 0; i < modifiers.length; i++) {
         modifiers[i].innerText = strMod.innerText;
     }
-    updateSkillMods();
+    updateSkillValues();
 });
 
 // DEXTERITY
@@ -52,7 +92,7 @@ dexBase.addEventListener('input', function (event) {
     for (i = 0; i < modifiers.length; i++) {
         modifiers[i].innerText = dexMod.innerText;
     }
-    updateSkillMods();
+    updateSkillValues();
 });
 
 // CONSTITUTION
@@ -66,7 +106,7 @@ conBase.addEventListener('input', function (event) {
     for (i = 0; i < modifiers.length; i++) {
         modifiers[i].innerText = conMod.innerText;
     }
-    updateSkillMods();
+    updateSkillValues();
 });
 
 // INTELIGENCE
@@ -80,7 +120,7 @@ intBase.addEventListener('input', function (event) {
     for (i = 0; i < modifiers.length; i++) {
         modifiers[i].innerText = intMod.innerText;
     }
-    updateSkillMods();
+    updateSkillValues();
 });
 
 // WISDOM
@@ -94,7 +134,7 @@ wisBase.addEventListener('input', function (event) {
     for (i = 0; i < modifiers.length; i++) {
         modifiers[i].innerText = wisMod.innerText;
     }
-    updateSkillMods();
+    updateSkillValues();
 });
 
 // CHARISMA
@@ -108,7 +148,7 @@ chaBase.addEventListener('input', function (event) {
     for (i = 0; i < modifiers.length; i++) {
         modifiers[i].innerText = chaMod.innerText;
     }
-    updateSkillMods();
+    updateSkillValues();
 });
 
 //////////////////
@@ -132,8 +172,7 @@ var tabButtons = {
     'saving-throws': document.getElementById('button-saving-throws'),
     'effects': document.getElementById('button-effects'),
     'notes-block': document.getElementById('button-notes-block')
-
-}
+};
 
 document.getElementById('button-skills').addEventListener('click', function (event) {
     Object.entries(tabButtons).forEach(([key, value]) => {
@@ -261,13 +300,41 @@ document.getElementById('button-notes-block').addEventListener('click', function
     });
 });
 
-
-
 ////////////
 /* SKILLS */
 ////////////
 
-function updateSkillMods() {
+const SKILL_FIELDS = [
+    "Acrob", "Appra", "Bluff", "Climb", "Craft", "Diplo", "DsDev", "Disgu", "Escar",
+    "Fly", "Hanim", "Heal", "Intim", "Karca", "Kdung", "Kengi", "Kgeog", "Khist",
+    "Kloca", "Knatu", "Knobi", "Kplan", "Kreli", "Lingu", "Perce", "Perfo", "Profe",
+    "Ride", "Senmo", "SOH", "Spcft", "Stlth", "Survi", "Swim", "Umdev"
+];
+
+const SUB_FIELDS = ['_Ranks', '_Racial', '_Feats', '_Misc'];
+
+// apply event listeners to all 140 skill list number fields.
+SKILL_FIELDS.forEach(skill_name => {
+    SUB_FIELDS.forEach(field => {
+        // do it again on input
+        document.getElementById(skill_name + field).addEventListener('input', function () {
+            var modifier = parseInt(document.getElementById(skill_name + "_Mod").innerHTML);
+            var ranks = parseInt(document.getElementById(skill_name + SUB_FIELDS[0]).value);
+            var classSkill = (classSkills.includes(skill_name) && (ranks > 0)) ? 3 : 0; // +3 for class skills with ranks
+            var racial = parseInt(document.getElementById(skill_name + SUB_FIELDS[1]).value);
+            var feats = parseInt(document.getElementById(skill_name + SUB_FIELDS[2]).value);
+            var misc = parseInt(document.getElementById(skill_name + SUB_FIELDS[3]).value);
+            document.getElementById(skill_name + '_Total').innerText = ranks + classSkill + racial + feats + misc + modifier;
+        });
+    });
+});
+
+/**
+ * 
+ */
+function updateSkillValues() {
+
+    // Get ability modifier values for skills
     var modifiers = document.getElementsByClassName('ability-mod');
     for (i = 0; i < modifiers.length; i++) {
         if (modifiers[i].classList.contains('STR')) {
@@ -290,47 +357,29 @@ function updateSkillMods() {
             modifiers[i].innerText = wisMod.innerText;
             continue;
         }
-        else {
+        else { // modifiers[i].classList.contains('CHA')
             modifiers[i].innerText = chaMod.innerText;
         }
     }
-
-    const SKILL_FIELDS = [
-        "Acrob", "Appra", "Bluff", "Climb", "Craft", "Diplo", "DsDev", "Disgu", "Escar",
-        "Fly", "Hanim", "Heal", "Intim", "Karca", "Kdung", "Kengi", "Kgeog", "Khist",
-        "Kloca", "Knatu", "Knobi", "Kplan", "Kreli", "Lingu", "Perce", "Perfo", "Profe",
-        "Ride", "Senmo", "SOH", "Spcft", "Stlth", "Survi", "Swim", "Umdev"
-    ];
-
-    const SUB_FIELDS = ['_Ranks', '_Racial', '_Feats', '_Misc'];
-
+    classSkills = ALL_CLASS_SKILLS[classID].split(', ');
     SKILL_FIELDS.forEach(skill_name => {
-        // console.log(skill_name);
-        SUB_FIELDS.forEach(field => {
-            // Set initial value
-            var classSkill = 3;
-            var modifier = parseInt(document.getElementById(skill_name + "_Mod").innerHTML);
-            var ranks = parseInt(document.getElementById(skill_name + SUB_FIELDS[0]).value);
-            var racial = parseInt(document.getElementById(skill_name + SUB_FIELDS[1]).value);
-            var feats = parseInt(document.getElementById(skill_name + SUB_FIELDS[2]).value);
-            var misc = parseInt(document.getElementById(skill_name + SUB_FIELDS[3]).value);
-            document.getElementById(skill_name + '_Total').innerText = ranks + racial + feats + misc + modifier + classSkill;
 
-            // do it again on input
-            document.getElementById(skill_name + field).addEventListener('input', function (event) {
-                var classSkill = 3;
-                var modifier = parseInt(document.getElementById(skill_name + "_Mod").innerHTML);
-                var ranks = parseInt(document.getElementById(skill_name + SUB_FIELDS[0]).value);
-                var racial = parseInt(document.getElementById(skill_name + SUB_FIELDS[1]).value);
-                var feats = parseInt(document.getElementById(skill_name + SUB_FIELDS[2]).value);
-                var misc = parseInt(document.getElementById(skill_name + SUB_FIELDS[3]).value);
-                document.getElementById(skill_name + '_Total').innerText = ranks + racial + feats + misc + modifier + classSkill;
-            });
-        });
+
+        // console.log(skill_name);
+        var modifier = parseInt(document.getElementById(skill_name + "_Mod").innerHTML);
+        var ranks = parseInt(document.getElementById(skill_name + SUB_FIELDS[0]).value);
+        var classSkill = (classSkills.includes(skill_name) && (ranks > 0)) ? 3 : 0; // +3 for class skills with ranks
+        // console.log(document.getElementById(skill_name + '_Class').innerHTML);
+        document.getElementById(skill_name + '_Class').innerHTML = classSkills.includes(skill_name) ? '+3' : '';
+        var racial = parseInt(document.getElementById(skill_name + SUB_FIELDS[1]).value);
+        var feats = parseInt(document.getElementById(skill_name + SUB_FIELDS[2]).value);
+        var misc = parseInt(document.getElementById(skill_name + SUB_FIELDS[3]).value);
+        document.getElementById(skill_name + '_Total').innerText = ranks + classSkill + racial + feats + misc + modifier;
     });
 }
 // run this function at least once at startup
-updateSkillMods();
+
+updateSkillValues();
 
 ///////////
 /* FEATS */
