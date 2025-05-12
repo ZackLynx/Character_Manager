@@ -53,7 +53,11 @@ var classSelect = document.getElementById('Class_ID');
 // initialize classID with the current value
 var classID = classSelect.value;
 
-var classSkills = ALL_CLASS_SKILLS[classID].split(', ');
+var classSkills = [];
+
+if (classID === 0) { classSkills = ALL_CLASS_SKILLS[classID].split(', '); }
+
+
 
 // we want change for this event listener
 classSelect.addEventListener('change', function (event) {
@@ -361,7 +365,7 @@ function updateSkillValues() {
             modifiers[i].innerText = chaMod.innerText;
         }
     }
-    classSkills = ALL_CLASS_SKILLS[classID].split(', ');
+    if (classID === 0) { classSkills = ALL_CLASS_SKILLS[classID].split(', '); }
     SKILL_FIELDS.forEach(skill_name => {
 
 

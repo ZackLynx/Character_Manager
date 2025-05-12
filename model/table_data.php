@@ -208,8 +208,13 @@ $columns = [
     'Int_Base',
     'Wis_Base',
     'Cha_Base',
-    'Notes',
-    'Character_Level'
+    'Gender',
+    'Character_Level',
+    'Experience_Points',
+    'Alignment_ID',
+    'Max_HP',
+    'Current_HP',
+    'Notes'
 ];
 
 /**

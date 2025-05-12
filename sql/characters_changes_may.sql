@@ -15,7 +15,8 @@ Who         When            What
 CBAC        2025-05-01      Original Version with dropped skills columns and added a character
 level value
 CBAC        2025-05-04      adding Size_ID to Races.
-CBAC        2025-05-11      Adding alignment for Characters
+CBAC        2025-05-11      Adding alignment for `characters`.
+CBAC        2025-05-12      Added Health Points and Experience Points for `characters`.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -232,4 +233,13 @@ VALUES (1, "Lawful Good"),
 
 ALTER TABLE `characters`
 ADD COLUMN Alignment_ID INT NOT NULL DEFAULT 5,
+ADD COLUMN Max_HP INT UNSIGNED NOT NULL DEFAULT 0,
+ADD COLUMN Current_HP INT NOT NULL DEFAULT 0,
+ADD COLUMN Experience_Points INT UNSIGNED NOT NULL DEFAULT 0,
 ADD Foreign Key FK_Character_Alignment (Alignment_ID) REFERENCES `alignments` (Alignment_ID);
+
+ALTER TABLE `characters`
+MODIFY COLUMN Last_Update TIMESTAMP NOT NULL AFTER Alignment_ID,
+MODIFY COLUMN Experience_Points INT UNSIGNED NOT NULL DEFAULT 0 AFTER Cha_Base,
+MODIFY COLUMN Alignment_ID INT NOT NULL DEFAULT 5 AFTER Race_ID,
+MODIFY COLUMN Notes TEXT AFTER Current_HP;

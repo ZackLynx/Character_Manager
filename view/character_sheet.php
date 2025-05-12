@@ -68,12 +68,12 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         </div>
         <div id="race">
             <label for="Race_ID">Race</label>
-            <select name="Race_ID" id="Race_ID">
+            <select name="Race_ID" id="Race_ID" required>
                 <?php if (
                     get_val_from_postget('action', NULL) === 'add-character' ||
                     get_val_from_postget('action', NULL) === 'submit-character'
                 ) { ?>
-                    <option value="0" <?php echo ($valMemory['Class_ID'] == 0) ? 'selected' : ''; ?>>Select a Race</option>
+                    <option value="0" <?php echo ($valMemory['Class_ID'] == 0) ? 'selected' : ''; ?> disabled>Select a Race</option>
                 <?php } ?>
                 <option value="1" <?php echo ($valMemory['Race_ID'] == 1) ? 'selected' : ''; ?>>Dwarf</option>
                 <option value="2" <?php echo ($valMemory['Race_ID'] == 2) ? 'selected' : ''; ?>>Elf</option>
@@ -86,12 +86,12 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         </div>
         <div id="class">
             <label for="Class_ID">Class</label>
-            <select name="Class_ID" id="Class_ID">
+            <select name="Class_ID" id="Class_ID" required>
                 <?php if (
                     get_val_from_postget('action', NULL) === 'add-character' ||
                     get_val_from_postget('action', NULL) === 'submit-character'
                 ) { ?>
-                    <option value="0" <?php echo ($valMemory['Class_ID'] == 0) ? 'selected' : ''; ?>>Select a Class</option>
+                    <option value="0" <?php echo ($valMemory['Class_ID'] == 0) ? 'selected' : ''; ?> disabled>Select a Class</option>
                 <?php } ?>
                 <option value="1" <?php echo ($valMemory['Class_ID'] == 1) ? 'selected' : ''; ?>>Barbarian</option>
                 <option value="2" <?php echo ($valMemory['Class_ID'] == 2) ? 'selected' : ''; ?>>Bard</option>
@@ -109,6 +109,11 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         <div id="level">
             <label for="Character_Level">Level</label>
             <input type="number" name="Character_Level" id="Character_Level" min="1" max="20" value="<?php echo $valMemory['Character_Level'] ?? 1; ?>" required>
+        </div>
+        <br>
+        <div id="xp">
+            <label for="Experience_Points">XP</label>
+            <input type="number" name="Experience_Points" id="Experience_Points" min="0" value="<?php echo $valMemory['Experience_Points'] ?? 0 ?>" required>
         </div>
         <br>
         <div class="alignment-box">
@@ -179,7 +184,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                     ##
                 </td>
                 <td class="temp-score">
-                    <input type="number" name="Str_Temp" id="Str_Temp" min="0" max="99">
+                    <input type="number" name="Str_Temp" id="Str_Temp" min="0" max="99" disabled>
                 </td>
                 <td class="temp-modifier">
 
@@ -196,7 +201,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                     ##
                 </td>
                 <td class="temp-score">
-                    <input type="number" name="Dex_Temp" id="Dex_Temp" min="0" max="99">
+                    <input type="number" name="Dex_Temp" id="Dex_Temp" min="0" max="99" disabled>
                 </td>
                 <td class="temp-modifier">
 
@@ -213,7 +218,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                     ##
                 </td>
                 <td class="temp-score">
-                    <input type="number" name="Con_Temp" id="Con_Temp" min="0" max="99">
+                    <input type="number" name="Con_Temp" id="Con_Temp" min="0" max="99" disabled>
                 </td>
                 <td class="temp-modifier">
 
@@ -230,7 +235,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                     ##
                 </td>
                 <td class="temp-score">
-                    <input type="number" name="Int_Temp" id="Int_Temp" min="0" max="99">
+                    <input type="number" name="Int_Temp" id="Int_Temp" min="0" max="99" disabled>
                 </td>
                 <td class="temp-modifier">
 
@@ -247,7 +252,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                     ##
                 </td>
                 <td class="temp-score">
-                    <input type="number" name="Wis_Temp" id="Wis_Temp" min="0" max="99">
+                    <input type="number" name="Wis_Temp" id="Wis_Temp" min="0" max="99" disabled>
                 </td>
                 <td class="temp-modifier">
 
@@ -264,7 +269,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                     ##
                 </td>
                 <td class="temp-score">
-                    <input type="number" name="Cha_Temp" id="Cha_Temp" min="0" max="99">
+                    <input type="number" name="Cha_Temp" id="Cha_Temp" min="0" max="99" disabled>
                 </td>
                 <td class="temp-modifier">
 
