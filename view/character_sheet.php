@@ -32,6 +32,8 @@ CBAC        2025-05-03      placeholder fields for armor and weapons added, php 
 CBAC        2025-05-04      Small chances to skill fields for new real-time calculation script.
 CBAC        2025-05-08      Tabs fully implemented. Skills are the default view
 CBAC        2025-05-10      Class Skill column areas now have ID's for Javascript to work with.
+CBAC        2025-05-11      Updated Weapon, Armor, and Shield field names to reference Database
+                            column names.
 -----------------------------------------------------------------------------------------------
 Still To Do:
 Dynamically assign this variable based on the characters ability scores.
@@ -393,20 +395,20 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         <div id="attacks">
             <div id="weapon-primary">
                 <label for="weapon-primary-name">Weapon Name</label>
-                <input type="text" name="weapon-primary-name" id="weapon-primary-name" value="">
+                <input type="text" name="Wpn_Name" id="weapon-primary-name" value="">
                 <br>
                 <label for="weapon-primary-type">Type</label>
-                <input type="text" name="weapon-primary-type" id="weapon-primary-type" value="">
+                <input type="text" name="Wpn_Type" id="weapon-primary-type" value="">
                 <br>
                 <label for="weapon-primary-range">Range</label>
-                <input type="number" name="weapon-primary-range" id="weapon-primary-range" value="" min="0">
+                <input type="number" name="Wpn_Range" id="weapon-primary-range" value="" min="0">
                 <br>
                 <label for="weapon-primary-attack-bonus">Attack Bonus</label>
-                <input type="number" name="weapon-primary-attack-bonus" id="weapon-primary-attack-bonus" value="">
+                <input type="number" name="Wpn_Atk_Bonus" id="weapon-primary-attack-bonus" value="">
                 <br>
-                <label for="weapon-primary-damage">Damage</label>
-                <input type="number" name="weapon-primary-damage" id="weapon-primary-damage" value="" min="1">
-                <select name="weapon-primary-dice" id="weapon-primary-dice">
+                <label for="weapon-die-count">Damage</label>
+                <input type="number" name="Wpn_Die_Count" id="weapon-die-count" value="" min="1">
+                <select name="Die_ID" id="weapon-primary-dice">
                     <option value="1">d4</option>
                     <option value="2">d6</option>
                     <option value="3">d8</option>
@@ -416,9 +418,9 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 </select>
                 <br>
                 <label for="weapon-primary-crit-range">Critical</label>
-                <input type="number" name="weapon-primary-crit-range" id="weapon-primary-crit-range">
-                x
-                <input type="number" name="weapon-primary-crit-multiplier" id="weapon-primary-crit-multiplier" min="2">
+                <input type="number" name="Crit_Range" id="weapon-primary-crit-range">
+                &#x2715;
+                <input type="number" name="Crit_Multi" id="weapon-primary-crit-multiplier" min="2">
             </div>
         </div>
         <div id="defense">
@@ -426,46 +428,46 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 Armor
             </p>
             <div id="armor">
-                <label for="armor-name">Name</label>
+                <label for="Armor_Name">Name</label>
                 <input type="text" name="armor-name" id="armor-name">
                 <br>
                 <label for="armor-type">Type</label>
-                <select name="armor-type" id="armor-type">
+                <select name="Armor_Type" id="armor-type">
                     <option value="1">Light</option>
                     <option value="2">Medium</option>
                     <option value="3">Heavy</option>
                 </select>
                 <br>
                 <label for="max-speed">Max Speed</label>
-                <input type="number" name="max-speed" id="max-speed">
+                <input type="number" name="Max_Speed" id="max-speed">
                 <br>
                 <label for="max-dex">Max AC Dex</label>
-                <input type="number" name="max-dex" id="max-dex">
+                <input type="number" name="Max_Dex" id="max-dex">
                 <br>
                 <label for="armor-acp">Check Penalty</label>
-                <input type="number" name="armor-acp" id="armor-acp">
+                <input type="number" name="Armor_ACP" id="armor-acp">
                 <br>
                 <label for="armor-weight">Weight</label>
-                <input type="number" name="armor-weight" id="armor-weight"> lb
+                <input type="number" name="Armor_Weight" id="armor-weight"> lbs
                 <br>
                 <label for="armor-ac">Armor AC</label>
-                <input type="number" name="armor-ac" id="armor-ac">
+                <input type="number" name="Armor_AC" id="armor-ac">
             </div>
             <p>
                 Shield
             </p>
             <div id="shield">
                 <label for="shield-name">Name</label>
-                <input type="text" name="shield-name" id="shield-name">
+                <input type="text" name="Shield_Name" id="shield-name">
                 <br>
                 <label for="shield-acp">Check Penalty</label>
-                <input type="number" name="shield-acp" id="shield-acp">
+                <input type="number" name="Shield_ACP" id="shield-acp">
                 <br>
                 <label for="shield-weight">Weight</label>
-                <input type="number" name="shield-weight" id="shield-weight"> lb
+                <input type="number" name="Shield_Weight" id="shield-weight"> lbs
                 <br>
                 <label for="shield-ac">Shield AC</label>
-                <input type="number" name="shield-ac" id="shield-ac">
+                <input type="number" name="Shield_AC" id="shield-ac">
             </div>
         </div>
 
