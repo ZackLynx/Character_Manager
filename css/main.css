@@ -21,6 +21,7 @@ CBAC        2025-04-18      first pass of styling for feats.
 CBAC        2025-04-24      Added inventory system styling.
 CBAC        2025-05-09      Added CSS for button representing a selected character sheet tab.
 CBAC        2025-05-11      Centered the tab button row.
+CBAC        2025-05-12      Styled the primary info fields above tabs and the combat tab.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -102,6 +103,82 @@ td {
   padding: .1rem .25rem;
 }
 
+/*******************/
+/* CHARACTER SHEET */
+/*******************/
+
+.info-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  input,
+  select {
+    font-size: x-large;
+  }
+
+  #health-divider {
+    font-size: 48pt;
+  }
+
+  .large-number {
+    font-size: 36pt;
+    width: 6rem;
+    height: 4rem;
+  }
+}
+
+.character-info-section {
+  font-size: xx-large;
+  margin: .5rem;
+  max-width: 20rem;
+}
+
+.info-row,
+#ability-scores {
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+
+#Character_Level,
+#Experience_Points {
+  width: 5rem;
+}
+
+.ability-label {
+  text-align: right;
+}
+
+#Alignment {
+  display: flex;
+  flex-direction: row;
+  padding: .2rem .25rem .25rem .25rem;
+}
+
+.lawful-chaotic {
+  writing-mode: vertical-lr;
+  margin: .1rem;
+  text-align: center;
+}
+
+.good-evil {
+  margin: .1rem;
+  text-align: center;
+}
+
+.alignment-button {
+  margin: 0;
+}
+
+#health {
+  display: flex;
+  flex-direction: row;
+}
+
+#health-block {
+  display: flex;
+  flex-direction: row;
+}
 
 /* Ability scores section */
 .ability-scores {
@@ -135,35 +212,6 @@ td {
   .temp-modifier {
     font-size: x-large;
   }
-}
-
-.ability-label {
-  text-align: right;
-}
-
-#Alignment {
-  display: flex;
-  flex-direction: row;
-}
-
-.lawful-chaotic {
-  writing-mode: vertical-lr;
-  margin: .1rem;
-  text-align: center;
-}
-
-.good-evil {
-  margin: .1rem;
-  text-align: center;
-}
-
-.alignment-button {
-  margin: 0;
-}
-
-#health {
-  display: flex;
-  flex-direction: row;
 }
 
 /* WEEK 10 ADDITION */
@@ -283,9 +331,6 @@ label {
   height: 1rem;
   text-align: right;
 }
-
-.feat-field,
-.item-field {}
 
 .item_desc,
 .feat_desc,
