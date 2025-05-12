@@ -119,17 +119,17 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
                 </p>
                 <div>
                     <p class="good-evil">Good</p>
-                    <input type="radio" class="alignment-button" name="alignment" id="lawful-good">
-                    <input type="radio" class="alignment-button" name="alignment" id="neutral-good">
-                    <input type="radio" class="alignment-button" name="alignment" id="chaotic-good">
+                    <input type="radio" class="alignment-button" name="alignment" id="lawful-good" value="1">
+                    <input type="radio" class="alignment-button" name="alignment" id="neutral-good" value="2">
+                    <input type="radio" class="alignment-button" name="alignment" id="chaotic-good" value="3">
                     <br>
-                    <input type="radio" class="alignment-button" name="alignment" id="lawful-neutral">
-                    <input type="radio" class="alignment-button" name="alignment" id="true-neutral">
-                    <input type="radio" class="alignment-button" name="alignment" id="chaotic-neutral">
+                    <input type="radio" class="alignment-button" name="alignment" id="lawful-neutral" value="4">
+                    <input type="radio" class="alignment-button" name="alignment" id="true-neutral" value="5">
+                    <input type="radio" class="alignment-button" name="alignment" id="chaotic-neutral" value="6">
                     <br>
-                    <input type="radio" class="alignment-button" name="alignment" id="lawful-evil">
-                    <input type="radio" class="alignment-button" name="alignment" id="neutral-evil">
-                    <input type="radio" class="alignment-button" name="alignment" id="chaotic-evil">
+                    <input type="radio" class="alignment-button" name="alignment" id="lawful-evil" value="7">
+                    <input type="radio" class="alignment-button" name="alignment" id="neutral-evil" value="8">
+                    <input type="radio" class="alignment-button" name="alignment" id="chaotic-evil" value="9">
                     <p class="good-evil">Evil</p>
                 </div>
                 <p class="lawful-chaotic">

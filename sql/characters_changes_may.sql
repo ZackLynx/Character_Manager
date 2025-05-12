@@ -6,15 +6,16 @@ Date:       2025-05-01
 Language:   SQL
 System:     MySQL 8.2.12
 Purpose:    This contains query's to modify the `characters` table in preparation of semester 
-            finals.
+finals.
 
 -----------------------------------------------------------------------------------------------
 ChangeLog:
 Who         When            What
 ----------- --------------- -------------------------------------------------------------------
 CBAC        2025-05-01      Original Version with dropped skills columns and added a character
-                            level value
+level value
 CBAC        2025-05-04      adding Size_ID to Races.
+CBAC        2025-05-11      Adding alignment for Characters
 -----------------------------------------------------------------------------------------------
 */
 
@@ -160,12 +161,13 @@ DROP COLUMN `Umdev_Racial`,
 DROP COLUMN `Umdev_Feats`,
 DROP COLUMN `Umdev_Misc`;
 
-ALTER TABLE `characters` 
+ALTER TABLE `characters`
 ADD COLUMN IF NOT EXISTS `Character_Level` INT NOT NULL DEFAULT 1,
 ADD COLUMN IF NOT EXISTS `Size_ID` INT NOT NULL DEFAULT 5, -- Medium
 ADD COLUMN IF NOT EXISTS `Gender` VARCHAR(16);
 
-DROP TABLE `sizes`;
+DROP TABLE IF EXISTS `sizes`;
+
 CREATE TABLE `sizes` (
     `Size_ID` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `Size_Name` VARCHAR(20) NOT NULL,
@@ -202,5 +204,32 @@ ADD CONSTRAINT `FK_Race_Size` FOREIGN KEY (Size_ID) REFERENCES `sizes` (Size_ID)
 
 -- Set Dwarves, Gnomes, and Halflings to small (4)
 UPDATE `races`
-SET Size_ID = 4
-WHERE Race_ID = 1 OR Race_ID = 3 OR Race_ID = 5;
+SET
+    Size_ID = 4
+WHERE
+    Race_ID = 1
+    OR Race_ID = 3
+    OR Race_ID = 5;
+
+DROP TABLE IF EXISTS `alignments`;
+
+CREATE TABLE `alignments` (
+    Alignment_ID INT NOT NULL PRIMARY KEY,
+    Alignment_Name VARCHAR(16)
+)
+
+INSERT INTO
+    `alignments` (Alignment_ID, Alignment_Name)
+VALUES (1, "Lawful Good"),
+    (2, "Neutral Good"),
+    (3, "Chaotic Good"),
+    (4, "Lawful Neutral"),
+    (5, "True Neutral"),
+    (6, "Chaotic Neutral"),
+    (7, "Lawful Evil"),
+    (8, "Neutral Evil"),
+    (9, "Chaotic Evil");
+
+ALTER TABLE `characters`
+ADD COLUMN Alignment_ID INT NOT NULL DEFAULT 5,
+ADD Foreign Key FK_Character_Alignment (Alignment_ID) REFERENCES `alignments` (Alignment_ID);

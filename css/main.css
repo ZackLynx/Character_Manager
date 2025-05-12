@@ -20,6 +20,7 @@ CBAC        2025-04-11      Beginning refactor of skill list table and character
 CBAC        2025-04-18      first pass of styling for feats.
 CBAC        2025-04-24      Added inventory system styling.
 CBAC        2025-05-09      Added CSS for button representing a selected character sheet tab.
+CBAC        2025-05-11      Centered the tab button row.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -217,6 +218,14 @@ label {
 /********/
 /* Tabs */
 /********/
+
+#tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: .5rem;
+  margin: 1rem 0;
+}
 
 .selected-tab {
   background-color: skyblue;
