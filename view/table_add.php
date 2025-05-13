@@ -32,6 +32,8 @@ CBAC        2025-04-19      Added `Notes` to data array.
 // entered data.
 $valMemory = [
     'Character_Name' => get_val_from_postget('Character_Name', ''),
+    'Gender' => get_val_from_postget('Gender', NULL),
+    'Experience_Points' => get_val_from_postget('Experience_Points', 0),
     'Class_ID' => get_val_from_postget('Class_ID', 0),
     'Race_ID' => get_val_from_postget('Race_ID', 0),
     'Str_Base' => get_val_from_postget('Str_Base', 10),
@@ -180,6 +182,7 @@ $valMemory = [
     'Umdev_Racial' => get_val_from_postget('Umdev_Racial', 0),
     'Umdev_Feats' => get_val_from_postget('Umdev_Feats', 0),
     'Umdev_Misc' => get_val_from_postget('Umdev_Misc', 0),
+    'Alignment_ID' => get_val_from_postget('Alignment_ID', 0),
     'Notes' => get_val_from_postget('Notes', NULL)
 ];
 
@@ -192,9 +195,9 @@ if (isset($system_message)) {
     <?php include './view/character_sheet.php'; ?>
     <input type="hidden" name="last-action" value="add-character">
     <input type="hidden" name="action" value="submit-character">
-    <input type="submit" value="SAVE NEW CHARACTER">
+    <input type="submit" class="add-character-button" value="Save New Character">
 </form>
 <form action="." method="post">
     <input type="hidden" name="action" value="view-characters">
-    <input type="submit" value="Cancel">
+    <input type="submit" class="cancel-button" value="Cancel">
 </form>

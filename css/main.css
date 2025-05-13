@@ -132,6 +132,10 @@ td {
   font-size: xx-large;
   margin: .5rem;
   max-width: 20rem;
+
+  div {
+    margin-bottom: 1rem;
+  }
 }
 
 .info-row,
@@ -270,6 +274,7 @@ label {
 #tabs {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   gap: .5rem;
   margin: 1rem 0;
@@ -318,7 +323,8 @@ label {
 }
 
 .feat-box,
-.item-box {
+.item-box,
+#notes-block {
   border: 1px solid black;
   max-width: 40rem;
   margin: 0 auto .5rem auto;
@@ -333,10 +339,15 @@ label {
 }
 
 .item_desc,
-.feat_desc,
-#notes {
+.feat_desc {
   min-height: 5rem;
   width: 32rem;
+  resize: vertical;
+}
+
+#Notes {
+  min-height: 5rem;
+  width: 39.5rem;
   resize: vertical;
 }
 
@@ -349,4 +360,31 @@ label {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.confirm-button {
+  background-color: lightgreen;
+  border: 1px solid darkgreen;
+  border-radius: 5px;
+  height: 2rem;
+  width: 10rem;
+  font-size: large;
+}
+
+.add-character-button {
+  background-color: lightgreen;
+  border: 1px solid darkgreen;
+  border-radius: 5px;
+  height: 2rem;
+  width: 15rem;
+  font-size: large;
+}
+
+.cancel-button {
+  background-color: lightcoral;
+  border: 1px solid darkred;
+  border-radius: 5px;
+  height: 2rem;
+  width: 10rem;
+  font-size: large;
 }

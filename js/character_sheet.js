@@ -55,7 +55,7 @@ var classID = classSelect.value;
 
 var classSkills = [];
 
-if (classID === 0) { classSkills = ALL_CLASS_SKILLS[classID].split(', '); }
+if (classID != 0) { classSkills = ALL_CLASS_SKILLS[classID].split(', '); }
 
 
 
@@ -365,7 +365,7 @@ function updateSkillValues() {
             modifiers[i].innerText = chaMod.innerText;
         }
     }
-    if (classID === 0) { classSkills = ALL_CLASS_SKILLS[classID].split(', '); }
+    if (classID != 0) { classSkills = ALL_CLASS_SKILLS[classID].split(', '); }
     SKILL_FIELDS.forEach(skill_name => {
 
 

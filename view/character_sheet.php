@@ -34,11 +34,8 @@ CBAC        2025-05-08      Tabs fully implemented. Skills are the default view
 CBAC        2025-05-10      Class Skill column areas now have ID's for Javascript to work with.
 CBAC        2025-05-11      Updated Weapon, Armor, and Shield field names to reference Database
                             column names.
+CBAC        2025-05-12      Added new fields to the top the primary data section.
 -----------------------------------------------------------------------------------------------
-Still To Do:
-Dynamically assign this variable based on the characters ability scores.
-Make this field dynamic with the class selected via JavaScript.
-*/
 
 /**
  * The following variables MUST be initiallized before this page is included:
@@ -93,7 +90,7 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
         <div class="character-info-section" id="class-and-gender">
           <div id="gender-field">
             <label for="gender">Gender</label>
-            <input type="text" name="gender" id="gender">
+            <input type="text" name="Gender" id="gender" value="<?php echo $valMemory['Gender'] ?? ''; ?>">
           </div>
 
           <div id="class">
@@ -140,16 +137,16 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
           <label for="Current_HP" class="hp-left">Current HP</label>
 
           <div id="health-block">
-            <input type="number" class="large-number" name="Current_HP" id="Current_HP">
+            <input type="number" class="large-number" name="Current_HP" id="Current_HP" value="<?php echo $valMemory['Current_HP'] ?? 0; ?>">
             <div id="health-divider">&NonBreakingSpace;/&NonBreakingSpace; </div>
-            <input type="number" class="large-number" name="Max_HP" id="Max_HP">
+            <input type="number" class="large-number" name="Max_HP" id="Max_HP" value="<?php echo $valMemory['Max_HP'] ?? 0; ?>">
           </div>
 
           <label for="Max_HP" class="hp-right">Max HP</label>
         </div>
 
         <div class="alignment-box">
-          <fieldset name="Alignment" id="Alignment">
+          <fieldset name="Alignment_ID" id="Alignment">
             <legend>Alignment</legend>
             <p class="lawful-chaotic">
               Lawful
@@ -157,17 +154,17 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 
             <div>
               <p class="good-evil">Good</p>
-              <input type="radio" class="alignment-button" name="alignment" id="lawful-good" value="1">
-              <input type="radio" class="alignment-button" name="alignment" id="neutral-good" value="2">
-              <input type="radio" class="alignment-button" name="alignment" id="chaotic-good" value="3">
+              <input type="radio" class="alignment-button" name="Alignment_ID" id="lawful-good" value="1" <?php echo ($valMemory['Alignment_ID'] == 1) ? 'checked' : '' ?>>
+              <input type="radio" class="alignment-button" name="Alignment_ID" id="neutral-good" value="2" <?php echo ($valMemory['Alignment_ID'] == 2) ? 'checked' : '' ?>>
+              <input type="radio" class="alignment-button" name="Alignment_ID" id="chaotic-good" value="3" <?php echo ($valMemory['Alignment_ID'] == 3) ? 'checked' : '' ?>>
               <br>
-              <input type="radio" class="alignment-button" name="alignment" id="lawful-neutral" value="4">
-              <input type="radio" class="alignment-button" name="alignment" id="true-neutral" value="5">
-              <input type="radio" class="alignment-button" name="alignment" id="chaotic-neutral" value="6">
+              <input type="radio" class="alignment-button" name="Alignment_ID" id="lawful-neutral" value="4" <?php echo ($valMemory['Alignment_ID'] == 4) ? 'checked' : '' ?>>
+              <input type="radio" class="alignment-button" name="Alignment_ID" id="true-neutral" value="5" <?php echo ($valMemory['Alignment_ID'] == 5) ? 'checked' : '' ?> required>
+              <input type="radio" class="alignment-button" name="Alignment_ID" id="chaotic-neutral" value="6" <?php echo ($valMemory['Alignment_ID'] == 6) ? 'checked' : '' ?>>
               <br>
-              <input type="radio" class="alignment-button" name="alignment" id="lawful-evil" value="7">
-              <input type="radio" class="alignment-button" name="alignment" id="neutral-evil" value="8">
-              <input type="radio" class="alignment-button" name="alignment" id="chaotic-evil" value="9">
+              <input type="radio" class="alignment-button" name="Alignment_ID" id="lawful-evil" value="7" <?php echo ($valMemory['Alignment_ID'] == 7) ? 'checked' : '' ?>>
+              <input type="radio" class="alignment-button" name="Alignment_ID" id="neutral-evil" value="8" <?php echo ($valMemory['Alignment_ID'] == 8) ? 'checked' : '' ?>>
+              <input type="radio" class="alignment-button" name="Alignment_ID" id="chaotic-evil" value="9" <?php echo ($valMemory['Alignment_ID'] == 9) ? 'checked' : '' ?>>
               <p class="good-evil">Evil</p>
             </div>
 
@@ -471,8 +468,8 @@ $abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
           Armor
         </p>
         <div id="armor">
-          <label for="Armor_Name">Name</label>
-          <input type="text" name="armor-name" id="armor-name">
+          <label for="armor-name">Name</label>
+          <input type="text" name="Armor_Name" id="armor-name">
           <br>
           <label for="armor-type">Type</label>
           <select name="Armor_Type" id="armor-type">
