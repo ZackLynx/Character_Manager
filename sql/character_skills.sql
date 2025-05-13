@@ -21,6 +21,7 @@ CBAC        2025-05-07      Successful draft of new query for getting class skil
 */
 
 DROP TABLE IF EXISTS `character_skills`;
+
 DROP TABLE IF EXISTS `skill_modifiers`;
 
 CREATE TABLE `skill_modifiers` (
@@ -36,15 +37,19 @@ VALUES ('Ranks'),
     ('Misc');
 
 /* 
-    Use PHP to populate this table.
-    We will use Composite keys to uniquely identify a field and value.
+Use PHP to populate this table.
+We will use Composite keys to uniquely identify a field and value.
 */
 CREATE TABLE `character_skills` (
     Character_ID INT NOT NULL,
     Skill_ID INT NOT NULL,
     Modifier_ID INT NOT NULL,
     Field_Value INT,
-    PRIMARY KEY (Character_ID, Skill_ID, Modifier_ID)
+    PRIMARY KEY (
+        Character_ID,
+        Skill_ID,
+        Modifier_ID
+    )
 );
 
 ALTER TABLE `character_skills`
@@ -66,15 +71,13 @@ CREATE TABLE `classes_skills` (
     Class_ID INT NOT NULL,
     Skill_ID INT NOT NULL,
     PRIMARY KEY (Class_ID, Skill_ID),
-    FOREIGN KEY (Class_ID) REFERENCES `classes`(Class_ID),
-    FOREIGN KEY (Skill_ID) REFERENCES `skills`(Skill_ID)
+    FOREIGN KEY (Class_ID) REFERENCES `classes` (Class_ID),
+    FOREIGN KEY (Skill_ID) REFERENCES `skills` (Skill_ID)
 );
-
 
 INSERT INTO
     `classes_skills` (Class_ID, Skill_ID)
-VALUES
-    (1, 1),
+VALUES (1, 1),
     (1, 4),
     (1, 5),
     (1, 11),
@@ -234,7 +237,15 @@ VALUES
     (11, 27),
     (11, 31);
 
-SELECT classes_skills.`Class_ID`, GROUP_CONCAT(skills.`Short_Name` ORDER BY skills.`Skill_ID` SEPARATOR ', ') AS Skill_IDs
+SELECT classes_skills.`Class_ID`, GROUP_CONCAT(
+        skills.`Short_Name`
+        ORDER BY skills.`Skill_ID` SEPARATOR ', '
+    ) AS Skill_IDs
 FROM classes_skills, skills
-WHERE classes_skills.`Skill_ID` = skills.`Skill_ID`
-GROUP BY `Class_ID`;
+WHERE
+    classes_skills.`Skill_ID` = skills.`Skill_ID`
+GROUP BY
+    `Class_ID`;
+
+ALTER TABLE `skills`
+ADD FOREIGN KEY (Ability_ID) REFERENCES `abilities` (Ability_ID);

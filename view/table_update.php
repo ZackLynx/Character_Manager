@@ -49,9 +49,9 @@ if (isset($system_message)) {
     <?php include './view/character_sheet.php'; ?>
     <input type="hidden" name="last-action" value="edit-character">
     <input type="hidden" name="action" value="save-changes">
-    <input type="submit" class="confirm-button" value="Save Changes">
+    <div class="centered-button"><input type="submit" class="confirm-button" value="Save Changes"></div>
 </form>
 <form action="." method="post">
     <input type="hidden" name="action" value="view-characters">
-    <input type="submit" class="cancel-button" value="Cancel">
+    <div class="centered-button"><input type="submit" class="cancel-button" value="Cancel"></div>
 </form>

@@ -22,6 +22,8 @@ CBAC        2025-04-24      Added inventory system styling.
 CBAC        2025-05-09      Added CSS for button representing a selected character sheet tab.
 CBAC        2025-05-11      Centered the tab button row.
 CBAC        2025-05-12      Styled the primary info fields above tabs and the combat tab.
+                            added styles for the save and cancel buttons for the character
+                            sheet.
 -----------------------------------------------------------------------------------------------
 */
 
@@ -74,7 +76,7 @@ footer {
 }
 
 /* doesn't work on firefox */
-.add-button {
+.centered-button {
   display: grid;
   justify-items: center;
   margin: 1rem;
@@ -287,6 +289,10 @@ label {
   padding: 2px 7px;
 }
 
+.tab-section {
+  margin: 1rem;
+}
+
 /* Skills Table */
 .skill-header {
   height: 2rem;
@@ -345,6 +351,11 @@ label {
   resize: vertical;
 }
 
+.centered-elements {
+  display: grid;
+  justify-items: center;
+}
+
 #Notes {
   min-height: 5rem;
   width: 39.5rem;
@@ -384,6 +395,7 @@ label {
   background-color: lightcoral;
   border: 1px solid darkred;
   border-radius: 5px;
+  margin-top: 1rem;
   height: 2rem;
   width: 10rem;
   font-size: large;

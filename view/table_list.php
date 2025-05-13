@@ -15,7 +15,7 @@ Who			When			What
 CBAC		2025-03-07		Original Version 
 CBAC        2025-03-14      Added a message space that shows up in response to a completed
                             action.'
-CBAC        2025-03-25      Added another add-button to the bottom of the list. Ideal for when
+CBAC        2025-03-25      Added another centered-button to the bottom of the list. Ideal for when
                             the list grows long.
 CBAC        2025-04-11      Renamed $user_message to $system_message.
 CBAC        2025-04-13      Added 'Last Modified' column to table view.
@@ -38,14 +38,14 @@ if (isset($system_message) && !empty($system_message)) {
 }
 
 ?>
-<div class="add-button">
+<div class="centered-button">
     <form action="." method="post">
         <input type="hidden" name="action" value="test">
         <input type="submit" value="Test a new system">
     </form>
 </div>
 
-<div class="add-button">
+<div class="centered-button">
     <form action="." method="post">
         <input type="hidden" name="action" value="add-character">
         <input type="submit" value="Add a Character">
@@ -103,7 +103,7 @@ if (isset($system_message) && !empty($system_message)) {
     endforeach; ?>
 </table>
 
-<div class="add-button">
+<div class="centered-button">
     <form action="." method="post">
         <input type="hidden" name="action" value="add-character">
         <input type="submit" value="Add a Character">
