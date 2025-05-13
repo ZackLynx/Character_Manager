@@ -25,8 +25,8 @@ CBAC		2025-03-07		Original Version
         <meta charset="UTF-8">
         <title>Character Manager</title>
         <!-- Use an absolute path From the server root, so nested pages can use the CSS -->
-        <link rel="stylesheet" href="/Character_Manager/css/main.css">
-        <!-- <link rel="stylesheet" href="/000_CPT-250-F41/Connor/week_14/css/main.css"> -->
+        <!-- <link rel="stylesheet" href="/Character_Manager/css/main.css"> -->
+        <link rel="stylesheet" href="/000_CPT-250-F41/Connor/Final/css/main.css">
     </head>
 
     <body>
