@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Database: `character_manager`
 --
 
-DROP DATABASE IF EXISTS `Character_Manager`;
+DROP DATABASE IF EXISTS `character_manager`;
 
 CREATE DATABASE IF NOT EXISTS `character_manager` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 

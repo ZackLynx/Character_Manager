@@ -16,7 +16,7 @@ CBAC		2025-03-07		Original Version
 */
 
 // Credentials
-$dsn = 'mysql:host=localhost;dbname=Character_Manager';
+$dsn = 'mysql:host=localhost;dbname=character_manager';
 $username = 'SCC';
 $password = 'SCC';
 
